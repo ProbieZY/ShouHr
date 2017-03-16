@@ -1,0 +1,26 @@
+﻿@model BlueHrLib.Data.Staff
+@using BlueHrWeb.Helpers.View
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@Html.Partial("_PartialStaff")
+
+<script type="text/javascript">
+    //使之不可编辑
+    $('.none').css({ display: 'none' });
+    $('input').attr('disabled', 'disabled');
+    $('select').attr('disabled', 'disabled');
+    $('textarea').attr('disabled', 'disabled');
+    $('button[type="submit"]').removeClass('marco-btn-primary');
+    $('button[type="submit"]').addClass('marco-btn-danger');
+    $('.remove-card').attr('disabled', 'disabled');
+    $('.remove-family').attr('disabled', 'disabled');
+    $('#hidden').attr('disabled', 'disabled');
+    $('.createBankCardBtn').attr('disabled', 'disabled');
+    $('.createFamilyBtn').attr('disabled', 'disabled');
+    if ($('#can').val() != "True") {
+        $('.submit-btn').remove();
+    }
+</script>

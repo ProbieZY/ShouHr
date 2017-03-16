@@ -1,0 +1,185 @@
+﻿@using BlueHrLib.Data
+
+@model BlueHrLib.Data.Staff
+
+@{
+    ViewBag.Title = "离职管理";
+}
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li><a href="/Staff">劳动关系管理</a></li>
+    <li>离职申请</li>
+</ol>
+
+<style>
+    .photo_preview > img {
+        width: 200px;
+        height: 150px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+</style>
+
+<hr class="hr-grey" />
+
+@if (Model != null)
+{
+    <div style="padding:0 10px;">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card-box-default">
+                <div class="card-box" style="border-color: lightseagreen;">
+                    <div class="card-heading" style="border-bottom: 1px dashed #999;">
+                        <span>员工基本信息</span>
+                    </div>
+
+                    <div class="card-body-multiple row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <p title="@Model.nr" style="overflow:hidden; white-space:nowrap;text-overflow:clip;">工号： @Model.nr</p>
+
+                            <p>姓名： @Model.name</p>
+
+
+                            <p>性别： @Model.sex</p>
+
+
+                            <p>生日： @Model.birthday</p>
+
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="photo_preview"></div>
+                            <div id="photo_name" style="visibility:hidden; text-align:center;"></div>
+                            <input type="hidden" id="photo" value="@Model.photo" />
+                        </div>
+                    </div>
+                    <hr class="hr-grey" />
+                    <div class="card-footer">
+                        <span>通讯地址: @Model.address</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card-box-default">
+                <div class="card-box" style="border-color: lightseagreen;">
+                    <div class="card-heading" style="border-bottom: 1px dashed #999;">
+                        离职信息填写
+                    </div>
+
+                    <div class="card-body-multiple">
+                        <div class="marco-igroup-default">
+                            <span>离职类别</span>
+
+                            <select name="resignTypeId" id="resignTypeId"></select>
+
+                            @*@Html.DropDownList("resignTypeId", ViewData["resignTypeList"] as IEnumerable<SelectListItem>)*@
+                        </div>
+
+                        <div class="marco-igroup-default">
+                            <span>&nbsp;&nbsp;离职日期&nbsp;&nbsp;</span>
+                            <input type="text" class="datetimepicker" id="resignAt" />
+                        </div>
+                        <div class="marco-igroup-default">
+                            <span>&nbsp;&nbsp;审核人&nbsp;&nbsp;</span>
+                            <input type="text" id="resignChecker" />
+                        </div>
+                        <div class="marco-textarea">
+                            <textarea name="remark" id="remark">备注</textarea>
+                        </div>
+
+                        <hr class="hr-grey" />
+                        <div style="text-align:right;">
+                            <button type="submit" class="marco-btn-success" onclick="toResign()">
+                                <i class="glyphicon glyphicon-ok"></i>  确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="staffNr" value="@Model.nr" />
+    </div>
+}
+
+@Scripts.Render("~/bundles/staff")
+
+<script type="text/javascript">
+    Layout.init();
+    Staff.other_image_preview('#photo_name', '#photo', '.photo_preview');
+
+    $("#resignAt").val(FutureDate(0));
+
+    Layout.datetimepicker('.datetimepicker');
+
+    //设置href
+    var StaffNr = $("#staffNr").val();
+    $('#staff_delete').attr('href', '/Staff/Delete/' + StaffNr);
+
+    $.ajax({
+        url: 'GetResignType',
+        type: 'get',
+        success: function (data) {
+            console.log(data);
+            for (var resignType in data) {
+                console.log(data[resignType]);
+                $("#resignTypeId").append("<option id=" + resignType + "> " + data[resignType] + "</option>");
+            }
+
+            $('#resignTypeId').comboSelect();
+        },
+        error: function () {
+            console.log("Error!");
+        }
+    });
+
+
+    function toResign() {
+        if (confirm("确认提交离职？")) {
+            var SelfResion = $(".combo-input").val();
+
+            //判断是否在系统中存在
+
+            $.ajax({
+                url: '/ResignType/IsResignTypeExit',
+                type: 'post',
+                data: {
+                    resignType: SelfResion
+                },
+                success: function (data) {
+
+                    var staffNr = $("#staffNr").val();
+                    var resignTypeId = data.ID;
+                    var resignAt = $("#resignAt").val();
+                    var resignChecker = $("#resignChecker").val();
+                    var remark = $("#remark").val();
+
+                    if (resignTypeId == "" || resignTypeId == null) {
+                        alert("请选择离职类型");
+                        return;
+                    }
+
+                    if (resignAt == "" || resignAt == null) {
+                        alert("请选择离职时间");
+                        return;
+                    }
+
+                    $.post("/Staff/DoResign/", { resignTypeId: resignTypeId, staffNr: staffNr, resignAt: resignAt, resignChecker: resignChecker, remark: remark }, function (data) {
+                        if (data.Success) {
+                            alert("离职成功！");
+
+                            window.location = "/Staff/Index/";
+
+                        } else {
+                            alert("离职失败：" + data.Content);
+                        }
+                    }, "json");
+
+                },
+                error: function () {
+                    console.log("Something Error!");
+                }
+            });
+        }
+    }
+</script>

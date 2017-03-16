@@ -1,0 +1,445 @@
+﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
+@model IPagedList<BlueHrLib.Data.ResignRecord>
+
+@{
+    ViewBag.Title = "员工离职";
+}
+@{
+    bool canCreate = MenuAuthHelper.CanShow("ResignRecord", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("ResignRecord", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("ResignRecord", "Delete");
+    bool canApproval = MenuAuthHelper.CanShow("ResignRecord", "Approval");
+}
+@Styles.Render("~/Content/company")
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>劳动关系管理</li>
+    <li>员工离职</li>
+</ol>
+
+<hr class="hr-grey" />
+<div class="search">
+    <form action="/ResignRecord/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>工号</span>
+                    <input type="text" name="staffNr" id="staffNr" placeholder="工号" value="@ViewBag.Query.staffNr" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="marco-btn-success pull-left">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+               
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<hr class="hr-primary" />
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        @if (canCreate)
+        {
+            <a href="/ResignRecord/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#Not_Approve" role="tab" data-toggle="tab">未审批</a></li>
+            <li role="presentation"><a href="#Already_Approve" role="tab" data-toggle="tab">已审批</a></li>
+            <li role="presentation"><a href="#all_ResignRecord" role="tab" data-toggle="tab">全部离职申请</a></li>
+            
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Not_Approve">
+                <div id="Not_Approve_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            @*<th></th>*@
+                            <th>工号</th>
+                            <th>离职类型</th>
+                            <th>申请时间</th>
+                            <th>申请人</th>
+                            <th>生效时间</th>
+                            <th>离职理由</th>
+                            <th>审批人</th>
+                            <th>审批时间</th>
+                            <th>审批状态</th>
+                            <th>审批备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.approvalStatus == null){
+                                    <tr>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.resignTypeDisplay)
+                                        </td>
+
+                                        <td>
+                                            <!--值不可为空-->
+                                            <span>@item.resignAt.ToString("yyyy-MM-dd")</span>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem =>item.userName)
+                                        </td>
+                                        <td>
+                                            <!--值可为空-->
+                                            @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.resignReason)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.resignChecker)
+                                        </td>
+                                        <td>
+                                            <!--审批时间-->
+                                            <span>
+                                                @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                            </span>
+                                        </td>
+                                        <td>未审批</td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+
+                                        <td>
+                                            @if (canDelete)
+                                            {
+                                                <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                                <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            @if (canApproval)
+                                            {
+                                                <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Already_Approve">
+                <div id="Already_Approve_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            @*<th></th>*@
+                            <th>工号</th>
+                            <th>离职类型</th>
+                            <th>申请时间</th>
+                            <th>申请人</th>
+                            <th>生效时间</th>
+                            <th>离职理由</th>
+                            <th>审批人</th>
+                            <th>审批时间</th>
+                            <th>审批状态</th>
+                            <th>审批备注</th>
+                            @*<th>操作</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.approvalStatus != null){
+                                    <tr>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.resignTypeDisplay)
+                                        </td>
+
+                                        <td>
+                                            <!--值不可为空-->
+                                            <span>@item.resignAt.ToString("yyyy-MM-dd")</span>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem =>item.userName)
+                                        </td>
+                                        <td>
+                                            <!--值可为空-->
+                                            @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.resignReason)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.resignChecker)
+                                        </td>
+                                        <td>
+                                            <!--审批时间-->
+                                            <span>
+                                                @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalStatus)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+                                        @*<td>
+                                            @if (canDelete)
+                                            {
+                                                <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                        </td>*@
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="all_ResignRecord">
+                <div id="all_ResignRecord_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            @*<th></th>*@
+                            <th>工号</th>
+                            <th>离职类型</th>
+                            <th>申请时间</th>
+                            <th>申请人</th>
+                            <th>生效时间</th>
+                            <th>离职理由</th>
+                            <th>审批人</th>
+                            <th>审批时间</th>
+                            <th>审批状态</th>
+                            <th>审批备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignTypeDisplay)
+                                    </td>
+
+                                    <td>
+                                        <!--值不可为空-->
+                                        <span>@item.resignAt.ToString("yyyy-MM-dd")</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem =>item.userName)
+                                    </td>
+                                    <td>
+                                        <!--值可为空-->
+                                        @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignReason)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignChecker)
+                                    </td>
+                                    <td>
+                                        <!--审批时间-->
+                                        <span>
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </span>
+                                    </td>
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <td>未审批</td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                        }
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalRemark)
+                                    </td>
+
+                                    <td>
+                                        
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            if (canDelete)
+                                            {
+                                                <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            if (canEdit)
+                                            {
+                                                <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            if (canApproval)
+                                            {
+                                                <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+<div id="approval_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        奖惩审批
+    </div>
+
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>审批状态</span>
+                    <select id="aplStatus" name="aplStatus">
+                        <option value="通过审批">审批通过</option>
+                        <option value="未通过审批">审批未通过</option>
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-textarea">
+                    <span>审批备注</span>
+                    <textarea id="apvRemarks" name="apvRemarks"></textarea>
+                </div>
+            </div>
+            <div class="dialogModal_footer row" style="margin: 0;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button class="marco-btn-primary pull-right" title="确定" data-dialogmodalbut="ok" type="button">
+                        确定
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/company")
+
+<script type="text/javascript">
+    Layout.init();
+
+    var TableWidth = $(window).width() - 280;
+
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 110;
+    }
+
+    $(window).resize(function () {
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_ResignRecord", "全部离职申请列表", "20", "all_ResignRecord_grid_table");
+        
+    })
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
+    $('#Already_Approve').addClass("active");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
+    $('#Already_Approve').removeClass("active");
+    
+    $('#all_ResignRecord').addClass("active");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_ResignRecord", "全部离职申请列表", "20", "all_ResignRecord_grid_table");
+    $('#all_ResignRecord').removeClass("active");
+
+    function shResignRecord(id) {
+            $('#approval_content').dialogModal({
+                onOkBut: function () {
+                    var approvalStatus = $(".dialogModal").find("#aplStatus").val();
+                    var approvalRemark = $(".dialogModal").find("#apvRemarks").val();
+
+                    $.post("/ResignRecord/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
+
+                        if (!data.Success) {
+                            $('#approval_content').dialogModal("hide");
+                            Layout.popMsg('popMsg-danger', data.Content);
+                            return false;
+                        }
+                        else {
+                            $('#approval_content').dialogModal("hide");
+                            Layout.popMsg('popMsg-danger', data.Content);
+                            window.location.reload();
+                        }
+                    });
+
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+
+                },
+                onClose: function () {
+                    //window.location.reload();
+                }
+            });
+        }
+
+   
+    //Layout.TbodyHeight('.table-body', 310);
+</script>

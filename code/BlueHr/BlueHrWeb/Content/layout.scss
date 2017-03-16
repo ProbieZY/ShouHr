@@ -1,0 +1,939 @@
+﻿//Basic Colors
+$turquoise: #1abc9c !global; //蓝绿色
+$green-sea: #16a085 !global; // 深绿色  lightseagreen
+
+$emerald: #2ecc71 !global; //宝石绿
+$nephritis: #27ae60 !global; //深色
+
+$peter-river: #3498db !global; //浅蓝色
+$light-blue: #bce8f1 !global;
+$high-blue: #31708f !global;
+$brlize-hole: #2980b9 !global; //深蓝色  steelblue
+
+$amethyst: #9b59b6 !global; //紫色
+$wisteria: #8e44ad !global; //深紫色
+
+$wet-asphalt: #34495e !global; // 沥青色
+$midnight-blue: #2c3e50 !global; //午夜蓝  接近黑色
+
+$sun-flower: #f1c40f !global; // 浅黄色  向日葵
+$light-yellow: #fcf8e3 !global; //超级浅黄色
+$shallow-yellow: #faebcc !global;
+$flat-yellow: #E67E22 !global;
+$high-yellow: #8a6d3b !global;
+$orange: #f39c12 !global; //  橘黄色   橘子
+
+$carrot: #e67e22 !global; // 深黄色   胡萝卜
+$pumpkin: #d35400 !global; // 黄红色  南瓜
+
+$alizarin: #e74c3c !global; // 浅红色   茜素
+$high-red: #a94442 !global;
+$pomegranate: #c0392b !global; // 红色   石榴
+
+$clouds: #ecf0f1 !global; // 白色    云彩
+$dark-white:#f2f2f2 !global;
+$silver: #bdc3c7 !global; //银色   银色
+$dark-gray: #999 !global;
+
+$light-grey: #ddd !global; // 浅灰色
+$concrete: #95a5a6 !global; //  浅灰色   混凝土
+$asbestos: #7f8c8d !global; // 深灰色  石棉
+
+body{
+    font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", Heiti, "黑体", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", sans-serif !important;
+}
+
+.login{
+    margin-top: 60px;
+    text-align:center;   
+    min-width: 500px;
+    padding: 20px;
+.login-heading{
+        margin-top: 30px;
+        i{
+            border:2px solid $peter-river;
+            padding:20px;
+            border-radius: 60px;
+            width: 110px;
+            height: 110px;
+            color: $brlize-hole;
+            margin-bottom: 15px;
+        }
+        span{
+            font-weight:bold;
+            color: $brlize-hole;
+        }
+    }
+.login-body{
+    margin-top: 20px;
+    div{
+        margin-top: 10px;
+    }
+}
+.login-footer{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    button{
+        width: 100px;
+        height: 40px;
+        i{
+            margin-right:10px;
+        }
+    }
+}
+}
+
+.marco-footer{
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    margin-top: -25px;
+    /*background:rgba(26,188,156, 0.8);*/
+    /*background:rgba(89,168,222, 0.8);*/
+    background:rgba(231,147,73, 0.9);
+    /*background:rgba(53,124,165, 0.9);*/
+    padding: 2px;
+    span{
+        color:$dark-white;
+    }
+}
+
+.home{
+    position:relative;
+    margin-top:20%;
+    margin-left: 30%;
+    i{
+        font-size:3em;
+        width: 80px;
+        height: 80px;
+        text-align:center;
+        padding: 15px;
+        color: $high-blue;
+        animation: bell-shake 3s;
+        -webkit-animation: bell-shake 3s; /* Safari and Chrome */
+        -o-animation: bell-shake 3s; /* Opera */
+        animation-iteration-count: infinite;
+    }
+    span{
+        margin-left: 20px;
+        font-size: 2em;
+    }
+}
+
+@keyframes bell-shake
+{
+    1% {transform:rotate(10deg);}
+    2% {transform:rotate(-10deg);}
+    3% {transform:rotate(-20deg);}
+    4% {transform:rotate(-10deg);}
+    5% {transform:rotate(10deg);}
+    6% {transform:rotate(0deg);}
+
+}
+
+
+//Button
+@mixin marco-btn($marco-bg: $concrete, $marco-color:#f5f5f5) {
+  min-width: 60px;
+  margin: 5px 0;
+  padding:4px 9px;
+  background: $marco-bg;
+  color: $marco-color;
+  border: 1px solid $marco-bg;
+  &:hover, &:link {
+    outline: none;
+  }
+  &:active {
+    border: 1px solid $marco-bg;
+    background: $marco-color;
+    color: $marco-bg;
+    outline: none;
+    a{
+    	color: $marco-bg;
+    }
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    background: #999;
+    border-color: #999;
+    color: #fff;
+  }
+  a{
+  	color: $marco-color;
+  	&:hover{
+  		text-decoration: none;
+  	}
+  }
+}
+
+.macro-bgroup {
+  .active {
+    background: transparent;
+    color: $midnight-blue;
+    font-weight: bold;
+  }
+  button {
+    margin-left: -5px;
+  }
+}
+
+.marco-btn {
+  @include marco-btn;
+}
+
+.marco-btn-default {
+  @include marco-btn($wet-asphalt);
+}
+
+.marco-btn-primary {
+  @include marco-btn($brlize-hole);
+}
+
+.marco-btn-success {
+  @include marco-btn($green-sea);
+}
+
+.marco-btn-warning {
+  @include marco-btn($shallow-yellow, $high-yellow);
+}
+
+.marco-btn-danger {
+  @include marco-btn($pomegranate);
+}
+
+//Input
+@mixin marco-input($marco-bg:$peter-river, $marco-color: $clouds){
+    border: 1px solid $marco-bg;
+    color:$marco-color;
+    padding:3px 10px 10px 10px;
+    &[disabled]{
+        border-color: $silver;
+    }
+}
+
+.marco-input-default{
+    @include marco-input($clouds, $midnight-blue);
+}
+
+.marco-input-primary{
+    @include marco-input;
+}
+
+.marco-input-success{
+    @include marco-input($green-sea, $midnight-blue);
+}
+
+.marco-input-warning{
+    @include marco-input($flat-yellow, $midnight-blue);
+}
+
+.marco-input-danger{
+    @include marco-input($pomegranate, $midnight-blue);
+}
+
+//Input Group
+@mixin marco-ninput($marco-bg: $concrete, $marco-color: #f2f2f2 ) {
+  border: 1px solid $marco-bg;
+  display: table;
+  margin: 5px 0;
+  height: 40px;
+  line-height:30px;
+  background:#fff;
+  
+  
+  span, label {
+    width: 1%;
+    min-width: 60px;
+    padding: 4px 10px;
+    display: table-cell;
+    background: $marco-bg;
+    color: $marco-color;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    i{
+        cursor:pointer;
+    }
+
+    &[disabled]{
+        background: $light-grey;
+    }
+  }
+
+  input, select {
+    border: none;
+    margin: 0;
+    padding: 7px;
+    height: 38px;
+    width: 100%;
+    line-height: 38px;
+    &[disabled] {
+      cursor: not-allowed;
+      background: $clouds;
+      color: $peter-river;
+    }
+
+     &[readonly] {
+      cursor: not-allowed;
+      background: $clouds;
+      color: $peter-river;
+    }
+  }
+}
+
+.marco-igroup {
+  @include marco-ninput;
+}
+
+.marco-igroup-normal{
+    @include marco-ninput($silver, $midnight-blue);
+}
+
+.marco-igroup-default {
+  @include marco-ninput($clouds, $wet-asphalt);
+}
+
+.marco-igroup-primary {
+  @include marco-ninput($peter-river);
+}
+
+.marco-igroup-success {
+  @include marco-ninput($green-sea);
+}
+
+.marco-igroup-warning {
+  @include marco-ninput($shallow-yellow, $high-yellow);
+}
+
+.marco-igroup-danger {
+  @include marco-ninput($pomegranate);
+}
+
+//Panel
+@mixin marco-panel-head($marco-bg: $concrete, $marco-color: #f2f2f2) {
+  height: 40px;
+  line-height: 30px;
+  padding: 5px;
+  font-size: 1.3em;
+  background: $marco-bg;
+  color: $marco-color;
+  i{
+      cursor:pointer;
+      color: $dark-white;
+      &:hover{
+          color:$marco-color;
+      }
+  }
+}
+
+@mixin marco-npanel($marco-border: $silver, $marco-bg: $concrete, $marco-color: #f2f2f2) {
+  margin-top: 10px;
+  border: 1px solid $marco-border;
+  .marco-nheading {
+    @include marco-panel-head($marco-bg, $marco-color);
+  }
+
+  .marco-nbody {
+    padding: 5px;
+    min-height: 40px;
+  }
+}
+
+.marco-npanel {
+  @include marco-npanel;
+}
+
+.marco-npanel-normal{
+  @include marco-npanel($peter-river, $clouds, $wet-asphalt);
+}
+
+.marco-npanel-default {
+  @include marco-npanel($midnight-blue, $wet-asphalt);
+}
+
+.marco-npanel-primary {
+  @include marco-npanel($brlize-hole, $peter-river);
+}
+
+.marco-npanel-success {
+  @include marco-npanel($green-sea, $turquoise);
+}
+
+.marco-npanel-warning {
+  @include marco-npanel($flat-yellow, $orange, $dark-white);
+}
+
+.marco-npanel-danger {
+  @include marco-npanel($pomegranate, $alizarin);
+}
+
+/*Table*/
+.table {
+  background: white;
+  text-align: center;
+  margin-bottom: 0;
+  margin-top:-2px;
+  th {
+    white-space:nowrap;
+    text-align: center;
+    border-bottom: 1px solid $light-grey !important;
+  }
+  td{
+    white-space:nowrap;
+    vertical-align:middle;
+  }
+}
+
+@mixin table-heading {
+  padding: 10px;
+  border-bottom: 2px solid $dark-white;
+  font-size: 0.8em;
+  i {
+    margin-right: 10px;
+  }
+}
+
+.table-heading {
+  @include table-heading;
+}
+
+.usual-table {
+  background:white;
+  padding: 0;
+  margin-top: 10px;
+  border: 2px solid $peter-river;
+  .table-heading {
+    @include table-heading;
+    margin: 0;
+    color: $clouds;
+    /*background:-webkit-gradient(linear, 0 0, 0 100%, from(lighten($peter-river, 5%)), to(lighten($brlize-hole, 5%)));
+    background:-moz-linear-gradient(top, lighten($peter-river, 5%),lighten($brlize-hole, 5%));
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=lighten($peter-river, 5%),endColorstr=lighten($brlize-hole, 5%),grandientType=1);*/
+
+    background: $peter-river;
+  }
+  .table-body{
+      overflow:auto;
+  }
+}
+
+//label and textarea
+.marco-textarea{
+    margin-top:10px;
+    label, span{
+        height:35px;
+        line-height:20px;
+        border: 1px solid $brlize-hole;
+        padding: 10px;
+        border-bottom-color: $brlize-hole;
+        background:$peter-river;
+        color:$clouds;
+        margin-bottom: -3px;    
+    }
+
+    textarea{
+        margin-top:-1px;
+        padding: 10px;
+        resize: none;
+        width:100%;
+        border: 2px solid $peter-river;
+        &[disabled] {
+            cursor: not-allowed;
+            background:$clouds;
+        }
+    }
+}
+
+.current-position{
+    margin-bottom:-10px;
+    color: $asbestos;
+    font-size: .9em;
+    background: transparent;
+}
+
+
+@mixin hr($marco-border-color: $peter-river){
+    border-style: dashed;
+    border-color: $marco-border-color;
+}
+
+
+.hr-grey{
+    @include hr(#999);
+}
+
+.hr-default{
+    @include hr($clouds);
+}
+
+.hr-primary{
+    @include hr($brlize-hole);
+}
+
+.hr-success{
+    @include hr($green-sea);
+}
+
+.hr-warning{
+    @include hr($orange);
+}
+
+.hr-danger{
+    @include hr($alizarin);
+}
+
+@mixin optionIcon($marco-bg:$peter-river, $marco-color:$clouds){
+    cursor:pointer;
+    &:hover{
+        text-decoration:none;
+    }
+    i{
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        border: 2px solid $marco-bg;
+        line-height:20px;
+        vertical-align:middle;
+        color:$marco-bg;
+        padding-left: 2px;
+        &:hover{
+            background:$marco-bg;
+            color:$marco-color;
+        }
+        &[disabled]{
+            border-color:$silver;
+            background:$silver;
+        }
+    }
+}
+
+.option-icon-primary{
+    @include optionIcon;
+}
+
+.option-icon-success{
+    @include optionIcon($marco-bg:$emerald);
+}
+
+.option-icon-warning{
+    @include optionIcon($marco-bg:$flat-yellow);
+}
+
+.option-icon-danger{
+    @include optionIcon($marco-bg:$pomegranate);
+}
+
+
+@mixin blockquote($marco-bg:$clouds, $marco-color: $peter-river){
+    border-color: $marco-color;
+    color: $marco-color;
+    background:$marco-bg;
+    font-weight:bold;
+}
+
+.marco-blockquote-default{
+    @include blockquote($clouds, $midnight-blue);
+}
+
+.marco-blockquote-primary{
+    @include blockquote($clouds, $peter-river);
+}
+
+.marco-blockquote-info{
+    @include blockquote($clouds, $light-blue);
+}
+
+.marco-blockquote-success{
+    @include blockquote($clouds, $green-sea);
+}
+
+.marco-blockquote-warning{
+    @include blockquote($clouds, $carrot);
+}
+
+.marco-blockquote-danger{
+    @include blockquote($clouds, $pomegranate);
+}
+
+@mixin label($marco-bg: $peter-river, $marco-color: $clouds){
+    background: $marco-bg !important;
+    color: $marco-color!important;
+    padding:3px 5px;
+    font-size: .9em;
+    vertical-align:middle;
+}
+
+.marco-label-default{
+    @include label($clouds, $midnight-blue);
+}
+
+.marco-label-primary{
+    @include label($brlize-hole, $clouds);
+}
+
+.marco-label-success{
+    @include label($green-sea, $clouds);
+}
+
+.marco-label-warning{
+    @include label($orange, $clouds);
+}
+
+.marco-label-danger{
+    @include label($alizarin, $clouds);
+}
+
+
+@mixin card-box($marco-bg: $peter-river, $marco-color:$clouds){
+    .card-box{
+        border: 2px solid $marco-bg;
+        padding: 3px 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background: $marco-bg;
+        color:$marco-color;
+        .card-heading{
+            height:36px;
+            line-height: 36px;
+            span{
+                font-size:.9em;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+                position:absolute;
+                max-width: 220px;
+            }
+            i{
+                cursor:pointer;
+                margin-top:10px;
+            }
+        }
+
+        .card-body{
+            font-size:1.5em;
+            text-align:center;
+            height: 60px;
+            line-height:60px;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+        }
+
+        .card-body-multiple{
+            p{
+                height:30px;
+                &:first-child{
+                    margin-top:30px;
+                }
+            }
+        }
+
+        .card-footer{
+            height:36px;
+            line-height: 36px;
+            span{
+                font-size:.9em;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+                position:absolute;
+                max-width: 220px;
+            }
+            i{
+                cursor:help;
+                margin-top:10px;
+            }
+        }
+    }
+}
+
+.card-box-default{
+    @include card-box($clouds, $midnight-blue);
+}
+
+.card-box-primary{
+    @include card-box;
+}
+
+.card-box-success{
+    @include card-box($green-sea, $clouds);
+}
+
+.card-box-warning{
+    @include card-box($flat-yellow, $clouds);
+}
+
+.card-box-danger{
+    @include card-box($alizarin, $clouds);
+}
+
+@mixin marco-tabs($marco-bg: $brlize-hole, $marco-font: $peter-river, $marco-active-bg: $brlize-hole, $marco-active-font: $light-grey){
+    ul{
+        /*border-color:$peter-river;*/
+        border:none;
+        li{
+            margin-left:-3px;
+            min-width:60px;
+            a{
+                border-radius:0;
+                padding: 5px;
+                color: $marco-font;
+                background-color: $marco-bg;
+                text-align:center;
+                border-color: $marco-bg;
+                &:hover, &:link, &:active{
+                    cursor:pointer;
+                    background: transparent;
+                    border:1px solid $marco-bg;
+                    border-bottom:$brlize-hole;
+                }
+            }
+            .badge{
+                border-radius:0;
+                background: transparent;
+                color:$marco-font;
+            }
+
+            &:first-child{
+                margin-left:0;
+            }
+        }
+        .active{
+                a{
+                    color: white;
+                    padding: 5px;
+                    border:none;
+                    background-color: $marco-active-bg;
+                    &:hover, &:link, &:active{
+                        border:none;
+                        cursor:default;
+                        background: $marco-active-bg;
+                        color:$dark-white;
+                    }
+                }
+                .badge{
+                    padding:5px 8px;
+                    border-radius:0;
+                    background: transparent;
+                }
+        }
+    }
+
+    .tab-content{
+        min-height: 100px;
+        border: 1px solid $marco-active-bg;
+        padding: 5px;
+
+
+        .tab-pane{
+            &>span{
+                color:$marco-active-font;
+            }
+            &>table{
+                margin-top:5px;
+            }
+        }
+
+        ul{
+            list-style:none;
+            padding-left:0;
+            overflow:auto;
+            li{
+                padding: 5px 8px;
+                height: 50px !important;
+                line-height:20px !important;
+                border-bottom:1px dashed $light-grey;
+                cursor:pointer;
+
+                &:first-child{
+                    margin-top:0;
+                }
+
+                &:last-child{
+                    border:none
+                }
+            }
+        }
+    }
+}
+
+.marco-tabs-default{
+    @include marco-tabs;
+}
+
+.marco-tabs-dark{
+    @include marco-tabs($marco-active-bg: $brlize-hole, $marco-active-font: $silver);
+}
+
+.marco-tabs-success{
+    @include marco-tabs($marco-bg: $green-sea, $marco-font: $green-sea, $marco-active-bg: $turquoise, $marco-active-font: $turquoise);
+}
+
+.marco-tabs-normal{
+    @include marco-tabs($marco-active-bg: $brlize-hole, $marco-active-font: $brlize-hole);
+}
+
+@mixin popMsg($marco-bg: $peter-river, $marco-color: white){
+    position:fixed;
+    top: 52px;
+    right: 10px;
+    min-width: 200px;
+    padding: 4px;
+    text-align:center;
+    background: $marco-bg;
+    color:$marco-color;
+    z-index: 20000;
+    .popMsg-body{
+        height: 40px;
+        padding: 5px;
+        line-height: 30px;
+        font-weight:bold;
+        overflow:hidden;
+        text-overflow:clip;
+        white-space:normal;
+        font-family: 黑体;
+        font-size: 12px;
+    }
+}
+
+.popMsg-default{
+    @include popMsg($silver, $midnight-blue);
+}
+
+.popMsg-primary{
+   @include popMsg;
+}
+
+.popMsg-success{
+    @include popMsg($turquoise);
+}
+
+.popMsg-warning{
+    @include popMsg($orange);
+}
+
+.popMsg-danger{
+    @include popMsg($alizarin);
+}
+
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
+}
+
+@mixin circle-btn($marco-bg: $peter-river, $marco-color: $dark-white){
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+    height: 80px;
+    width: 80px;
+    border:2px solid $marco-bg;
+    border-radius: 100%;
+    margin: 10px 15% 10px 15%;
+    &:hover{
+        background:$marco-bg;
+        color: $marco-color;
+        i{
+            color: $marco-color;
+        }
+    }
+
+    i{
+        font-size: 2em;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        color: $marco-bg;
+    }
+    span{
+        font-size: 14px;
+        font-family: 黑体;
+    }
+}
+
+.marco-circle-btn{
+    @include circle-btn();
+}
+
+.marco-circle-btn-success{
+    @include circle-btn($marco-bg: $green-sea);
+}
+
+.marco-circle-btn-primary{
+    @include circle-btn($marco-bg: $brlize-hole);
+}
+
+.marco-circle-btn-warning{
+    @include circle-btn($marco-bg: $flat-yellow);
+}
+
+.marco-circle-btn-danger{
+    @include circle-btn($marco-bg: $alizarin);
+}
+
+
+@mixin dashboard-box($marco-bg: $alizarin, $marco-color:white){
+    .dashboard-box{
+        a:hover{
+            text-decoration:none;
+        }
+        text-align:center;
+        height: 90px;
+        background:$marco-bg;
+        opacity:0.8;
+        border-radius:2px;
+        max-width: 260px;
+        .dashboard-icon{
+            width: 20%;
+            float:left;
+            margin:15px 15px 15px 25px;
+            i{
+                padding:10px 5px;
+                width: 60px;
+                height:60px;
+                border-radius:100%;
+                font-size:2.2em;
+                color: $marco-color;
+                border:5px solid;
+               
+            }
+        }
+    
+        .dashboard-content{
+            width: 80%;
+            padding-top:10px;
+            margin-left:10%;
+            p{
+                margin-top:5px;
+                font-size:16px;
+                color:$marco-color;
+            }
+            .show{
+                color:$dark-white;
+                span{
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+.dashboard-box-default{
+    @include dashboard-box;
+}
+
+.dashboard-box-primary{
+    @include dashboard-box($marco-bg:$peter-river);
+}
+
+.dashboard-box-warning{
+    @include dashboard-box($marco-bg:$flat-yellow);
+}
+
+.dashboard-box-success{
+    @include dashboard-box($marco-bg:$turquoise);
+}

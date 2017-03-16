@@ -1,0 +1,327 @@
+﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
+@model IPagedList<BlueHrLib.Data.AttendanceRecordCalView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    bool canCreate = MenuAuthHelper.CanShow("AttendanceRecordCal", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("AttendanceRecordCal", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("AttendanceRecordCal", "Delete");
+    bool canExportReport = MenuAuthHelper.CanShow("AttendanceRecordCal", "ExportReport");
+}
+<style type="text/css">
+    .ui-widget-header {
+        border: none;
+        border-radius: 0;
+    }
+
+        .ui-widget-header a {
+            color: #000000;
+        }
+
+    /*.ui-widget.ui-widget-content {
+        border: none;
+        border-radius: 0;
+    }*/
+
+    .ui-dialog {padding: 0;
+    }
+
+    .ui-dialog .ui-dialog-content {
+        padding: 10px;
+    }
+
+    .ui-state-hover {
+        background: transparent !important;
+        border-color: transparent !important;
+        color: darkred;
+    }
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget .btn-open {  
+        background-color:#2980b9;
+        color:#fff;
+        border:1px solid #808080;
+    }
+
+</style>
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>考勤管理</li>
+    <li>
+        <strong>统计记录</strong>
+    </li>
+</ol>
+
+<hr class="hr-grey" />
+<div class="row" style="margin:0;">
+    <form action="/AttendanceRecordCal/Search" method="get">
+        @Html.Partial("Search/_CompanyAndDepartmentBar")
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>工号</span>
+                @if (Model != null)
+                {
+                    <select name="staffNrSelect" id="staffNrSelect"></select>
+                    <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" value="@ViewBag.Query.StaffNr" />
+                }
+                else
+                {
+                    <select name="staffNrSelect" id="staffNrSelect"></select>
+                    <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" />
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>是否异常</span>
+                @PartialViewHelper.BoolDropDownList(this.Html, "IsException", ViewBag.Query.IsException)
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>考勤日期</span>
+                <input type="text" name="AttendanceDateFrom" id="AttendanceDateFrom" class="datepicker" placeholder="开始" value="@ViewBag.Query.AttendanceDateFrom" />
+                <span>~ </span>
+                <input type="text" name="AttendanceDateEnd" id="AttendanceDateEnd" class="datepicker" placeholder="结束" value="@ViewBag.Query.AttendanceDateEnd" />
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>是否已处理</span>
+                @PartialViewHelper.BoolDropDownList(this.Html, "IsExceptionHandled", ViewBag.Query.IsExceptionHandled)
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+            <button type="submit" class="marco-btn-success" style="width: 150px; height:40px;">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+           
+        </div>
+    </form>
+</div>
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        @if (canCreate)
+        {
+        <a href="/AttendanceRecordCal/Create" class="pull-right" style="margin-top: -10px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>           
+        </a>
+        }
+        @if (canExportReport)
+        {
+            <button class="marco-btn-primary export-button-dialog pull-right" title="Export" style="margin-top: -5px; margin-right:5px;" type="button">
+                <i class="glyphicon glyphicon-dashboard"></i>
+                导出考勤报表
+            </button>
+        }
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#" role="tab" data-toggle="tab">统计记录列表</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_cal_type">
+                <div id="all_cal_type_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                        <thead>
+                            <tr>
+                                @*<th>No.</th>*@
+                                <th>机构名称</th>
+                                <th>人员编号</th>
+                                <th>姓名</th>
+                                <th>考勤日期</th>
+                                <th>正常计算工时</th>
+                                <th>正常实际工时</th>
+                                <th>加班计算工时</th>
+                                <th>加班实际工时</th>
+                                <th>加班类型</th>
+                                <th>是否异常</th>
+                                <th>原因</th>
+                                <th>是否处理</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                int i = 0;
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        @*<td>@(i += 1)</td>*@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.departmentName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.attendanceDateStr)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.oriWorkingHourRound)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.actWorkingHourRound)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.oriExtraWorkingHourRound)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.actExtraWorkingHourRound)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.extraWorkTypeDisplay)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.isExceptionStr)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exceptionStr)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.isExceptionHandledStr)
+                                        </td>
+                                        <td>
+                                            @if (canDelete)
+                                            {
+                                                <a href="/AttendanceRecordCal/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                                <a href="/AttendanceRecordCal/Edit/@item.id" class="option-icon-warning" title="调整工时">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
+        <!--导入数据-->
+    <div id="dialog_content" class="import_content" style="display:none;">
+        <div class="dialogModal_header" style="background:steelblue;color:white;">
+            导入考勤列表
+        </div>
+        <div class="dialogModal_content">
+            <div style="display:inline-block; height:30px; width:100%;margin-bottom:10px;">
+                @Html.Partial("Search/_CompanyAndDepartmentBar")
+                <!--@Html.Partial("Search/_CompanyAndDepartmentBar", new ViewDataDictionary() { new KeyValuePair<string, object>("companyId", "CompanyId1"), new KeyValuePair<string, object>("departmentId", "DepartmentId1") })-->
+            </div>
+            <div style="margin-left:15px;max-width:400px;">
+                <div class="marco-igroup-primary">
+                    <span>日期*</span>
+                    <input type="text" name="startDate" id="startDate" class="datepicker" placeholder="开始" /><span>~ </span><input type="text" name="endDate" id="endDate" class="datepicker" placeholder="结束" />
+                </div>
+            </div>
+
+            <br />
+            <div class="dialogModal_footer">
+                <div class="row">
+                    <button type="submit" class="pull-left btn btn-primary ff btn-open" style="width:150px;" onclick="exportReport(100)">导出汇总报表</button>
+                    <button type="submit" class="pull-left btn btn-info ff btn-open" style="width:150px;" onclick="exportReport(200)">导出考勤详细记录</button>
+                    <button type="button" class="pull-right marco-btn-warning" style="width:80px; background:#2980b9;margin-right:20px;color:#fff;margin-top:10px;" onclick="closeDialog()">取消</button>
+                    <button type="button" class="pull-right marco-btn-warning" style="width:80px; background:#2980b9;margin-left:20px;color:#fff;margin-top:10px;" onclick="closeDialog()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        Layout.init();
+        //时间下拉列表
+        Layout.datepicker('.datepicker');
+
+        Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr', true);
+
+        var TableWidth = $(window).width() - 300;
+        if($.cookie('left_sidebar')=='true'){
+            TableWidth = $(window).width() - 110;
+        }
+
+
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 320, false, "all_cal_type", "统计记录管理", "20", "all_cal_type_grid_table");
+
+
+        function exportReport(type) {
+            if ($("#CompanyId1").val() == null || $("#CompanyId1").val() == "") {
+                alert("请选择公司");
+                return;
+            }
+
+            if ($("#startDate").val() == "" || $("#endDate").val() == "") {
+                alert("请选择时间");
+                return;
+            }
+            show_handle_dialog();
+
+            $.get("/AttendanceRecordCal/ExportReport",
+                {
+                    type: type,
+                    CompanyId: $("#CompanyId1").val(),
+                    DepartmentId: $("#DepartmentId1").val(),
+                    startDate: $("#startDate").val(),
+                    endDate: $("#endDate").val()
+                }, function (data) {
+                    if (data.Success) {
+                        hide_handle_dialog();
+                        window.location = data.Content;
+                    } else {
+                        hide_handle_dialog();
+                        alert(data.Content);
+
+                    }
+                }, "json");
+        }
+
+        var dialog;
+
+        dialog = $(".cal_att_content").dialog({
+            autoOpen: false,
+            height: 500,
+            width: 700,
+            modal: true
+        });
+
+
+        $('.export-button-dialog').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                Layout.datepicker('.datepicker');
+            },
+            onClose: function () {
+                // window.location.reload();
+            }
+        });
+    });
+
+        function closeDialog() {
+            if (dialog != null)
+                dialog.dialog("close");
+        }
+    </script>

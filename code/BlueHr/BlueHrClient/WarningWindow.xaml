@@ -1,0 +1,39 @@
+﻿<Window x:Class="BlueHrClient.WarningWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BlueHrClient"
+        mc:Ignorable="d"
+    Title="提示" Height="200" Width="400" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        MouseDown="Window_MouseDown"  ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <TextBlock x:Name="titleTextBlock" HorizontalAlignment="Center" Text="错误信息" FontSize="20" VerticalAlignment="Center"/>
+            <Label x:Name="label" Content="红色内容与该身份证信息不符，请核对" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="Orange"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+            <UniformGrid Rows="2" Grid.Column="0">
+                <TextBlock x:Name="textBlock"  Text="身份证：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15"/>
+                <TextBlock x:Name="textBlock1" Text="姓名：" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="15"/>
+            </UniformGrid>
+            <UniformGrid Rows="2" Grid.Column="1">
+                <TextBlock x:Name="ID"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15"/>
+                <TextBlock x:Name="Name"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Foreground="Red"/>
+            </UniformGrid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Button x:Name="closeButton" Content="确定" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Click="closeClick"/>
+        </Grid>
+
+    </Grid>
+</Window>

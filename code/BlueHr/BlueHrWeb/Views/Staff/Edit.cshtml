@@ -1,0 +1,33 @@
+﻿@model BlueHrLib.Data.Staff
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@Html.Partial("_PartialStaff")
+
+<script type="text/javascript">
+    Layout.datepicker('.date-picker');
+
+    //显示 职位信息
+    //$('.position').css({ display: 'none' });
+
+    $('#photopreview').empty();
+
+    Staff.other_image_preview('#photoName', '#photo', '#photopreview');
+
+    //保证只能删除后再新添加
+    $('.tbody-family input').attr('disabled', 'disabled');
+
+    $('.createBankCardBtn').click(function () {
+        Staff.createBankCard('card-box-success', '#add_bank', '#add_bankCard', '#add_bankAddress', '#add_bankRemark');
+    });
+
+    $('.createFamilyBtn').click(function () {
+        Staff.createFamily('#add_familyName', '#add_familyType', '#add_familyBirthday');
+    })
+    //保证刚进入界面就可以删除
+    Staff.remove_bankCard_ById();
+    Staff.remove_family_ById();
+</script>
+

@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrLib", "BlueHrLib\BlueHrLib.csproj", "{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrWeb", "BlueHrWeb\BlueHrWeb.csproj", "{1C009774-E648-4512-8D28-26D2599BEC16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrClient", "BlueHrClient\BlueHrClient.csproj", "{93B51B28-7E3D-4011-AC5C-DD3B373A5842}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrLibTests", "BlueHrLibTests\BlueHrLibTests.csproj", "{3EBE122B-64A9-4B3F-8B83-4F070734551F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{803C9F4C-FC84-4611-AC44-7283E2D593D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWPF", "TestWPF\TestWPF.csproj", "{09B8442C-941A-4F3A-8240-46487408CD38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCon", "TestCon\TestCon.csproj", "{ABE75822-D690-4400-8F56-C16722B588E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrSvc", "BlueHrSvc\BlueHrSvc.csproj", "{C3FBB5FD-7D56-4C3A-8DF0-46FA0FAA4A89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15A0CCFC-01B8-4A61-9882-9B5C81E8DC3B}"
+	ProjectSection(SolutionItems) = preProject
+		WE-Palette.css = WE-Palette.css
+		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C009774-E648-4512-8D28-26D2599BEC16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C009774-E648-4512-8D28-26D2599BEC16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C009774-E648-4512-8D28-26D2599BEC16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C009774-E648-4512-8D28-26D2599BEC16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EBE122B-64A9-4B3F-8B83-4F070734551F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EBE122B-64A9-4B3F-8B83-4F070734551F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EBE122B-64A9-4B3F-8B83-4F070734551F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EBE122B-64A9-4B3F-8B83-4F070734551F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09B8442C-941A-4F3A-8240-46487408CD38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09B8442C-941A-4F3A-8240-46487408CD38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09B8442C-941A-4F3A-8240-46487408CD38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09B8442C-941A-4F3A-8240-46487408CD38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABE75822-D690-4400-8F56-C16722B588E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE75822-D690-4400-8F56-C16722B588E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE75822-D690-4400-8F56-C16722B588E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE75822-D690-4400-8F56-C16722B588E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3FBB5FD-7D56-4C3A-8DF0-46FA0FAA4A89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3FBB5FD-7D56-4C3A-8DF0-46FA0FAA4A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3FBB5FD-7D56-4C3A-8DF0-46FA0FAA4A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3FBB5FD-7D56-4C3A-8DF0-46FA0FAA4A89}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{09B8442C-941A-4F3A-8240-46487408CD38} = {803C9F4C-FC84-4611-AC44-7283E2D593D9}
+		{ABE75822-D690-4400-8F56-C16722B588E7} = {803C9F4C-FC84-4611-AC44-7283E2D593D9}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,233 @@
+﻿@using BlueHrWeb.Helpers.View
+@{
+    ViewBag.Title = "我的已办";
+}
+@{
+    bool canExtraWorkRecord = MenuAuthHelper.CanShow("ExtraWorkRecord", "Index");
+    bool canResignRecord = MenuAuthHelper.CanShow("ResignRecord", "Index");
+    bool canFullMemberRecord = MenuAuthHelper.CanShow("FullMemberRecord", "Index");
+    bool canShiftJobRecord = MenuAuthHelper.CanShow("ShiftJobRecord", "Index");
+}
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>个人事项</li>
+    <li>我的已办</li>
+</ol>
+
+<hr class="hr-grey" />
+
+<div class="row marco-tabs-default" style="margin:10px;">
+    <ul class="nav nav-tabs" role="tablist">
+        @if(canExtraWorkRecord)
+        {
+            <li role="presentation" class="active"><a href="#extra_work_application" role="tab" data-toggle="tab">加班申请</a></li>
+        }
+        @if(canResignRecord)
+        {
+            <li role="presentation"><a href="#resign_application" role="tab" data-toggle="tab">离职申请</a></li>
+        }
+        @if(canFullMemberRecord)
+        {
+            <li role="presentation"><a href="#to_fullMember_application" role="tab" data-toggle="tab">转正申请</a></li>
+        }
+        @if(canShiftJobRecord)
+        {
+            <li role="presentation"><a href="#shift_job_application" role="tab" data-toggle="tab">调岗申请</a></li>
+        }
+    </ul>
+    <div class="tab-content pq-grid">
+        @if(canExtraWorkRecord)
+        {
+            <div role="tabpanel" class="tab-pane active" id="extra_work_application">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>申请人</th>
+                            <th>加班类型</th>
+                            <th>加班日期</th>
+                            <th>开始时间</th>
+                            <th>截至时间</th>
+                            <th>时长</th>
+                            <th>原因</th>
+                            <th>审批状态</th>
+                            <th>审批备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var extraWorks in ViewData["ExtraWork"] as List<Dictionary<string, string>>)
+                        {
+                            <tr>
+                                @foreach (var extraWork in extraWorks)
+                                {
+                                    if (extraWork.Key == "ID")
+                                    {
+                                    }
+                                    else if (extraWork.Key == "StaffNr")
+                                    {
+                                        <td title="查看员工详细信息">
+                                            <a href="/Staff/Delete/@extraWork.Value" class="option-icon-primary">
+                                                @extraWork.Value
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@extraWork.Value</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        @if(canResignRecord)
+        {
+            <div role="tabpanel" class="tab-pane" id="resign_application">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th>工号</th>
+                            <th>申请时间</th>
+                            <th>离职原因</th>
+                            <th>创建时间</th>
+                            <th>审批状态</th>
+                            <th>审批人</th>
+                            <th>审批备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var resigns in ViewData["Resign"] as List<Dictionary<string, string>>)
+                        {
+                            <tr>
+                                @foreach (var resign in resigns)
+                                {
+                                    if (resign.Key == "ID")
+                                    {
+                                    }
+                                    else if (resign.Key == "StaffNr")
+                                    {
+                                        <td title="查看员工详细信息">
+                                            <a href="/Staff/Delete/@resign.Value" class="option-icon-primary">
+                                                @resign.Value
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@resign.Value</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+        @if(canFullMemberRecord)
+        {
+            <div role="tabpanel" class="tab-pane" id="to_fullMember_application">
+                @* 转正申请 *@
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th>工号</th>
+                            <th>是否通过</th>
+                            <th>转正分数</th>
+                            <th>转正时间</th>
+                            <th>审批状态</th>
+                            <th>审批人</th>
+                            <th>审批备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var fullMembers in ViewData["FullMembers"] as List<Dictionary<string, string>>)
+                        {
+                            <tr>
+                                @foreach (var fullMember in fullMembers)
+                                {
+                                    if (fullMember.Key == "ID")
+                                    {
+                                    }
+                                    else if (fullMember.Key == "StaffNr")
+                                    {
+                                        <td title="查看员工详细信息">
+                                            <a href="/Staff/Delete/@fullMember.Value" class="option-icon-primary">
+                                                @fullMember.Value
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@fullMember.Value</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        @if(canShiftJobRecord)
+        {
+            <div role="tabpanel" class="tab-pane" id="shift_job_application">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>申请人</th>                          
+                            <th>申请日期</th>
+                            <th>申请备注</th>
+                            <th>审批状态</th>
+                            <th>审批人</th>
+                            <th>审批日期</th>
+                            <th>审批备注</th>
+                            <!--<th>操作</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tbody>
+                           @foreach (var shiftJobs in ViewData["ShiftJobs"] as List<Dictionary<string, string>>)
+                            {
+                                <tr>
+                                    @foreach (var shiftJob in shiftJobs)
+                                    {
+                                        if (shiftJob.Key == "ID")
+                                        {
+                                        }
+                                        else if (shiftJob.Key == "StaffNr")
+                                        {
+                                            <td title="查看调岗s详细信息">
+                                                <a href="/Staff/Delete/@shiftJob.Value" class="option-icon-primary">
+                                                    @shiftJob.Value
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>@shiftJob.Value</td>
+                                        }
+                                    }
+                                </tr>
+                            } 
+                        </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    Layout.init();
+</script>

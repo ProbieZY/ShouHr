@@ -1,0 +1,752 @@
+﻿@using BlueHrWeb.Helpers.View
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*360默认是极速模式*@
+    <meta name="renderer" content="webkit">
+    @*IE默认设置为最高版本*@
+    <meta name="renderer" content="ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+
+    <title>@ViewBag.Title - 德晋HR系统</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/layout")
+    @Styles.Render("~/Content/bootstrap-treeview")
+    
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery-plug-in")
+    @Scripts.Render("~/bundles/layout")
+    @Scripts.Render("~/bundles/vue")
+    @Scripts.Render("~/bundles/bootstrap-treeview")
+    
+    @RenderSection("scripts", required: false)
+</head>
+
+ @*sidebar-collapse*@
+
+@{
+    bool canApplication = MenuAuthHelper.CanShow("Personal", "Application");
+    bool canFinished = MenuAuthHelper.CanShow("Personal", "Finished");
+    bool canApproval = MenuAuthHelper.CanShow("Personal", "Approval");
+    bool canSchedule = MenuAuthHelper.CanShow("Personal", "Schedule");
+    bool canSysRole = MenuAuthHelper.CanShow("SysRole", "Index");
+    bool canUser = MenuAuthHelper.CanShow("User", "Index");
+    bool canJobTitle = MenuAuthHelper.CanShow("JobTitle", "Index");
+    bool canStaffType = MenuAuthHelper.CanShow("StaffType", "Index");
+    bool canCertificateType = MenuAuthHelper.CanShow("CertificateType", "Index");
+    bool canDegreeType = MenuAuthHelper.CanShow("DegreeType", "Index");
+    bool canInSureType = MenuAuthHelper.CanShow("InSureType", "Index");
+    bool canResignType = MenuAuthHelper.CanShow("ResignType", "Index");
+    bool canAbsenceType = MenuAuthHelper.CanShow("AbsenceType", "Index");
+    bool canExtraWorkType = MenuAuthHelper.CanShow("ExtraWorkType", "Index");
+    bool canWorkAndRests = MenuAuthHelper.CanShow("WorkAndRests", "Index");
+    bool canCompany = MenuAuthHelper.CanShow("Company", "Index");
+    bool canTreeShow = MenuAuthHelper.CanShow("Company", "TreeShow");
+    bool canDepartment = MenuAuthHelper.CanShow("Department", "Index");
+    bool canStaff = MenuAuthHelper.CanShow("Staff", "Index");
+    bool canOntrail = MenuAuthHelper.CanShow("Staff", "Ontrail");
+    bool canCreate = MenuAuthHelper.CanShow("Staff", "Create");
+    bool canIdcard = MenuAuthHelper.CanShow("Staff", "Idcard");
+    bool canShiftJobRecord = MenuAuthHelper.CanShow("ShiftJobRecord", "Index");
+    bool canResignRecord = MenuAuthHelper.CanShow("ResignRecord", "Index");
+    bool canFullMemberRecord = MenuAuthHelper.CanShow("FullMemberRecord", "Index");
+    bool canLeaveRecord = MenuAuthHelper.CanShow("LeaveRecord", "Index");
+    bool canShift = MenuAuthHelper.CanShow("Shift", "Index");
+    bool canShiftSchedule = MenuAuthHelper.CanShow("ShiftSchedule", "Index");
+    bool canSearch = MenuAuthHelper.CanShow("ShiftSchedule", "Search");
+    bool canAttendanceRecordDetail = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Index");
+    bool canAttendanceRecordCal = MenuAuthHelper.CanShow("AttendanceRecordCal", "Index");
+    bool canExceptionList = MenuAuthHelper.CanShow("AttendanceRecordCal", "ExceptionList");
+    bool canExtraWorkRecord = MenuAuthHelper.CanShow("ExtraWorkRecord", "Index");
+    bool canQuartzJob = MenuAuthHelper.CanShow("QuartzJob", "Index");
+    bool canMessageRecord = MenuAuthHelper.CanShow("MessageRecord", "Index");
+    bool canRecruit = MenuAuthHelper.CanShow("Recruit", "Index");
+    bool canRewardsAndPenalty = MenuAuthHelper.CanShow("RewardsAndPenalty", "Index");
+    bool canPartTimeJob = MenuAuthHelper.CanShow("PartTimeJob", "Index");
+    bool canTaskRound = MenuAuthHelper.CanShow("TaskRound", "Index");
+}
+
+<body class="skin-blue fixed sidebar-mini"">
+    <div class="wrapper">
+        @*页面头部*@
+        @if (Session["user"] != null) {
+            <!--头部-->
+            <header class="main-header">
+                <!-- Logo 头部显示内容-->
+                <a href="/" class="logo">
+                    <span class="logo-mini"><b>HR</b></span>
+                    <span class="logo-lg">德晋<b>HR</b>系统</span>
+                </a>
+                @*右上角导航*@
+                <nav class="navbar navbar-static-top">
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                @if (canMessageRecord)
+                                {
+                                    <a href="/MessageRecord/Index" title="消息" id="messagerecord">
+                                        <i class="fa fa-bell-o"></i>
+                                        <span class="label label-primary" id="unread-count"></span>
+                                    </a>
+                                }
+                            </li>
+                            @*显示用户名*@
+                            @Html.Partial("_LoginPartial")
+                        </ul>
+                  </div>
+                </nav>
+            </header>
+        }
+        else
+        {
+            //显示_loginPartial中的页面登录信息
+            @Html.Partial("_LoginPartial")
+        }
+    @*页面左侧边栏*@
+    @if (Session["user"] != null)
+    {
+        <aside class="main-sidebar">
+            <section class="sidebar">
+
+                <ul class="sidebar-menu">
+                    <li class="nav-myHome">
+                        <a href="/Home/Index">
+                            <i class="fa fa-home"></i>
+                            <span>我的主页</span>
+                        </a>
+                    </li>
+                    @if(canApplication||canFinished||canApproval||canSchedule){
+                    <li class="nav-myThing">
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span>个人事项</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            @if(canApplication)
+                            {
+                                <li class="nav-apply">
+                                    <a href="/Personal/Application">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                        我的申请
+                                    </a>
+                                </li>
+                            }
+
+                            @if(canFinished)
+                            {
+                                <li class="nav-finished">
+                                    <a href="/Personal/Finished">
+                                        <i class="fa fa-check-circle-o"></i>
+                                        我的已办
+                                    </a>
+                                </li>
+                            }
+
+                            @if(canApproval)
+                            {
+                                <li class="nav-view">
+                                    <a href="/Personal/Approval">
+                                        <i class="fa fa-calendar-check-o"></i>
+                                        我的审批
+                                    </a>
+                                </li>
+                            }
+
+                            @if(canSchedule)
+                            {
+                                <li class="nav-day">
+                                    <a href="/Personal/Schedule">
+                                        <i class="fa fa-briefcase"></i>
+                                        日程安排
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    }
+                    @if(canUser||canSysRole){
+                    <li class="nav-userAuthorization">
+                        <a href="#">
+                            <i class="fa fa-unlock-alt"></i>
+                            <span>权限管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            @if(canUser)
+                            {
+                                <li class="nav-user">
+                                    <a href="/User/Index">
+                                        <i class="fa fa-user-secret"></i>
+                                        用户管理
+                                    </a>
+                                </li>
+                            }
+
+                            @if(canSysRole)
+                            {
+                                <li class="nav-sysRole">
+                                    <a href="/SysRole/Index">
+                                        <i class="fa fa-gavel"></i>
+                                        角色权限管理
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    }
+                    @if(canStaffType||canCertificateType||canDegreeType||canInSureType||canJobTitle||canAbsenceType||canExtraWorkType||canResignType){
+                    <li class="nav-basic-info">
+                        <a href="#">
+                            <i class="fa fa-comment"></i>
+                            <span>基础信息管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                                @if(canStaffType)
+                                {
+                                    <li class="nav-staffType">
+                                        <a href="/StaffType/Index">
+                                            <i class="fa fa-user"></i>
+                                            人员类型
+                                        </a>
+                                    </li>
+                                }
+
+                                @if(canCertificateType)
+                                {
+                                    <li class="nav-certificateType">
+                                        <a href="/CertificateType/Index">
+                                            <i class="fa fa-newspaper-o"></i>
+                                            证照类型
+                                        </a>
+                                    </li>
+                                }
+                                
+                                @if(canDegreeType)
+                                {
+                                    <li class="nav-degreeType">
+                                        <a href="/DegreeType/Index">
+                                            <i class="fa fa-graduation-cap"></i>
+                                            学历管理
+                                        </a>
+                                    </li>
+                                }
+                                
+                                @if(canInSureType)
+                                {
+                                    <li class="nav-inSureType">
+                                        <a href="/InSureType/Index">
+                                            <i class="fa fa-flash"></i>
+                                            保险管理
+                                        </a>
+                                    </li>
+                                }
+
+                                @if(canJobTitle)
+                                {
+                                    <li class="nav-jobtitle">
+                                        <a href="/JobTitle/Index">
+                                            <i class="fa fa-briefcase"></i>
+                                            职位管理
+                                        </a>
+                                    </li>
+                                }
+                                
+                                @if(canAbsenceType)
+                                {
+                                    <li class="nav-absenceType">
+                                        <a href="/AbsenceType/Index">
+                                            <i class="fa fa-calendar-times-o"></i>
+                                            缺勤类型
+                                        </a>
+                                    </li>
+                                }
+
+                                @if(canExtraWorkType)
+                                {
+                                    <li class="nav-extraWorkType">
+                                        <a href="/ExtraWorkType/Index">
+                                            <i class="fa fa-hourglass-1"></i>
+                                            加班类型
+                                        </a>
+                                    </li>
+                                }
+                                
+                                @if(canResignType)
+                                {
+                                    <li class="nav-resignType">
+                                        <a href="/ResignType/Index">
+                                            <i class="fa fa-sign-out"></i>
+                                            离职类型
+                                        </a>
+                                    </li>
+                                }
+                        </ul>
+                    </li>
+                    }
+                    @if(canCompany||canTreeShow||canDepartment){
+                    <li class="nav-organization">
+                        <a href="#">
+                            <i class="fa fa-cubes"></i>
+                            <span>组织架构</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            @if(canCompany)
+                            {
+                                <li class="nav-company-list">
+                                    <a href="/Company/Index">
+                                        <i class="fa fa-list-ol"></i>
+                                        公司架构列表
+                                    </a>
+                                </li>
+                            }
+                            @if(canTreeShow)
+                            {
+                                <li class="nav-organizationTreeShow">
+                                    <a href="/Company/TreeShow">
+                                        <i class="fa fa-sitemap"></i>
+                                        公司架构视图
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canDepartment)
+                            {
+                                <li class="nav-department-list">
+                                    <a href="/Department/Index">
+                                        <i class="fa fa-users"></i>
+                                        部门架构列表
+                                    </a>
+                                </li>
+                            }
+
+                                        <!--<li class="nav-department-tree">
+                                    <a href="/Department/TreeShow">
+                                        <i class="fa fa-sitemap"></i>
+                                        部门架构视图
+                                    </a>
+                                </li>-->
+
+                        </ul>
+                    </li>
+                    }
+                    @if(canCreate||canShiftJobRecord||canResignRecord||canOntrail||canFullMemberRecord){
+                    <li class="nav-laborrelations">
+                        <a href="#">
+                            <i class="fa fa-hourglass-start"></i>
+                            <span>劳动关系管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            @if(canCreate)
+                            {
+                                <li class="nav-create pq-grid">
+                                    <a href="/Staff/Create">
+                                        <i class="fa fa-user-plus"></i>
+                                        入职管理
+                                    </a>
+                                </li>
+                            }
+
+                            @if(canShiftJobRecord)
+                            {
+                                <li class="nav-transfer">
+                                    <a href="/ShiftJobRecord/Index">
+                                        <i class="fa fa-retweet"></i>
+                                        员工调岗
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canResignRecord)
+                            {
+                                <li class="nav-resignation">
+                                    <a href="/ResignRecord/Index">
+                                        <i class="fa fa-user-times"></i>
+                                        员工离职
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canOntrail)
+                            {
+                                <li class="nav-ontrail">
+                                    <a href="/Staff/Ontrail">
+                                        <i class="fa fa-binoculars"></i>
+                                        试用期管理
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canFullMemberRecord)
+                            {
+                                <li class="nav-regular">
+                                    <a href="/FullMemberRecord/Index">
+                                        <i class="fa fa-sign-in"></i>
+                                        员工转正
+                                    </a>
+                                </li>
+                            }
+
+                            @*<li class="nav-rehire">
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                回聘管理
+                            </a>
+                        </li>*@
+
+                            @*<li class="nav-retired">
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                员工退休
+                            </a>
+                        </li>*@
+                        </ul>
+                    </li>
+                    }
+                    @if(canShift||canShiftSchedule||canSearch||canLeaveRecord||canExtraWorkRecord||canAttendanceRecordDetail||canQuartzJob||canAttendanceRecordCal||canExceptionList||canWorkAndRests){
+                    <li class="nav-attendance">
+                        <a href="#">
+                            <i class="fa fa-cogs"></i>
+                            <span>考勤管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            @if(canShift)
+                            {
+                                <li class="nav-shift">
+                                    <a href="/Shift/Index">
+                                        <i class="fa fa-calculator"></i>
+                                        班次设置
+                                    </a>
+                                </li>
+                            }
+                            @if(canShiftSchedule)
+                            {
+                                <li class="nav-shiftschedule">
+                                    <a href="/ShiftSchedule/Index">
+                                        <i class="fa fa-calendar"></i>
+                                        排班概览
+                                    </a>
+                                </li>
+                            }
+                            @if(canSearch)
+                            {
+                                <li class="nav-shiftschedule-search">
+                                    <a href="/ShiftSchedule/Search" >
+                                        <i class="fa fa-search"></i>
+                                        排班搜索
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canLeaveRecord)
+                            {
+                                <li class="nav-leave">
+                                    <a href="/LeaveRecord/Index">
+                                        <i class="fa fa-anchor"></i>
+                                        请假管理
+                                    </a>
+                                </li>
+                            }
+                            @if(canExtraWorkRecord)
+                            {
+                                <li class="nav-extraWorkRecord">
+                                    <a href="/ExtraWorkRecord/Index">
+                                        <i class="fa fa-tachometer"></i>
+                                        加班管理
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canAttendanceRecordDetail)
+                            {
+                                <li class="nav-attendancerecorddetail">
+                                    <a href="/AttendanceRecordDetail/Index">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                        考勤记录
+                                    </a>
+                                </li>
+                            }
+
+                            @if(canQuartzJob)
+                            {
+                                <li class="nav-attendancesetting">
+                                    <a href="/QuartzJob/Index">
+                                        <i class="fa fa-cog"></i>
+                                        考勤计算设置
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canAttendanceRecordCal)
+                            {
+                                <li class="nav-attendancerecordcal">
+                                    <a href="/AttendanceRecordCal/Index">
+                                        <i class="fa fa-list"></i>
+                                        统计记录
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canExceptionList)
+                            {
+                                <li class="nav-bugstatistic">
+                                    <a href="/AttendanceRecordCal/ExceptionList">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        异常统计
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canWorkAndRests)
+                            {
+                                <li class="nav-rest">
+                                    <a href="/WorkAndRests/Index">
+                                        <i class="fa fa-calendar-minus-o"></i>
+                                        作息时间
+                                    </a>
+                                </li>
+                            }
+
+                            @*<li class="nav-business">
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                出差管理
+                            </a>
+                        </li>
+
+                        <li class="nav-BLeave">
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                公出管理
+                            </a>
+                        </li>*@
+                        </ul>
+                    </li>
+                    }
+                    @if(canStaff||canIdcard||canPartTimeJob||canRecruit||canRewardsAndPenalty){
+                    <li class="nav-manage">
+                        <a href="#">
+                            <i class="fa fa-users"></i>
+                            <span>人事信息管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+
+                            @if(canStaff)
+                            {
+                                <li class="nav-staff">
+                                    <a href="/Staff/Index">
+                                        <i class="fa fa-user"></i>
+                                        员工管理
+                                    </a>
+                                </li>
+                            }
+                            @if(canIdcard)
+                            {
+                                <li class="nav-idcard">
+                                    <a href="/Staff/Idcard">
+                                        <i class="fa fa-credit-card"></i>
+                                        身份证管理
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canPartTimeJob)
+                            {
+                                <li class="nav-parttimejob">
+                                    <a href="/PartTimeJob/Index">
+                                        <i class="fa fa-magnet"></i>
+                                        兼职管理
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canRecruit)
+                            {
+                                <li class="nav-recruit">
+                                    <a href="/Recruit/Index">
+                                        <i class="fa fa-sign-in"></i>
+                                        招聘需求
+                                    </a>
+                                </li>
+                            }
+                            
+                            @if(canRewardsAndPenalty)
+                            {
+                                <li class="nav-rewardspenalty">
+                                    <a href="/RewardsAndPenalty/Index">
+                                        <i class="fa fa-balance-scale"></i>
+                                        奖惩管理
+                                    </a>
+                                </li>
+                            }
+
+                            @*<li class="nav-train">
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                培训管理
+                            </a>
+                        </li>*@
+                        </ul>
+                    </li>
+                    }
+                    @if(canTaskRound){
+                    <li class="nav-systemsetting">
+                        <a href="#">
+                            <i class="fa fa-cog"></i>
+                            <span>系统设置</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            @if(canTaskRound)
+                            {
+                                <li class="nav-taskround">
+                                    <a href="/TaskRound/Index">
+                                        <i class="fa fa-tasks"></i>
+                                        <span>系统任务</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    }
+                </ul>
+            </section>
+        </aside>
+                            }
+        @if (Session["user"] != null)
+        {
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+        }
+        else
+        {
+            <div class="content-wrapper" style="margin:0">
+                @RenderBody()
+            </div>
+        }
+    </div>
+</body>
+@Html.Partial("_HandlingMsgDialog")
+</html>
+@if (Session["user"] != null && MenuAuthHelper.CanShow("MessageRecord", "Index"))
+{
+    <script type="text/javascript">
+            $(function () {
+                $.get("/MessageRecord/UnReadCount", null, function (data) {
+                    if (data != null && data > 0) {
+                        $('.fa-bell-o').css({ animation: "bell-shake 3s", animationIterationCount: "infinite" })
+                        $("#unread-count").text(data>999 ? "..." : data);
+                    } else {
+                        $("#unread-count").text("");
+                    }
+                },"json");
+            });
+    </script>
+}
+
+<script type="text/javascript">
+    //可以将左边栏进行处理
+    $(".sidebar-toggle").click(function(){
+        if($('body').hasClass("sidebar-collapse")){
+            $.cookie('left_sidebar', false, { expires: 7, path: '/' });
+            $('.content-wrapper').width($(window).width() - 55 +'px');
+        }else{
+            $('body').removeClass("sidebar-collapse");
+            $.cookie('left_sidebar', true, { expires: 7, path: '/' });
+            $('.content-wrapper').width($(window).width() - 235 +'px');
+        }
+        window.location.reload();//重新加载页面
+    })
+
+
+    //刷新页面
+    $(window).load(function(){
+        if($.cookie('left_sidebar')=="true"){
+            $('body').addClass("sidebar-collapse");
+
+            $('.content-wrapper').width($(window).width() - 55 +'px');
+        }else{
+            $('body').removeClass("sidebar-collapse");
+            $('.content-wrapper').width($(window).width() - 235 +'px');
+        }
+    })
+
+    //添加pq-grid类名弹出新窗口
+    $('.pq-grid').on('click', 'a', function () {
+        //1920* 1200  1068 * 677 刚刚好
+        //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
+        if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href") == "#" || $(this).attr("href").split("/") == "undefined") {
+
+        }else if($(this).attr("id")=="noopennew"||$(this).attr("id") == "todepartment"){
+            window.location.href($(this).attr("href"));
+        }else{
+            Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+        }
+
+        return false;
+    });
+
+    $('a>button.marco-btn-primary').click(function () {
+        Layout.openNewWindow($(this).parent().attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+        return false;
+    });
+    $('#messagerecord').click(function () {
+        Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+        return false;
+    });
+
+    //回调函数
+    function Success(data) {
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+            Layout.popMsg('popMsg-success', data.Content);
+            setTimeout(function(){
+                window.close();
+            }, 2000);
+        }
+    }
+</script>
+

@@ -1,0 +1,127 @@
+﻿@using MvcPaging
+@model IPagedList<BlueHrLib.Data.AbsenceType>
+@using BlueHrWeb.Helpers.View
+@{
+    ViewBag.Title = "缺勤类型";
+}
+@{
+    bool canCreate = MenuAuthHelper.CanShow("AbsenceType", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("AbsenceType", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("AbsenceType", "Delete");
+}
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>基础信息管理</li>
+    <li>
+        <strong>缺勤类型</strong>
+    </li>
+</ol>
+
+<hr class="hr-grey" />
+
+<div class="search">
+    <form action="/AbsenceType/Search" method="get">
+
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>缺勤类型名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="缺勤类型名称" value="@ViewBag.Query.Name" />
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<hr class="hr-primary" />
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        @if(canCreate)
+        {
+            <a href="/AbsenceType/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#all_AbsenceType" role="tab" data-toggle="tab">所有缺勤类型</a></li>
+        </ul>
+        <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane  active" id="all_AbsenceType">
+                <div id="all_AbsenceType_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>缺勤类型名称</th>
+                            <th>编码</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        @if(canDelete){
+                                            <a href="/AbsenceType/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
+                                        @if(canEdit)
+                                        {
+                                            <a href="/AbsenceType/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    Layout.init();
+
+    var TableWidth = $(window).width() - 290;
+
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 105;
+    }
+
+    //resize()：调整浏览器窗口大小的方法
+    $(window).resize(function () {
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_AbsenceType", "所有缺勤类型列表", "20", "all_AbsenceType_grid_table");
+    })
+
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_AbsenceType", "所有缺勤类型列表", "20", "all_AbsenceType_grid_table");
+</script>

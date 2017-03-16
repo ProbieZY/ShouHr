@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BlueHrLib</RootNamespace>
+    <AssemblyName>BlueHrLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Brilliantech.Framwork">
+      <HintPath>..\ThridPart\Brilliantech.Framwork.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\ThridPart\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz, Version=2.3.3.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThridPart\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.Linq.Dynamic">
+      <HintPath>..\ThridPart\System.Data.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Common\Extensions\CollectionExtensions.cs" />
+    <Compile Include="Common\Patterns\Singleton.cs" />
+    <Compile Include="CusException\WorkAndRestNotFoundException.cs" />
+    <Compile Include="Data\AbsenceRecordView.cs" />
+    <Compile Include="Data\AttendanceRecordCalExceptionView.cs" />
+    <Compile Include="CusException\DataNotFoundException.cs" />
+    <Compile Include="CusException\SystemSettingNotSetException.cs" />
+    <Compile Include="CusException\SystemCertificateTypeNotFoundException.cs" />
+    <Compile Include="CusException\MQPathNotFoundException.cs" />
+    <Compile Include="CusException\TaskTypeNotSupportException.cs" />
+    <Compile Include="CusException\TaskRoundNotFoundException.cs" />
+    <Compile Include="Data\AttendanceRecordCal.cs" />
+    <Compile Include="Data\AttendanceRecordCalView.cs" />
+    <Compile Include="Data\AttendanceRecordDetailView.cs" />
+    <Compile Include="Data\AttendanceRecordDetail.cs" />
+    <Compile Include="Data\BlueHr.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlueHr.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Company.cs" />
+    <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\Department.cs" />
+    <Compile Include="Data\Enum\AttendanceExceptionType.cs" />
+    <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
+    <Compile Include="Data\Enum\CronJobType.cs" />
+    <Compile Include="Data\Enum\EnumItem.cs" />
+    <Compile Include="Data\Enum\MessageRecordCatetory.cs" />
+    <Compile Include="Data\Enum\MessageRecordType.cs" />
+    <Compile Include="Data\Enum\RewardsAndPenaltyType.cs" />
+    <Compile Include="Data\Enum\RoleType.cs" />
+    <Compile Include="Data\Enum\SystemAbsenceType.cs" />
+    <Compile Include="Data\Enum\SystemExtraType.cs" />
+    <Compile Include="Data\Enum\WorkAndRestType.cs" />
+    <Compile Include="Data\Enum\ShiftType.cs" />
+    <Compile Include="Data\Enum\SystemCertificateType.cs" />
+    <Compile Include="Data\Enum\StaffEnum.cs" />
+    <Compile Include="Data\Enum\DurationType.cs" />
+    <Compile Include="Data\AbsenceRecord.cs" />
+    <Compile Include="Data\Enum\SearchConditions.cs" />
+    <Compile Include="Data\ExtraWorkRecord.cs" />
+    <Compile Include="Data\ExtraWorkRecordView.cs" />
+    <Compile Include="Data\JobTitle.cs" />
+    <Compile Include="Data\FullMemberRecord.cs" />
+    <Compile Include="Data\Model\PageViewModel\PartTimeJobInfoModel.cs" />
+    <Compile Include="Data\Model\Search\PartTimeJobSearchModel.cs" />
+    <Compile Include="Data\Recruit.cs" />
+    <Compile Include="Data\Repository\Implement\PartTimeJobRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IPartTimeJobRepository.cs" />
+    <Compile Include="Data\ResignRecord.cs" />
+    <Compile Include="Data\LeaveRecord.cs" />
+    <Compile Include="Data\MessageRecordView.cs" />
+    <Compile Include="Data\Message\ImportMessage.cs" />
+    <Compile Include="Data\Message\ReportMessage.cs" />
+    <Compile Include="Data\Message\ResultMessage.cs" />
+    <Compile Include="Data\Message\ValidateMessage.cs" />
+    <Compile Include="Data\Model\Department.cs" />
+    <Compile Include="Data\Enum\WorkStatus.cs" />
+    <Compile Include="Data\Model\Excel\DepartmentExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\AbsenceRecordExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\ExtraWorkRecordExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\WorkAndRestExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\WorkSumExcelModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ShiftJobRecordInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\RecruitInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\FullMemberRecordInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\LeaveRecordInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\RewardsAndPenaltiesInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\SysAuthorizationInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\SysRoleAuthorizationInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\SysRoleInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\SysUserDataAuthInfoModel.cs" />
+    <Compile Include="Data\Model\Search\FullMemberRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ShiftJobRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\LeaveRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\RecruitSearchModel.cs" />
+    <Compile Include="Data\Model\Search\RewardsAndPenaltySearchModel.cs" />
+    <Compile Include="Data\Model\Search\PersonScheduleSearchModel.cs" />
+    <Compile Include="Data\Model\Search\SysAuthorizationSearchModel.cs" />
+    <Compile Include="Data\Model\Search\SysRoleAuthorizationSearchModel.cs" />
+    <Compile Include="Data\Model\Search\SysRoleSearchModel.cs" />
+    <Compile Include="Data\Model\Search\SysUserDataAuthSearchModel.cs" />
+    <Compile Include="Data\Model\Search\WorkAndRestSearchModel.cs" />
+    <Compile Include="Data\Repository\Implement\ShiftJobRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\RecruitRepository.cs" />
+    <Compile Include="Data\Repository\Implement\FullMemberRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\LeaveRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\RewardsAndPenaltyRepository.cs" />
+    <Compile Include="Data\Repository\Implement\PersonScheduleRepository.cs" />
+    <Compile Include="Data\Repository\Implement\SysAuthorizationRepository.cs" />
+    <Compile Include="Data\Repository\Implement\SysRoleAuthorizationRepository.cs" />
+    <Compile Include="Data\Repository\Implement\SysRoleAuthViewRepository.cs" />
+    <Compile Include="Data\Repository\Implement\SysRoleRepository.cs" />
+    <Compile Include="Data\Repository\Implement\SysUserDataAuthRepository.cs" />
+    <Compile Include="Data\Repository\Implement\WorkAndRestRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IShiftJobRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IRecruitRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IFullMemberRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ILeaveRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IRewardsAndPenaltyRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IPersonScheduleRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ISysAuthorizationRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ISysRoleAuthorizationRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ISysRoleAuthRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ISysRoleRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ISysUserDataAuthRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IWorkAndRestRepository.cs" />
+    <Compile Include="Data\PartTimeJob.cs" />
+    <Compile Include="Data\ShiftJobRecord.cs" />
+    <Compile Include="Data\StaffView.cs" />
+    <Compile Include="Data\RewardsAndPenalty.cs" />
+    <Compile Include="Data\WorkAndRest.cs" />
+    <Compile Include="Helper\SearchConditionsHelper.cs" />
+    <Compile Include="Helper\DateTimeHelper.cs" />
+    <Compile Include="Helper\Excel\ExtraWorkTypeExcelHelper.cs" />
+    <Compile Include="Data\Model\Excel\ShiftScheduleExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\StaffExcelModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\AbsenceRecrodInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\AbsenceTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\AttachmentInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\CertificateInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\CertificateTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\DegreeTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ExtraWorkRecordInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\InSureTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\JobTitleInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ResignRecordInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ResignTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ShiftInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ShiftScheduleInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\StaffTypeInfoModel.cs" />
+    <Compile Include="Data\Model\Search\AbsenceRecrodSearchModel.cs" />
+    <Compile Include="Data\Model\Search\AbsenceTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\AttachmentSearchModel.cs" />
+    <Compile Include="Data\Model\Search\AttendanceRecordCalSearchModel.cs" />
+    <Compile Include="Data\Model\Search\BankCardSearchModel.cs" />
+    <Compile Include="Data\Model\Search\CertificateSearchModel.cs" />
+    <Compile Include="Data\Model\Search\CertificateTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ExtraWorkRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
+    <Compile Include="Data\Model\Search\MessageRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ResignRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ShiftScheduleSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ShiftSearchModel.cs" />
+    <Compile Include="Data\Model\Search\UserSearchModel.cs" />
+    <Compile Include="Data\QuartzJob.cs" />
+    <Compile Include="Data\Repository\Implement\AbsenceRecrodRepository.cs" />
+    <Compile Include="Data\Repository\Implement\AttachmentRepository.cs" />
+    <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ExtraWorkRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\MessageRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ExtraWorkTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\AbsenceTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\AttendanceRecordCalViewRepository.cs" />
+    <Compile Include="Data\Repository\Implement\AttendanceRecordCalRepository.cs" />
+    <Compile Include="Data\Repository\Implement\CertificateTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\FamilyMemberRepository.cs" />
+    <Compile Include="Data\Repository\Implement\BankCardRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ResignRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ShiftScheduleRepository.cs" />
+    <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Implement\UserRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAbsenceRecrodRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttachmentRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ICertificateRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IExtraWorkRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IMessageRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IExtraWorkTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAbsenceTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttendanceRecordCalViewRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttendanceRecordCalRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ICertificateTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IFamilyMemberRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IBankCardRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IResignRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IResignTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IShiftScheduleRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IUserRepository.cs" />
+    <Compile Include="Data\Shift.cs" />
+    <Compile Include="Data\ShiftSchedule.cs" />
+    <Compile Include="Data\Staff.cs" />
+    <Compile Include="Data\TaskRound.cs" />
+    <Compile Include="Data\User.cs" />
+    <Compile Include="Helper\EmailHelper.cs" />
+    <Compile Include="Helper\Excel\DepartmentExcelHelper.cs" />
+    <Compile Include="Helper\Excel\AbsenceRecordExcelHelper.cs" />
+    <Compile Include="Helper\Excel\ReportExcelHelper.cs" />
+    <Compile Include="Helper\Excel\ShiftScheduleExcelHelper.cs" />
+    <Compile Include="Helper\Excel\WorkAndRestExcelHelper.cs" />
+    <Compile Include="Helper\Excel\StaffExcelHelper.cs" />
+    <Compile Include="Helper\JSONHelper.cs" />
+    <Compile Include="Helper\MD5Helper.cs" />
+    <Compile Include="Helper\MessageRecordTypeHelper.cs" />
+    <Compile Include="MQTask\Job\JobBase.cs" />
+    <Compile Include="MQTask\Job\CalAttJob.cs" />
+    <Compile Include="MQTask\Job\ToFullMemberJob.cs" />
+    <Compile Include="MQTask\Job\CalAttJobTrigger.cs" />
+    <Compile Include="MQTask\Job\ToFullMemberJobTrigger.cs" />
+    <Compile Include="MQTask\Job\TriggerBase.cs" />
+    <Compile Include="MQTask\Parameter\AttWarnParameter.cs" />
+    <Compile Include="MQTask\Parameter\AttWarnEmailParameter.cs" />
+    <Compile Include="MQTask\Parameter\CalAttParameter.cs" />
+    <Compile Include="MQTask\TaskDispatcher.cs" />
+    <Compile Include="MQTask\TaskSetting.cs" />
+    <Compile Include="Data\Model\Search\AttendanceRecordDetailSearchModel.cs" />
+    <Compile Include="Data\Model\Search\DepartmentSearchModel.cs" />
+    <Compile Include="Data\Model\Search\DegreeTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\InSureTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\StaffTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\JobTitleSearchModel.cs" />
+    <Compile Include="Data\Model\Search\StaffSearchModel.cs" />
+    <Compile Include="Data\Model\Search\CompanySearchModel.cs" />
+    <Compile Include="Data\Model\StaffIdCard.cs" />
+    <Compile Include="Data\Repository\IDataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\AttendanceRecordDetailViewRepository.cs" />
+    <Compile Include="Data\Repository\Implement\AttendanceRecordDetailRepository.cs" />
+    <Compile Include="Data\Repository\Implement\CompanyRepository.cs" />
+    <Compile Include="Data\Repository\Implement\DepartmentRepository.cs" />
+    <Compile Include="Data\Repository\Implement\DegreeTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\InSureTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\StaffTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\JobTitleRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttendanceRecordDetailViewRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttendanceRecordDetailRepository.cs" />
+    <Compile Include="Data\Repository\Implement\StaffRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ICompanyRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IDepartmentRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IDegreeTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IInSureTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IStaffTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IJobTitleRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IStaffRepository.cs" />
+    <Compile Include="Data\Repository\IRepository.cs" />
+    <Compile Include="Data\Repository\RepositoryBase.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\ExcelHelper.cs" />
+    <Compile Include="Helper\Excel\AttendanceRecordDetailExcelHelper.cs" />
+    <Compile Include="Helper\Excel\ExcelHelperBase.cs" />
+    <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Data\Enum\TaskRoundStatus.cs" />
+    <Compile Include="MQTask\TaskType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Implement\AbsenceRecordService.cs" />
+    <Compile Include="Service\Implement\AbsenceTypeService.cs" />
+    <Compile Include="Service\Implement\AttachmentService.cs" />
+    <Compile Include="Service\Implement\AttendanceRecordCalService.cs" />
+    <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
+    <Compile Include="Service\Implement\AttendanceRecordService.cs" />
+    <Compile Include="Service\Implement\CertificateService.cs" />
+    <Compile Include="Service\Implement\ExcelReportService.cs" />
+    <Compile Include="Service\Implement\CertificateTypeService.cs" />
+    <Compile Include="Service\Implement\CompanyService.cs" />
+    <Compile Include="Service\Implement\ExtraWorkRecordService.cs" />
+    <Compile Include="Service\Implement\FamilyMemberService.cs" />
+    <Compile Include="Service\Implement\DegreeTypeService.cs" />
+    <Compile Include="Service\Implement\InSureTypeService.cs" />
+    <Compile Include="Service\Implement\BankCardService.cs" />
+    <Compile Include="Service\Implement\PartTimeJobService.cs" />
+    <Compile Include="Service\Implement\ShiftJobRecordService.cs" />
+    <Compile Include="Service\Implement\MessageRecordService.cs" />
+    <Compile Include="Service\Implement\ExtraWorkTypeService.cs" />
+    <Compile Include="Service\Implement\PersonScheduleService.cs" />
+    <Compile Include="Service\Implement\QuartzJobService.cs" />
+    <Compile Include="Service\Implement\RecruitService.cs" />
+    <Compile Include="Service\Implement\LeaveRecordService.cs" />
+    <Compile Include="Service\Implement\ResignRecordService.cs" />
+    <Compile Include="Service\Implement\ResignTypeService.cs" />
+    <Compile Include="Service\Implement\FullMemberRecordService.cs" />
+    <Compile Include="Service\Implement\RewardsAndPenaltyService.cs" />
+    <Compile Include="Service\Implement\ShiftService.cs" />
+    <Compile Include="Service\Implement\ShiftSheduleService.cs" />
+    <Compile Include="Service\Implement\SysAuthorizationService.cs" />
+    <Compile Include="Service\Implement\SysRoleAuthViewService.cs" />
+    <Compile Include="Service\Implement\SysRoleAuthorizationService.cs" />
+    <Compile Include="Service\Implement\SysRoleService.cs" />
+    <Compile Include="Service\Implement\SystemSettingService.cs" />
+    <Compile Include="Service\Implement\SysUserDataAuthService.cs" />
+    <Compile Include="Service\Implement\TaskRoundService.cs" />
+    <Compile Include="Service\Implement\StaffTypeService.cs" />
+    <Compile Include="Service\Implement\JobTitleService.cs" />
+    <Compile Include="Service\Implement\DepartmentService.cs" />
+    <Compile Include="Service\Implement\StaffService.cs" />
+    <Compile Include="Service\Implement\UserService.cs" />
+    <Compile Include="Service\Implement\WorkAndRestService.cs" />
+    <Compile Include="Service\Interface\IAbsenceRecordService.cs" />
+    <Compile Include="Service\Interface\IAttachmentService.cs" />
+    <Compile Include="Service\Interface\ICertificateService.cs" />
+    <Compile Include="Service\Interface\IExtraWorkRecordService.cs" />
+    <Compile Include="Service\Interface\IExtraWorkTypeService.cs" />
+    <Compile Include="Service\Interface\IAbsenceTypeService.cs" />
+    <Compile Include="Service\Interface\IAttendanceRecordCalService.cs" />
+    <Compile Include="Service\Interface\IAttendanceRecordDetailService.cs" />
+    <Compile Include="Service\Interface\IAttendanceRecordService.cs" />
+    <Compile Include="Service\Interface\ICertificateTypeService.cs" />
+    <Compile Include="Service\Interface\ICompanyService.cs" />
+    <Compile Include="Service\Interface\IFamilyMemberService.cs" />
+    <Compile Include="Service\Interface\IDepartmentService.cs" />
+    <Compile Include="Service\Interface\IDegreeTypeService.cs" />
+    <Compile Include="Service\Interface\IFullMemberRecordService.cs" />
+    <Compile Include="Service\Interface\IInSureTypeService.cs" />
+    <Compile Include="Service\Interface\IBankCardService.cs" />
+    <Compile Include="Service\Interface\IPartTimeJobService.cs" />
+    <Compile Include="Service\Interface\IShiftJobRecordService.cs" />
+    <Compile Include="Service\Interface\ILeaveRecordService.cs" />
+    <Compile Include="Service\Interface\IMessageRecordService.cs" />
+    <Compile Include="Service\Interface\IPersonScheduleService.cs" />
+    <Compile Include="Service\Interface\IQuartzJobService.cs" />
+    <Compile Include="Service\Interface\IExcelReportService.cs" />
+    <Compile Include="Service\Interface\IRecruitService.cs" />
+    <Compile Include="Service\Interface\IResignRecordService.cs" />
+    <Compile Include="Service\Interface\IResignTypeService.cs" />
+    <Compile Include="Service\Interface\IRewardsAndPenaltyService.cs" />
+    <Compile Include="Service\Interface\IShiftScheduleService.cs" />
+    <Compile Include="Service\Interface\IShiftService.cs" />
+    <Compile Include="Service\Interface\ISysAuthorizationService.cs" />
+    <Compile Include="Service\Interface\ISysRoleAuthorizationService.cs" />
+    <Compile Include="Service\Interface\ISysRoleAuthViewService.cs" />
+    <Compile Include="Service\Interface\ISysRoleService.cs" />
+    <Compile Include="Service\Interface\ISystemSettingService.cs" />
+    <Compile Include="Service\Interface\ISysUserDataAuthService.cs" />
+    <Compile Include="Service\Interface\ITaskRoundService.cs" />
+    <Compile Include="Service\Interface\IStaffTypeService.cs" />
+    <Compile Include="Service\Interface\IJobTitleService.cs" />
+    <Compile Include="Service\Interface\IStaffService.cs" />
+    <Compile Include="Service\Interface\IUserService.cs" />
+    <Compile Include="Service\Interface\IWorkAndRestService.cs" />
+    <Compile Include="Service\ServiceBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Data\BlueHr.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>BlueHr.designer.cs</LastGenOutput>
+    </None>
+    <None Include="log4.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\Log\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EmailTemplate\AttendanceWarn.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\BlueHr.dbml.layout">
+      <DependentUpon>BlueHr.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

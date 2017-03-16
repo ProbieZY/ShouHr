@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "删除部门";
+}
+
+
+@Html.Partial("_PartialDepartment")
+
+<script type="text/javascript">
+    $('input').attr("disabled", "disabled");
+    $('textarea').attr("disabled", "disabled");
+    $('select').attr('disabled', 'disabled');
+    $('button[type="submit"]').removeClass('marco-btn-primary');
+    $('button[type="submit"]').addClass('marco-btn-danger');
+    if ($('#can').val() != "True") {
+        $('.pull-right').remove();
+    }
+</script>

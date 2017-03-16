@@ -1,0 +1,1093 @@
+﻿@using MvcPaging
+
+@model IPagedList<BlueHrLib.Data.Staff>
+@using BlueHrWeb.Helpers.View
+
+@{
+    ViewBag.Title = "员工信息";
+}
+<!-- <style>
+    .dialogModal .dialogModal_container{
+        max-width: 900px;
+    }
+</style> -->
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>人事信息管理</li>
+    <li>
+        <strong>员工管理</strong>
+    </li>
+</ol>
+
+<hr class="hr-grey" />
+@{
+    bool canImport = MenuAuthHelper.CanShow("Staff", "Import");
+    bool canCreate = MenuAuthHelper.CanShow("Staff", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("Staff", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("Staff", "Delete");
+    bool canIndex = MenuAuthHelper.CanShow("Certificate", "Index");
+
+}
+@*<button id="Back" style="display:none;" class="marco-btn-primary">Back</button>*@
+
+@*Search*@
+<div class="search">
+    @* 简单搜索 *@
+    <form action="/Staff/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>身份证</span>
+                    <input type="text" name="Id" id="Id" value="@ViewBag.Query.Id" placeholder="身份证号码" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>员工号</span>
+                    <input type="text" name="Nr" id="Nr" value="@ViewBag.Query.Nr" placeholder="员工号" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>姓名</span>
+                    <input type="text" name="Name" id="Name" value="@ViewBag.Query.Name" placeholder="姓名" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="marco-btn-success pull-left">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
+                        <i class="fa fa-filter" ></i>
+                        <span>自定义搜索</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--高级搜索-->
+    <div id="search_content" class="import_content" style="display:none;">
+       <form action="/Staff/AdvancedSearch" method="post">
+            <div class="dialogModal_header" style="background:steelblue; color:white;">
+                自定义搜索信息
+            </div>
+
+            <div class="dialogModal_body itm" style="margin:8px;">
+
+                @*三个字段*@
+                <div class="row cln">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>字段</span>
+                            @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>条件</span>
+                            @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>值</span>
+                            <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
+                        </div>
+                    </div>
+                </div>   
+            </div>
+
+            <div class="dialogModal_footer row" style="margin: 0;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button type="submit" class="marco-btn-success pull-right">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button class="marco-btn-primary pull-right" title="点击删除字段" type="button" onclick="deleteCondition()">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button class="marco-btn-primary pull-right" title="点击添加字段" type="button" onclick="addCondition()">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div> 
+        </form>
+    </div>
+</div>
+
+<hr class="hr-primary" />
+
+@* 将离职和在职的员工进行区分显示 *@
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        @if (canImport)
+        {
+            <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px;">
+                <i class="fa fa-cloud-upload"></i>
+                <span>上传</span>
+            </button>
+        }
+
+        @if (canCreate)
+        {
+            <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#on_staff" role="tab" data-toggle="tab">在职人员</a></li>
+            <li role="presentation"><a href="#off_staff" role="tab" data-toggle="tab">离职人员</a></li>
+            <li role="presentation"><a href="#all_staff" role="tab" data-toggle="tab">全部人员</a></li>
+            <!--<li role="presentation"><a href="#employ_staff" role="tab" data-toggle="tab">离职回聘</a></li>-->
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="on_staff">
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="on_staff_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>身份证</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>是否备齐证照</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            if(item.workStatus == 100)
+                            {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.nr)
+                                        </td>
+                                        <td>
+                                            <span style="display:inline;">
+                                                @Html.DisplayFor(modelItem => item.id)
+                                            </span>
+
+                                            @if (item.isIdChecked)
+                                    {
+                                                <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                    已验证
+                                                </span>
+                                    }
+                                    else
+                                    {
+                                                <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                    未验证
+                                                </span>
+                                    }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.sexDisplay)
+                                        </td>
+
+                                        <td>  
+                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.departmentFullName)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.JobTitle.name)
+                                        </td>
+
+                                        <td>
+                                            @if (item.IsHasAllCertificate)
+                                            {
+                                                <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                            }
+                                        </td>
+
+                                        <td>
+                                            @if (canDelete)
+                                            {
+                                                <a href="/Staff/Delete/@item.nr" target="window_name" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                                <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            @if (canIndex)
+                                            {
+                                                <a href="/Certificate?nr=@item.nr" title="证照管理" class="option-icon-success">
+                                                    <i class="fa fa-newspaper-o"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                            }
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="off_staff">
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="off_staff_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>身份证</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>是否备齐证照</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                    {
+                        foreach (var off_item in Model)
+                        {
+                            if (off_item.workStatus == 200)
+                            {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => off_item.nr)
+                                        </td>
+                                        <td>
+                                            <span style="display:inline;">
+                                                @Html.DisplayFor(modelItem => off_item.id)
+                                            </span>
+
+                                            @if (off_item.isIdChecked)
+                                        {
+                                                <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                    已验证
+                                                </span>
+                                        }
+                                        else
+                                        {
+                                                <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                    未验证
+                                                </span>
+                                        }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => off_item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => off_item.sexDisplay)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => off_item.Company.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => off_item.departmentFullName)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => off_item.JobTitle.name)
+                                        </td>
+
+                                        <td>
+                                            @if (off_item.IsHasAllCertificate)
+                                        {
+                                                <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                        }
+                                        else
+                                        {
+                                                <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                        }
+                                        </td>
+
+                                        <td>
+                                            @if (canDelete)
+                                            {
+                                                <a href="/Staff/Delete/@off_item.nr" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                            <a href="/Staff/Edit/@off_item.nr" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            }
+
+                                            
+                                        </td>
+                                    </tr>
+                            }
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="all_staff">
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_staff_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>身份证</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>是否备齐证照</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.nr)
+                                    </td>
+                                    <td>
+                                        <span style="display:inline;">
+                                            @Html.DisplayFor(modelItem => item.id)
+                                        </span>
+
+                                        @if (item.isIdChecked)
+                                        {
+                                            <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                已验证
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                未验证
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sexDisplay)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Company.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.departmentFullName)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.JobTitle.name)
+                                    </td>
+
+                                    <td>
+                                        @if (item.IsHasAllCertificate)
+                                        {
+                                            <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @if (canDelete)
+                                        {
+                                            <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
+                                        @if (canEdit)
+                                        {
+                                            <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        }
+                                        @if (canIndex)
+                                        {
+                                            <a href="/Certificate?nr=@item.nr" title="证照管理" class="option-icon-success">
+                                                <i class="fa fa-newspaper-o"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+             <div role="tabpanel" class="tab-pane" id="employ_staff">
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="employ_staff_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>身份证</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>是否备齐证照</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.nr)
+                                    </td>
+                                    <td>
+                                        <span style="display:inline;">
+                                            @Html.DisplayFor(modelItem => item.id)
+                                        </span>
+
+                                        @if (item.isIdChecked)
+                                        {
+                                            <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                已验证
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                未验证
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sexDisplay)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Company.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.departmentFullName)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.JobTitle.name)
+                                    </td>
+
+                                    <td>
+                                        @if (item.IsHasAllCertificate)
+                                        {
+                                            <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @if (canDelete)
+                                        {
+                                            <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
+                                        @if (canEdit)
+                                        {
+                                            <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>}
+                                    </td>
+                                </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div> 
+<!--导入数据-->
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导入员工信息
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/Staff/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/员工信息导入文件模板.xlsx" target="_blank">下载文件模板</a>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <p class="modal-title">选择员工公司和部门</p>
+                <button id="btnEdit3" class="btn btn-primary" style="border-radius:3px;">确认</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col col-lg-4">
+                        <div id="cmpTree"></div>
+                    </div>
+                    <div class="col col-lg-8">
+                        <div id="depTree"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div hidden="hidden">
+    @*<input type="text" id="selCompanys" name="selCompanys" value="@ViewBag.TheCmpIds" />
+        <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />*@
+    <input type="text" id="selCmpDepIds" name="selCmpDepIds" value="@ViewBag.TheCmpDepIds" />
+    <input type="text" id="selCmpDepNames" name="selCmpDepNames" value="@ViewBag.TheSelCmpDepNames" />
+</div>
+
+@Scripts.Render("~/bundles/staff")
+
+<script type="text/javascript">
+    Layout.init();
+
+    var TableWidth = $(window).width() - 300;
+    if($.cookie('left_sidebar')=='true'){
+        TableWidth = $(window).width() - 110;
+    }
+
+    $(window).resize(function () {
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "employ_staff", "回聘员工列表", "20", "employ_staff_grid_table");
+    })
+
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+  
+    $('#off_staff').addClass("active");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+    $('#off_staff').removeClass("active");
+
+    $('#all_staff').addClass("active");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
+    $('#all_staff').removeClass("active");
+
+     $('#employ_staff').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "employ_staff", "回聘员工列表", "20", "employ_staff_grid_table");
+    $('#employ_staff').removeClass("active");
+
+    Layout.CompanyAndDepartment('#companyId', '#departmentId');
+    Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
+
+    // Layout.advancedfilter();
+
+    $('.import-dialog-btn').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+                window.location.reload();
+            }
+            
+        });
+    });
+
+    $("#btnEdit3").click(function () {
+
+        var theIds = "";
+        var companyIds = "";
+        var departmentIds = "";
+        var theCmpNames = "";//所有公司列表
+        var theDepNameList = "";//所有部门列表
+
+        for (var i = 0; i < cmpList.length; i++) {
+
+            theCmpNames += cmpList[i].cmpName + ",";
+
+            var tmp = "";
+            var depTmpIds = "";
+
+            var deps = cmpList[i].deps;
+
+            for (var k = 0; k < deps.length; k++) {
+                depTmpIds += deps[k].depId + ",";
+                theDepNameList += deps[k].depName + ",";
+            }
+
+            companyIds += cmpList[i].cmpId + ",";
+            departmentIds += depTmpIds + ",";
+            tmp += cmpList[i].cmpId + "|";
+            tmp += depTmpIds;
+            theIds += tmp + ";";//数据库传入参数
+        }
+
+        $("#companyNames").val(theCmpNames);//页面显示
+        $("#departmentNames").val(theDepNameList);//页面显示
+        $("#companyIds").val(companyIds);
+        $("#departmentIds").val(departmentIds);
+
+
+        $("#selCmpDepIds").val(theIds);//数据库传入参数
+
+        //公司ID|部门ID,;
+        //1|2,1,4,;3|7,;4|5,;5|6,8,;
+        //console.log(theIds);
+        $('#myModal6').modal('hide');
+    });
+
+    var cmpList = [];
+    //公司和部门
+    function asignCmpDepConfirm(id) {
+        $('#myModal6').modal('show');
+    }
+
+    //公司是否存在列表
+    function ifCmpSelected(id) {
+        var k = 0;
+        for (var i = 0; i < cmpList.length; i++) {
+            if (cmpList[i].cmpId == id) {
+                k++;
+            }
+        }
+
+        return k > 0;
+    }
+
+    //部门是否存在列表
+    function ifDepSelected(cmpId, id) {
+        var k = 0;
+        for (var i = 0; i < cmpList.length; i++) {
+            if (cmpList[i].cmpId == cmpId) {
+
+                var depsTmp = cmpList[i].deps;
+
+                for (var m = 0; m < depsTmp.length; m++) {
+                    if (depsTmp[m].depId == id) {
+                        k++;
+                    }
+                }
+            }
+        }
+        return k > 0;
+    }
+
+    // 绑定公司
+    bindCompany();
+
+    function bindCompany() {
+        RinTheValues();
+
+        $.post("/User/GetCompanys", {}, function (response) {
+
+            if (response == "empty_result") {
+                $('#cmpDep_content').dialogModal("hide");
+                Layout.popMsg('popMsg-danger', "公司初始化错误！");
+                return false;
+            }
+            else {
+                $('#cmpTree').treeview({
+                    data: response,         // 数据源
+                    showCheckbox: true,   //是否显示复选框
+                    //highlightSelected: true,    //是否高亮选中
+                    //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+                    //nodeIcon: 'glyphicon glyphicon-globe',
+                    emptyIcon: '',    //没有子节点的节点图标
+                    multiSelect: false,    //多选
+                    onNodeUnselected: function (event, data) {
+                        var node = $("#cmpTree").treeview('getNode', data.nodeId);
+                        $("#cmpTree").treeview('selectNode', [node, { silent: true }]);
+                    },
+                    onNodeChecked: function (event, data) {
+                        bindDepTree(data.id);
+
+                        var selectedNodes = $("#cmpTree").treeview('getSelected');
+                        $(selectedNodes).each(function (index, element) {
+                            if (element.nodeId !== data.nodeId) {
+                                $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
+                            }
+                        });
+
+                        var isSel = ifCmpSelected(data.id);
+                        if (!isSel) {
+                            var cmpSelNode = {};
+                            cmpSelNode.cmpId = data.id;
+                            cmpSelNode.cmpName = data.text;
+                            cmpSelNode.deps = [];
+                            cmpList.push(cmpSelNode);
+                        }
+                    },
+
+                    //未选中
+                    onNodeUnchecked: function (event, data) {
+                        var delKey = data.id;
+                        for (var i = 0; i < cmpList.length; i++) {
+                            var keyTemp = cmpList[i].cmpId;
+                            if (keyTemp === delKey) {
+                                cmpList.splice(i, 1);
+                            }
+                        }
+                    },
+
+                    onNodeSelected: function (event, data) {
+                        bindDepTree(data.id);
+                    }
+                });
+                reBindCompany();
+            }
+        });
+    }
+
+    function bindDepTree(cmpId) {
+        $.post("/User/GetDepartmentsByCompany", { companyId: cmpId }, function (response) {
+
+            if (response == "empty_result") {
+                $('#cmpDep_content').dialogModal("hide");
+                Layout.popMsg('popMsg-danger', "部门初始化错误！");
+                return false;
+            }
+            else {
+                $('#depTree').treeview({
+                    data: response,         // 数据源
+                    showCheckbox: true,   //是否显示复选框
+                    highlightSelected: true,    //是否高亮选中
+                    //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+                    //nodeIcon: 'glyphicon glyphicon-globe',
+                    emptyIcon: '',    //没有子节点的节点图标
+                    multiSelect: true,    //多选
+                    onNodeChecked: function (event, data) {
+
+                        console.log(data);
+
+                        var isSel = ifDepSelected(cmpId, data.id);
+
+                        if (!isSel) {
+                            var depSelNode = {};
+                            depSelNode.depId = data.id;
+                            depSelNode.depName = data.text;
+                            pushDeps(cmpId, depSelNode);
+                        }
+
+                        //选中所有子节点
+                        if (data.nodes != null && data.nodes.length > 0) {
+                            for (var xxk = 0; xxk < data.nodes.length; xxk++) {
+
+                                $('#depTree').treeview('checkNode', [data.nodes[xxk].nodeId, { silent: true }]);
+
+                                var isSel = ifDepSelected(cmpId, data.nodes[xxk].id);
+
+                                if (!isSel) {
+                                    var depSelNode = {};
+                                    depSelNode.depId = data.nodes[xxk].id;
+                                    depSelNode.depName = data.nodes[xxk].text;
+                                    pushDeps(cmpId, depSelNode);
+                                }
+
+
+                                checknode(cmpId, data.nodes[xxk].nodes);
+                            }
+                        }
+                    },
+
+                    onNodeSelected: function (event, data) { },
+
+                    //未选中
+                    onNodeUnchecked: function (event, data) {
+
+                        var delKey = data.id;
+                        for (var i = 0; i < cmpList.length; i++) {
+
+                            if (cmpList[i].cmpId == cmpId) {
+                                var depsTmp = cmpList[i].deps;
+
+                                for (var mm = 0; mm < depsTmp.length; mm++) {
+                                    if (depsTmp[mm].depId == data.id) {
+                                        cmpList[i].deps.splice(mm, 1);
+                                    }
+                                }
+                            }
+                        }
+
+                        //取消所有子节点
+                        if (data.nodes != null && data.nodes.length > 0) {
+                            for (var xxk = 0; xxk < data.nodes.length; xxk++) {
+
+                                $('#depTree').treeview('uncheckNode', [data.nodes[xxk].nodeId, { silent: true }]);
+
+                                var delKey = data.nodes[xxk].id;
+                                for (var i = 0; i < cmpList.length; i++) {
+
+                                    if (cmpList[i].cmpId == cmpId) {
+                                        var depsTmp = cmpList[i].deps;
+
+                                        for (var mm = 0; mm < depsTmp.length; mm++) {
+                                            if (depsTmp[mm].depId == data.nodes[xxk].id) {
+                                                cmpList[i].deps.splice(mm, 1);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                unchecknode(cmpId, data.nodes[xxk].nodes);
+
+                            }
+                        }
+                    }
+                });
+
+                reBindDepartment(cmpId);
+            }
+        });
+    }
+
+    //添加部门
+    function pushDeps(cmpId, selNode) {
+        for (var i = 0; i < cmpList.length; i++) {
+            if (cmpList[i].cmpId == cmpId) {
+
+                var depsTmp = cmpList[i].deps;
+                var isSel = ifDepSelected(cmpId, selNode.depId);
+
+                if (!isSel) {
+                    cmpList[i].deps.push(selNode);
+                }
+            }
+        }
+    }
+
+    function RinTheValues() {
+        if (cmpList.length <= 0) {
+            cmpList = [];
+            var theBindComDep = $("#selCmpDepNames").val();
+
+            theBindComDep.split(';').forEach(function (item, index) {
+
+                var singleCmp = item.split('|');
+
+                if (singleCmp.length > 0 || singleCmp.length > 1) {
+
+                    if (singleCmp[0] != "" && singleCmp[0] != null) {
+
+                        var ab = singleCmp[0].split('&');
+
+                        if (ab[0] != null && ab[0] != "") {
+                            var cmpSelNode = {};
+                            cmpSelNode.cmpId = ab[0];
+                            cmpSelNode.cmpName = ab[1];
+                            cmpSelNode.deps = [];
+
+                            if (singleCmp.length > 1) {
+                                singleCmp[1].split(",").forEach(function (item1, index1) {
+
+                                    if (item1 != "" && item1 != null) {
+
+                                        var txkf = item1.split('&');
+
+                                        if (txkf[0] != "" && txkf[0] != null) {
+
+                                            var depSelNode = {};
+                                            depSelNode.depId = txkf[0];
+                                            depSelNode.depName = txkf[1];
+
+                                            cmpSelNode.deps.push(depSelNode);
+                                        }
+                                    }
+                                });
+                            }
+
+                            cmpList.push(cmpSelNode);
+                        }
+                    }
+                }
+
+
+                //1|1,2,4,
+                //console.log("the bind value");
+                //console.log(theBindComDep);
+
+                //console.log(cmpList);
+            });
+        }
+    }
+
+    function reBindCompany() {
+        var allNodes = $('#cmpTree').treeview('getUnselected');
+
+        for (var tm = 0; tm < allNodes.length; tm++) {
+            for (var i = 0; i < cmpList.length; i++) {
+                if (cmpList[i].cmpId == allNodes[tm].id) {
+                    $('#cmpTree').treeview('checkNode', [allNodes[tm].nodeId, { silent: true }]);
+                }
+            }
+        }
+
+        //bind default deptree
+        var allSelNodes = $('#cmpTree').treeview('getChecked');
+
+        if (allSelNodes.length > 0) {
+            bindDepTree(allSelNodes[0].id);
+        }
+    }
+
+    function reBindDepartment(cmpId) {
+        for (var i = 0; i < cmpList.length; i++) {
+
+            if (cmpList[i].cmpId == cmpId) {
+
+                var deps = cmpList[i].deps;
+
+                var allDepNodes = $('#depTree').treeview('getUnselected');
+
+                for (var m = 0; m < allDepNodes.length; m++) {
+                    for (var kk = 0; kk < deps.length; kk++) {
+
+                        if (deps[kk].depId == allDepNodes[m].id) {
+
+                            $('#depTree').treeview('checkNode', [allDepNodes[m].nodeId, { silent: true }]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function checknode(cmpId, nodes) {
+        if (nodes != null && nodes.length > 0) {
+
+
+            for (var xxxk = 0; xxxk < nodes.length; xxxk++) {
+
+                $('#depTree').treeview('checkNode', [nodes[xxxk].nodeId, { silent: true }]);
+
+                var isSel = ifDepSelected(cmpId, nodes[xxxk].id);
+
+                if (!isSel) {
+                    var cdepSelNode = {};
+                    cdepSelNode.depId = nodes[xxxk].id;
+                    cdepSelNode.depName = nodes[xxxk].text;
+                    pushDeps(cmpId, cdepSelNode);
+                }
+
+                checknode(cmpId, nodes[xxxk].nodes);
+            }
+
+
+        }
+
+    }
+
+    function unchecknode(cmpId, nodes) {
+        if (nodes != null && nodes.length > 0) {
+            for (var xxxk = 0; xxxk < nodes.length; xxxk++) {
+                $('#depTree').treeview('uncheckNode', [nodes[xxxk].nodeId, { silent: true }]);
+
+                var delKey = nodes[xxxk].id;
+                for (var i = 0; i < cmpList.length; i++) {
+
+                    if (cmpList[i].cmpId == cmpId) {
+                        var depsTmp = cmpList[i].deps;
+
+                        for (var mm = 0; mm < depsTmp.length; mm++) {
+                            if (depsTmp[mm].depId == nodes[xxxk].id) {
+                                cmpList[i].deps.splice(mm, 1);
+                            }
+                        }
+                    }
+
+
+                }
+
+                unchecknode(cmpId, nodes[xxxk].nodes);
+            }
+        }
+    }
+    
+    if (window.location.pathname.split("/")[2] == "Search") {
+        $("#Back").css("display", "block");
+    }
+
+
+    $('.advanced-filter-btn').click(function () {
+        $('#search_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+            },
+            onClose: function () {
+            }
+            
+        });
+    });
+
+    function addCondition(){
+        if($(".itm .cln").length<5){
+            $(".cln:last").after($('.cln:last').clone(true));
+        }
+    }
+   
+    function deleteCondition(){
+        if($(".itm .cln").length<=2){
+
+        }else{
+            $(".cln:last").remove();
+        }
+        
+    }
+</script>
+

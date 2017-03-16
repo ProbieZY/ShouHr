@@ -1,0 +1,583 @@
+﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
+@model IPagedList<BlueHrLib.Data.ShiftJobRecord>
+@{
+    ViewBag.Title = "员工调岗";
+}
+@{
+    bool canCreate = MenuAuthHelper.CanShow("ShiftJobRecord", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("ShiftJobRecord", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("ShiftJobRecord", "Delete");
+    bool canApproval = MenuAuthHelper.CanShow("ShiftJobRecord", "Approval");
+}
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>劳动关系管理</li>
+    <li>
+        <strong>员工调岗</strong>
+    </li>
+</ol>
+<hr class="hr-grey" />
+
+<div class="search">
+    <form action="/ShiftJobRecord/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>工号</span>
+                    <input type="text" name="staffNr" id="staffNr" placeholder="工号" value="@ViewBag.Query.staffNr" />
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success pull-left" style="margin-right: 5px;">
+                    <i class="fa fa-search"></i>
+                    <span>搜索</span>
+                </button>
+                <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
+                    <i class="fa fa-filter"></i>
+                    <span>自定义搜索</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+ @* 自定义搜索 *@
+<div id="search_content" class="import_content" style="display:none;">
+       <form action="/ShiftJobRecord/AdvancedSearch" method="post">
+            <div class="dialogModal_header" style="background:steelblue; color:white;">
+                自定义搜索信息
+            </div>
+            <div class="dialogModal_body itm" style="margin:8px;">
+                <div class="row cln">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>字段</span>
+                            @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>条件</span>
+                            @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>值</span>
+                            <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <div class="dialogModal_footer row" style="margin: 0;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button type="submit" class="marco-btn-success pull-right">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button class="marco-btn-primary pull-right" title="点击删除字段" type="button" onclick="deleteCondition()">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button class="marco-btn-primary pull-right" title="点击添加字段" type="button" onclick="addCondition()">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div> 
+        </form>
+</div>
+<hr class="hr-primary" />
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        @if (canCreate)
+        {
+            <a href="/ShiftJobRecord/Create" class="pull-right" style="margin-top: -10px;">
+                <button type="button" class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#Not_Approve" role="tab" data-toggle="tab">未审批</a></li>
+            <li role="presentation"><a href="#Already_Approve" role="tab" data-toggle="tab">已审批</a></li>
+            <li role="presentation"><a href="#ShiftJobRecord" role="tab" data-toggle="tab">全部调岗申请</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Not_Approve">
+                <div id="Not_Approve_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>申请人</th>                          
+                            <th>申请日期</th>
+                            <th>申请备注</th>
+                            <th>审批人</th>
+                            <th>审批日期</th>
+                            <th>审批状态</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {   
+                            foreach (var item in Model)
+                            {
+                                if(item.approvalStatus==null){
+                                <tr>
+                                    <td>
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td>                                       
+                                        @Html.DisplayFor(modelItem => item.beforeCompanyName)
+                                       <i class="fa fa-long-arrow-right"></i>
+                                        @Html.DisplayFor(modelItem => item.afterCompanyName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.beforeDepartmentName)
+                                        <i class="fa fa-long-arrow-right"></i>
+                                        @Html.DisplayFor(modelItem => item.afterDepartmentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.beforeJobName)
+                                        <i class="fa fa-long-arrow-right"></i>
+                                        @Html.DisplayFor(modelItem => item.afterJobName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.userName)
+                                    </td>
+                                    <td>
+                                        <!--值不可为空-->
+                                        <span>@item.createdAt.ToString("yyyy-MM-dd")</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalUserName)
+                                    </td>
+                                    <td>
+                                        <!--值可为空-->
+                                        @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+
+                                    <td>未审批</td>
+                                        
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalRemark)
+                                    </td>
+                                    <td>
+                                        @if (canDelete)
+                                        {
+                                            <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                         }
+                                         @if (canEdit)
+                                         {
+                                            <a href="/ShiftJobRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                         }
+                                         @if (canApproval)
+                                         {
+                                            <a title="审批"class="option-icon-danger" onclick="shShiftJobRecord(@item.id)">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                         }
+                                    </td>
+                                </tr>
+                                 }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Already_Approve">
+                <div id="Already_Approve_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>申请人</th>                          
+                            <th>申请日期</th>
+                            <th>申请备注</th>
+                            <th>审批人</th>
+                            <th>审批日期</th>
+                            <th>审批状态</th>
+                            <th>备注</th>
+                            @*<th>操作</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                 if(item.approvalStatus!=null){
+                                <tr>
+                                    <td>
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td>                                       
+                                        @Html.DisplayFor(modelItem => item.beforeCompanyName)
+                                       <i class="fa fa-long-arrow-right"></i>
+                                        @Html.DisplayFor(modelItem => item.afterCompanyName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.beforeDepartmentName)
+                                        <i class="fa fa-long-arrow-right"></i>
+                                        @Html.DisplayFor(modelItem => item.afterDepartmentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.beforeJobName)
+                                        <i class="fa fa-long-arrow-right"></i>
+                                        @Html.DisplayFor(modelItem => item.afterJobName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.userName)
+                                    </td>
+                                    <td>
+                                        <!--值不可为空-->
+                                        <span>@item.createdAt.ToString("yyyy-MM-dd")</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalUserName)
+                                    </td>
+                                    <td>
+                                        <!--值可为空-->
+                                        @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+                                        
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalStatus)
+                                    </td>
+                                        
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalRemark)
+                                    </td>
+                                    @*<td>
+                                        @if (canDelete)
+                                        {
+                                            <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
+                                    </td>*@
+                                </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="ShiftJobRecord">
+                <div id="ShiftJobRecord_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>申请人</th>                          
+                            <th>申请日期</th>
+                            <th>申请备注</th>
+                            <th>审批人</th>
+                            <th>审批日期</th>
+                            <th>审批状态</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td>                                       
+                                        @Html.DisplayFor(modelItem => item.beforeCompanyName)
+                                       <i class="fa fa-long-arrow-right"></i>
+                                        @Html.DisplayFor(modelItem => item.afterCompanyName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.beforeDepartmentName)
+                                        <i class="fa fa-long-arrow-right"></i>
+                                        @Html.DisplayFor(modelItem => item.afterDepartmentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.beforeJobName)
+                                        <i class="fa fa-long-arrow-right"></i>
+                                        @Html.DisplayFor(modelItem => item.afterJobName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.userName)
+                                    </td>
+                                    <td>
+                                        <!--值不可为空-->
+                                        <span>@item.createdAt.ToString("yyyy-MM-dd")</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalUserName)
+                                    </td>
+                                    <td>
+                                        <!--值可为空-->
+                                        @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+                                        @if(item.approvalStatus == null){
+                                            <td>未审批</td>
+                                        }else{
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                        }
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalRemark)
+                                    </td>
+                                    <td>
+                                        
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            if (canDelete)
+                                            {
+                                                <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            if (canEdit)
+                                            {
+                                                <a href="/ShiftJobRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            if (canApproval)
+                                            {
+                                                <a title="审批" class="option-icon-danger" onclick="shShiftJobRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="approval_content" class="approval_content" style="display:none;">
+        <div class="dialogModal_header" style="background:steelblue;color:white;">
+            调岗审批
+        </div>
+
+        <div class="dialogModal_content">
+            <div class="marco-nbody row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>审批状态</span>
+                        <select id="aplStatus" name="aplStatus">                            
+                            <option value="通过审批">审批通过</option>
+                            <option value="未通过审批">审批未通过</option>
+                        </select>
+                    </div>
+                </div>
+                <br/>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="marco-textarea">
+                        <span>审批备注</span>
+                        <textarea id="apvRemarks" name="apvRemarks"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dialogModal_footer row" style="margin: 0;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <button class="marco-btn-primary pull-right" title="确定" data-dialogmodalbut="ok" type="button" >
+                    确定
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        Layout.init();
+        
+        var TableWidth = $(window).width() - 280;
+
+        if($.cookie('left_sidebar')=="true"){
+            TableWidth  = $(window).width() - 110;
+        }
+
+        $(window).resize(function () {
+            Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
+            Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
+            Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "ShiftJobRecord", "调岗申请列表", "20", "ShiftJobRecord_grid_table");
+        })
+
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
+
+        $('#Already_Approve').addClass("active");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
+        $('#Already_Approve').removeClass("active");
+        
+        $('#ShiftJobRecord').addClass("active");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "ShiftJobRecord", "调岗申请列表", "20", "ShiftJobRecord_grid_table");
+        $('#ShiftJobRecord').removeClass("active");
+
+        $('.datetimepicker').datetimepicker({
+            format: 'Y-m-d',
+            timepicker: false
+        });
+
+        $('.import-button-dialog').click(function () {
+            $('#dialog_content').dialogModal({
+                onOkBut: function () {
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+                    data_upload(".item-data-uploader");
+                },
+                onClose: function () {
+                    window.location.reload();
+                }
+            });
+        });
+
+        //审核
+        function shShiftJobRecord(id) {
+            $('#approval_content').dialogModal({
+                onOkBut: function () {
+                    var approvalStatus = $(".dialogModal").find("#aplStatus").val();
+                    var approvalRemarks = $(".dialogModal").find("#apvRemarks").val();
+
+                    if (approvalStatus == null || approvalStatus == "") {
+                        Layout.popMsg('popMsg-danger', "请选择审批状态！");
+                        return;
+                    }
+                    else {
+                        $.post("/ShiftJobRecord/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemarks }, function (data) {
+
+                            if (!data.Success) {
+                                $('#approval_content').dialogModal("hide");
+                                Layout.popMsg('popMsg-danger', data.Content);
+                                return false;
+                            }
+                            else {
+                                $('#approval_content').dialogModal("hide");
+                                Layout.popMsg('popMsg-danger', data.Content);
+                                window.location.reload();
+                            }
+                        });
+                    }
+                },
+                onCancelBut: function () { 
+                
+                },
+                onLoad: function () {
+
+                },
+                onClose: function () {
+                    //window.location.reload();
+                }
+            });
+        }
+
+        //批量审核
+        function shBatchAbsenceRecord() {
+            var items = get_items();
+            if (items.length == 0) {
+                alert("请选择需要审批项");
+                return;
+            }
+            $("#thePkId").val(items);
+
+            $('#approval_content').dialogModal({
+                onOkBut: function () {
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+
+                },
+                onClose: function () {
+                    //window.location.reload();
+                }
+            });
+        }
+        
+        function get_items() {
+            var items = [];
+            $.each($('.record-approve:checked'), function (i, item) {
+                // console.log($(item).attr('id'));
+                items.push($(item).attr('id'));
+            });
+            return items;
+        }
+        $('.advanced-filter-btn').click(function () {
+            $('#search_content').dialogModal({
+                onOkBut: function () {
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+                },
+                onClose: function () {
+                }
+            });
+        });
+        function addCondition(){
+            if($(".itm .cln").length<5){
+                $(".cln:last").after($('.cln:last').clone(true));
+            }   
+        }
+        
+        function deleteCondition(){
+            if($(".itm .cln").length<=2){
+
+            }else{
+                $(".cln:last").remove();
+            }
+        }
+
+    </script>

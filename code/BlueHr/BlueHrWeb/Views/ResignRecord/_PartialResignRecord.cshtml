@@ -1,0 +1,212 @@
+﻿@model BlueHrLib.Data.ResignRecord
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("ResignRecord", "Deleted");
+}
+
+<input type="hidden" id="can" value="@canDeleted.ToString()">
+
+<div id="resignrecord" style="margin:20px;">
+    <ol class="breadcrumb current-position">
+        您的位置：
+        <li>@Html.ActionLink("离职管理", "Index")</li>
+        <li>{{action}}</li>
+    </ol>
+
+    <hr class="hr-grey" />
+
+    <input type="hidden" id="error_info" value="@ViewBag.ErrorMsg" />
+
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        if (Model != null)
+        {
+            @Html.HiddenFor(model => model.id)
+        }
+
+        <div class="marco-npanel-primary">
+            <div class="marco-nheading">
+                {{action}}
+
+                <div class="pull-right">
+                    <button type="submit" class="marco-btn-primary submit-btn" style="margin-top:-10px; padding: 0 10px;">
+                        <i class="fa fa-check-circle-o"></i>
+                        <span>{{actionBtn}}</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="marco-nbody">
+                <div class="row" style="margin:0;">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>工号</span>
+                            @if (Model != null)
+                            {
+                                <select name="staffNrSelect" id="staffNrSelect"></select>
+                                <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" value="@Model.staffNr"  />
+                            }
+                            else
+                            {
+                                <select name="staffNrSelect" id="staffNrSelect"></select>
+                                <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" />
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>离职原因</span>
+                            <select name="resignTypeId" id="resignTypeId"></select>
+                            <input type="hidden" id="resignTypeName" name="resignTypeName">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>申请日期 *</span>
+                            @if (Model != null&&Model.createdAt.HasValue)
+                            {
+                                <input id="resignAt" name="resignAt" value="@Model.resignAt.ToString("yyyy-MM-dd")" class="date-picker" />
+                            }
+                            else
+                            {
+                                <input id="resignAt" name="resignAt" value="" class="date-picker" />
+                            }
+                            <!--@Html.EditorFor(model => model.resignAt, new { htmlAttributes = new { @class = "date-picker" } })-->
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>离职生效日期</span>
+                            @if (Model != null&&Model.createdAt.HasValue)
+                            {
+                                <input id="resignEffectiveAt" name="resignEffectiveAt" value="@Model.resignEffectiveAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                            }
+                            else
+                            {
+                                <input id="resignEffectiveAt" name="resignEffectiveAt" value="" class="date-picker" />
+                            }
+                        </div>
+                    </div>
+                    @if (Model != null)
+                    {
+                    <div class="approval-prp">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请日期</span>
+                                @if (Model.createdAt.HasValue)
+                                {
+                                    <input id="createdAt" name="createdAt" value="@Model.createdAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                }
+                                else
+                                {
+                                    <input id="createdAt" name="createdAt" value="" class="date-picker" />
+                                }
+                                <!--@Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })-->
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请人</span>
+                                @Html.EditorFor(model => model.userName)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批人</span>
+                                @Html.EditorFor(model => model.resignChecker)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批状态</span>
+                                @Html.EditorFor(model => model.approvalStatus)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批日期</span>
+                                @if (Model.approvalAt.HasValue)
+                                {
+                                    <input id="approvalAt" name="approvalAt" value="@Model.approvalAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                }
+                                else
+                                {
+                                    <input id="approvalAt" name="approvalAt" value="" class="date-picker" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="row" style="margin:0;">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="marco-textarea">
+                            <span style="padding:3px 10px; height: 35px; margin-bottom: -2px;">离职理由</span>
+                            @Html.TextAreaFor(model => model.resignReason)
+                        </div>
+                    </div>
+                    @if (Model != null)
+                    {
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 approval-prp">
+                        <div class="marco-textarea">
+                            <span style="padding:3px 10px; height: 35px; margin-bottom: -2px;">审批备注</span>
+                            @Html.TextAreaFor(model => model.approvalRemark)
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    Layout.init();
+
+    Layout.datepicker('.date-picker');
+
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr', true);
+
+    $(".submit-btn").click(function () {
+        $("#resignTypeName").val($("#resignTypeId").parent().find(".combo-input").val());
+        if ($("#resignTypeName").val() == "" || $("#resignTypeName").val() == null) {
+            Layout.popMsg("popMsg-danger", "离职原因不能为空");
+            return false;
+        }
+    });
+
+    //将离职类型填充进去
+    $.ajax({
+        url: '/ResignType/GetResignType',
+        type: 'get',
+        success: function (data) {
+            for (var resignType =0; resignType < data.length; resignType++) {
+                $("#resignTypeId").append("<option id="+ data[resignType].id +" value=" + data[resignType].name + "> " + data[resignType].name + "</option>");
+            }
+            $('#resignTypeId').comboSelect();
+             $('#resignTypeId').css("display","none");
+        },
+        error: function () {
+            console.log("Error!");
+        }
+    });
+
+    //控制textarea高度
+    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+
+    $(window).resize(function () {
+        $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    });
+
+    if ($("#error_info").val() != "" && $("#error_info").val() != undefined) {
+        Layout.popMsg("popMsg-danger", $("#error_info").val());
+    };
+
+
+</script>

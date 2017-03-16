@@ -1,0 +1,314 @@
+﻿@using MvcPaging
+
+@model IPagedList<BlueHrLib.Data.SysRole>
+@using BlueHrWeb.Helpers.View
+@{
+    ViewBag.Title = "角色管理";
+}
+@{
+    bool canCreate = MenuAuthHelper.CanShow("SysRole", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("SysRole", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("SysRole", "Delete");
+    bool canAssignAuth = MenuAuthHelper.CanShow("SysRole", "AssignAuth");
+    bool canTableShow = MenuAuthHelper.CanShow("SysRole", "TableShow");
+}
+@Styles.Render("~/Content/multi-select")
+
+<style type="text/css">
+    #sysRoleContent > ul {
+        list-style: none;
+    }
+
+    #sysRoleContent > ul li {
+        float: left;
+        width: 120px;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 40px;
+    }
+
+    #sysRoleContent > ul li > div {
+        width: 96px;
+        height: 72px;
+        background-image: url('/Images/UserSysRole.png');
+        background-repeat: no-repeat;
+        margin-left: 24px;
+    }
+
+    #sysRoleContent > ul li i {
+        display: none;
+        color: #3498db;
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+        border: 1px solid #3498db;
+        padding: 4px 5px;
+        border-radius: 4px;
+        margin: -5px 3px;
+        position: absolute;
+    }
+
+    #sysRoleContent > ul li i:hover {
+        background: #3498db !important;
+        color: white !important;
+    }
+</style>
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>权限管理</li>
+    <li>
+        <strong>角色权限管理</strong>
+    </li>
+</ol>
+
+<hr class="hr-grey" />
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    @if(canCreate)
+    {
+        <button class="marco-btn-success create-sysRole">新建角色</button>
+    }
+    @if(canTableShow)
+    {
+        <a href="/SysRole/TableShow">
+            <button class="marco-btn-primary">角色列表展示</button>
+        </a>
+    }
+    @if(canAssignAuth)
+    {
+        <a href="/SysRole/AssignAuth">
+            <button class="marco-btn-primary assign-sysRole-to-auth">给角色分配权限</button>
+        </a>
+    }
+</div>
+
+<div class="row" style="border-top: 1px solid #3498db; margin:-6px 15px 0 18px;">
+    <div id="sysRoleContent">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+
+@*弹出框*@
+<div id="RolePopModal" class="approval_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        <span>角色管理</span>
+    </div>
+
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>名称</span>
+                    <input type="text" class="roleName" name="roleName" autofocus>
+                </div>
+            </div>
+            <br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-textarea">
+                    <span>备注</span>
+                    <textarea name="remarks" class="remarks"></textarea>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+
+    <div class="dialogModal_footer">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok">
+                确认
+            </button>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/multi-select")
+
+<script type="text/javascript">
+    Layout.init();
+
+    // 请求角色API
+    $.ajax({
+        url: '/SysRole/SysRoleTree',
+        type: 'get',
+        success: function (data) {
+            // 展示在界面上
+            // iconSkin:
+            // id:
+            // name:
+            // open:
+            // remark:
+
+            for (var i = 0; i < data.length; i++) {
+                var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
+                "@if(canEdit){<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>}" +
+                "@if(canDelete){<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>}" +
+                // "<i class='fa fa-users assignUser' title='分配用户' style='color: orange; margin-left: 10px;'></i>"+
+                "</li>";
+
+                $(Html).appendTo($("#sysRoleContent>ul"));
+            }
+
+            $('.option-icon-primary').click(function(){
+                //1920* 1200  1068 * 677 刚刚好
+                //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
+                Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+
+                return false;
+            });
+
+            $("#sysRoleContent>ul").unbind('mouseover').on('mouseover', 'li', function () {
+                $("#sysRoleContent>ul li").not($(this)).find('i').css("display", "none");
+                $(this).find('i').fadeIn(0);
+            })
+
+            $("#sysRoleContent>ul").unbind('click').on('click', 'li', function () {
+                // console.log($(this));
+                // console.log($(this).attr("id"));
+                // console.log($(this).find("p").html());
+            })
+
+            $("body").bind("click", function (evt) {
+                if ($(evt.target).parents("#sysRoleContent > ul li").length == 0) {
+                    $("#sysRoleContent>ul li").find('i').css("display", "none");
+                }
+            });
+
+            //编辑角色
+            $('.editRole').click(function () {
+                var ID = $(this).parent().attr("id");
+                var Name = $(this).parent().find("p").html();
+                var Remarks = $(this).parent().attr("title");
+
+                $('#RolePopModal').dialogModal({
+                    onOkBut: function () {
+                        //进行处理
+                        var NewName = $(".dialogModal").find(".roleName").val();
+                        var NewRemarks = $(".dialogModal").find(".remarks").val();
+
+                        // 判断是否是相等， 如果是相等，不需要进行请求API进行修改
+
+                        if (Name == NewName && Remarks == NewRemarks) {
+
+                        } else {
+                            // 请求API 进行 编辑角色名称和备注
+                            $.ajax({
+                                url: '/SysRole/Edit',
+                                type: 'post',
+                                data: {
+                                    id: ID,
+                                    name: NewName,
+                                    remarks: NewRemarks
+                                },
+                                success: function (data) {
+                                    if (data) {
+                                        window.location.reload();
+                                    } else {
+                                        return false;
+                                    }
+                                },
+                                error: function () {
+                                    return false;
+                                }
+                            })
+                        }
+                    },
+                    onCancelBut: function () {
+                    },
+                    onLoad: function () {
+                        // 填充数据
+                        $(".roleName").val(Name);
+                        $(".remarks").val(Remarks == "null" ? "" : Remarks);
+                    },
+                    onClose: function () {
+                    }
+                });
+
+            })
+
+            //删除角色
+            $('.removeRole').click(function () {
+                var ID = $(this).parent().attr("id");
+
+                if (confirm("确认删除该角色?")) {
+                    $.ajax({
+                        url: '/SysRole/Delete',
+                        type: 'post',
+                        data: {
+                            id: ID
+                        },
+                        success: function (data) {
+                            if (data) {
+                                window.location.reload();
+                            } else {
+                                Layout.popMsg("popMsg-danger", "删除失败， 角色正在使用");
+                                return false;
+                            }
+                        },
+                        error: function () {
+                            // console.log("请求API失败")
+                        }
+                    })
+                }
+            })
+            //如何分配用户
+
+            $(".assignUser").click(function(){
+                // 弹框进行显示。 左右分隔分配用户
+                $('#AssignToUser').dialogModal({
+                    onOkBut: function () {
+                       
+                    },
+                    onCancelBut: function () {},
+                    onLoad: function () {
+                        $(".dialogModal").find('#assign-to-user-headers').multiSelect();
+                    },
+                    onClose: function () {}
+                });
+            })
+        },
+        error: function () {
+            // console.log("请求API 失败");
+        }
+    })
+
+    //新建角色
+    $('.create-sysRole').click(function () {
+        $('#RolePopModal').dialogModal({
+            onOkBut: function () {
+                //进行处理
+                var Name = $(".dialogModal").find(".roleName").val();
+                var Remarks = $(".dialogModal").find(".remarks").val();
+
+                $.ajax({
+                    url: '/SysRole/Create',
+                    type: 'post',
+                    data: {
+                        name: Name,
+                        remarks: Remarks
+                    },
+                    success: function (data) {
+                        if (data) {
+                            window.location.reload();
+                        } else {
+                            // console.log("新建失败");
+                            return false;
+                        }
+                    },
+                    error: function () {
+                        // console.log("新建失败");
+                        return false;
+                    }
+                })
+            },
+            onCancelBut: function () { },
+            onLoad: function () { },
+            onClose: function () { }
+        });
+    })
+</script>
+
+

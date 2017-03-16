@@ -1,0 +1,168 @@
+﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+@model IPagedList<BlueHrLib.Data.Department>
+
+@{
+    ViewBag.Title = "部门架构列表";
+}
+@{
+    bool canCreate = MenuAuthHelper.CanShow("Department", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("Department", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("Department", "Delete");
+    bool canImport = MenuAuthHelper.CanShow("Department", "Import");
+}
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>组织架构</li>
+    <li>
+        <strong>部门架构列表</strong>
+    </li>
+</ol>
+
+<hr class="hr-grey" />
+
+
+<div class="search">
+    <form action="/Department/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+                <div class="marco-igroup-primary">
+                    <span>公司名称</span>
+                    @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+           
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>部门名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="部门名称" value="@ViewBag.Query.Name" />
+                    @*@Html.DropDownList("DepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
+                @if (canImport)
+                {
+                    <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
+                        导入部门
+                    </button>
+                }
+            </div>
+        </div>
+    </form>
+</div>
+
+<hr class="hr-primary" />
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        @if (canCreate)
+        {
+            <a href="/Department/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#all_Department" role="tab" data-toggle="tab">所有部门</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane  active" id="all_Department">
+                <div id="all_Department_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th>部门名称</th>
+                                <th>所属公司</th>                    
+                                <th>上级部门名称</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                       
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ParentDepartment.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            @if (canDelete)
+                                            {
+                                                <a href="/Department/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                                <a href="/Department/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--导入数据-->
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导入部门数据
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/Department/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/部门导文件模板.xlsx" target="_blank">下载文件模板</a>
+    </div>
+
+</div>
+<script type="text/javascript">
+    Layout.init();
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Department", "所有部门列表", "20", "all_Department_grid_table");
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Department", "所有部门列表", "20", "all_Department_grid_table");
+    
+    $('.import-button-dialog').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+                window.location.reload();
+            }
+        });
+    });
+</script>

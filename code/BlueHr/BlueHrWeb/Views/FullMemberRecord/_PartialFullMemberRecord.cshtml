@@ -1,0 +1,186 @@
+﻿@model BlueHrLib.Data.FullMemberRecord
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("FullMemberRecord", "Deleted");
+}
+<input type="hidden" id="can" value="@canDeleted.ToString()">
+<div id="fullMemberRecord" style="margin:20px;">
+    <ol class="breadcrumb current-position">
+        您的位置：
+        <li>个人事项</li>
+        <li>我的申请</li>
+        <li>{{action}}</li>
+    </ol>
+
+    <hr class="hr-grey" />
+
+    <input type="hidden" id="error_info" value="@ViewBag.ErrorMsg" />
+
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        if (Model != null)
+        {
+            @Html.HiddenFor(model => model.id)
+        }
+
+        <div class="marco-npanel-primary">
+            <div class="marco-nheading">
+                {{action}}
+
+                <div class="pull-right">
+                    <button type="submit" class="marco-btn-primary submit-btn" style="margin-top:-10px; padding: 0 10px;">
+                        <i class="fa fa-check-circle-o"></i>
+                        <span>{{actionBtn}}</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="marco-nbody">
+                <div class="row" style="margin:0;">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <label for="name">员工号 *</label>
+                             @if(Model != null)
+                             {
+                                <select name="staffNrSelect" id="staffNrSelect"></select>
+                                <input type="hidden" name="staffNr" id="staffNr" placeholder="员工号" value="@Model.staffNr">
+                            }
+                            else{
+                                <select name="staffNrSelect" id="staffNrSelect"></select>
+                                <input type="hidden" name="staffNr" id="staffNr" placeholder="员工号">
+                            }
+                            <!--@Html.DropDownList("staffNr", ViewData["onTrialStaff"] as IEnumerable<SelectListItem>)-->
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <label for="name">是否通过转正</label>
+                            @Html.EditorFor(model => model.isPassCheck, new { htmlAttributes =  new {@style="width: 24px; margin-left: 20px;"} })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <label for="name">转正分数</label>
+                            @Html.EditorFor(model => model.checkScore)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <label for="name">转正日期</label>
+                            @if (Model != null)
+                            {
+                                <input id="beFullAt" name="beFullAt" value="@Model.beFullAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                            }
+                            else
+                            {
+                                <input id="beFullAt" name="beFullAt" value="" class="date-picker" />
+                            }
+                            <!--@Html.EditorFor(model => model.beFullAt, new { htmlAttributes = new { @class = "date-picker" } })-->
+                        </div>
+                    </div>
+                    @if (Model != null)
+                    {
+                    <div class="approval-prp">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请日期</span>
+                                @if (Model.createdAt.HasValue)
+                                {
+                                    <input id="createdAt" name="createdAt" value="@Model.createdAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                }
+                                else
+                                {
+                                    <input id="createdAt" name="createdAt" value="" class="date-picker" />
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请人</span>
+                                @Html.EditorFor(model => model.userName)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批人</span>
+                                @Html.EditorFor(model => model.approvalUserName)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批状态</span>
+                                @Html.EditorFor(model => model.approvalStatus)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批日期</span>
+                                @if (Model.approvalAt.HasValue)
+                                {
+                                    <input id="approvalAt" name="approvalAt" value="@Model.approvalAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                }
+                                else
+                                {
+                                    <input id="approvalAt" name="approvalAt" value="" class="date-picker" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="row" style="margin:0;">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="marco-textarea">
+                            <span style="padding:3px 10px; height: 35px; margin-bottom: -2px;">转正备注</span>
+                            @Html.TextAreaFor(model => model.remark)
+                        </div>
+                    </div>
+                    @if (Model != null)
+                    {
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 approval-prp">
+                            <div class="marco-textarea">
+                                <span style="padding:3px 10px; height: 35px; margin-bottom: -2px;">审批备注</span>
+                                @Html.TextAreaFor(model => model.approvalRemark)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    Layout.init();
+
+    Layout.datepicker(".date-picker"); 
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr', true);
+
+    $(".submit-btn").click(function(){
+        $("#resignTypeName").val($(".combo-input").val());
+        // $("#staffNr").val($("#onTrialStaff").val());
+
+        console.log($("#staffNr").val());
+        if($("#staffNr").val()==""){
+            Layout.popMsg("popMsg-danger", "员工号不能为空");
+            return false;
+        }
+    })
+
+    //控制textarea高度
+    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    $(window).resize(function () {
+        $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    });
+
+    if ($("#error_info").val() != "" && $("#error_info").val() != undefined) {
+        Layout.popMsg("popMsg-danger", $("#error_info").val());
+    }
+
+</script>
