@@ -24,28 +24,28 @@ Layout.init = function () {
     switch (pathname[1]) {
         case "Home":
             $('.nav-myHome').addClass('active');
-            if(pathname[2] == "NoAuthPage"){
-                $(".main-header").remove();
-                $(".main-sidebar").remove();
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-                $(window).resize(function(){
-                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-                })
-            }       
+            // if(pathname[2] == "NoAuthPage"){
+            //     $(".main-header").remove();
+            //     $(".main-sidebar").remove();
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            //     $(window).resize(function(){
+            //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            //     })
+            // }       
             break;
         case "SysRole":
             // 跳转界面
             $('.nav-userAuthorization').addClass('active');
             $('.nav-sysRole').addClass('active');
             // 删除页面头部和侧边栏
-            if(pathname[2]=="AssignAuth"||pathname[2]=="TableShow"){
-                $(".main-header").remove();
-                $(".main-sidebar").remove();
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-                $(window).resize(function(){
-                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-                })
-            }
+            // if(pathname[2]=="AssignAuth"||pathname[2]=="TableShow"){
+            //     $(".main-header").remove();
+            //     $(".main-sidebar").remove();
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            //     $(window).resize(function(){
+            //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            //     })
+            // }
             
             PageAction('#sysrole', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
             break;  
@@ -145,23 +145,23 @@ Layout.init = function () {
             $('.nav-certificate').addClass('active');
             PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
 
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            // $(".main-header").remove();
+            // $(".main-sidebar").remove();
+            // $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
+            // $(window).resize(function(){
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            // })
             break;
         case "MessageRecord":
-            if(pathname[2] == "Index"){
-                $(".main-header").remove();
-                $(".main-sidebar").remove();
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-                $(window).resize(function(){
-                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-                })
-            }
+            // if(pathname[2] == "Index"){
+            //     $(".main-header").remove();
+            //     $(".main-sidebar").remove();
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            //     $(window).resize(function(){
+            //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            //     })
+            // }
             break;
         case "AbsenceRecrod":
             $('.nav-absencerecrod').addClass('active');
@@ -313,93 +313,90 @@ Layout.init = function () {
             }
         });
         if (pathname[2] == "Edit") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            })
-
+            // $(".main-header").remove();
+            // $(".main-sidebar").remove();
+            // $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            // $(window).resize(function(){
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            // })
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
         } else if (pathname[2] == "Delete") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            })
+            // $(".main-header").remove();
+            // $(".main-sidebar").remove();
+            // $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            // $(window).resize(function(){
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            // })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
-        } else if(pathname[2] == "Create"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+        } 
+        // else if(pathname[2] == "Create"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+    //         })
+    //     }else if(pathname[2] == "changepwd"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            })
-        }else if(pathname[2] == "changepwd"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            })
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         })
             
-        }else if(pathname[2] == "UserMsg"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //     }else if(pathname[2] == "UserMsg"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }else if(pathname[2] == "Log"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         })
+    //     }else if(pathname[2] == "Log"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            })
-        }else if(pathname[2] == "TableShow"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         })
+    //     }else if(pathname[2] == "TableShow"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            })
-        }else if(pathname[1] == "SysRole"&&pathname[2] == "Search"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         })
+    //     }else if(pathname[1] == "SysRole"&&pathname[2] == "Search"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }else if(pathname[1] == "JobTitle"&&pathname[2] == "Search"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         })
+    //     }else if(pathname[1] == "JobTitle"&&pathname[2] == "Search"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }
-        // else if(pathname[1] == "Certificate"){
-        //     $(".main-header").remove();
-        //     $(".main-sidebar").remove();
-        //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         })
+    //     }
+    //     else if(pathname[1] == "Certificate"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-        //     $(window).resize(function(){
-        //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-        //     })
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         })
+    // }
     }
 }
 

@@ -1,10 +1,9 @@
 ﻿@using MvcPaging
-
 @model IPagedList<BlueHrLib.Data.Staff>
 @using BlueHrWeb.Helpers.View
 
 @{
-    ViewBag.Title = "员工信息";
+    ViewBag.Title = "员工管理";
 }
 <!-- <style>
     .dialogModal .dialogModal_container{
@@ -28,23 +27,21 @@
     bool canIndex = MenuAuthHelper.CanShow("Certificate", "Index");
 
 }
-@*<button id="Back" style="display:none;" class="marco-btn-primary">Back</button>*@
-
 @*Search*@
 <div class="search">
     @* 简单搜索 *@
     <form action="/Staff/Search" method="get">
         <div class="row" style="margin:0;">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>身份证</span>
                     <input type="text" name="Id" id="Id" value="@ViewBag.Query.Id" placeholder="身份证号码" />
                 </div>
-            </div>
+            </div>*@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
-                    <span>员工号</span>
-                    <input type="text" name="Nr" id="Nr" value="@ViewBag.Query.Nr" placeholder="员工号" />
+                    <span>工号</span>
+                    <input type="text" name="Nr" id="Nr" value="@ViewBag.Query.Nr" placeholder="工号" />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -138,7 +135,7 @@
         {
             <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px;">
                 <i class="fa fa-cloud-upload"></i>
-                <span>上传</span>
+                <span>导入</span>
             </button>
         }
 
@@ -147,7 +144,7 @@
             <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
-                    <span>创建</span>
+                    <span>新建</span>
                 </button>
             </a>
         }
@@ -166,13 +163,12 @@
                     <thead>
                         <tr>
                             <th>工号</th>
-                            <th>身份证</th>
+                            @*<th>身份证</th>*@
                             <th>姓名</th>
                             <th>性别</th>
-                            <th>公司</th>
-                            <th>部门</th>
+                            <th>学院</th>
                             <th>职位</th>
-                            <th>是否备齐证照</th>
+                            @*<th>是否备齐证照</th>*@
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -187,7 +183,7 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.nr)
                                         </td>
-                                        <td>
+                                        @*<td>
                                             <span style="display:inline;">
                                                 @Html.DisplayFor(modelItem => item.id)
                                             </span>
@@ -204,7 +200,7 @@
                                                     未验证
                                                 </span>
                                     }
-                                        </td>
+                                        </td>*@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.name)
                                         </td>
@@ -212,9 +208,9 @@
                                             @Html.DisplayFor(modelItem => item.sexDisplay)
                                         </td>
 
-                                        <td>  
+                                        @*<td>  
                                             @Html.DisplayFor(modelItem => item.Company.name)
-                                        </td>
+                                        </td>*@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.departmentFullName)
                                         </td>
@@ -223,7 +219,7 @@
                                             @Html.DisplayFor(modelItem => item.JobTitle.name)
                                         </td>
 
-                                        <td>
+                                        @*<td>
                                             @if (item.IsHasAllCertificate)
                                             {
                                                 <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
@@ -232,7 +228,7 @@
                                             {
                                                 <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
                                             }
-                                        </td>
+                                        </td>*@
 
                                         <td>
                                             @if (canDelete)
@@ -268,94 +264,97 @@
                     <thead>
                         <tr>
                             <th>工号</th>
-                            <th>身份证</th>
+                            @*<th>身份证</th>*@
                             <th>姓名</th>
                             <th>性别</th>
-                            <th>公司</th>
-                            <th>部门</th>
+                            <th>学院</th>
                             <th>职位</th>
-                            <th>是否备齐证照</th>
+                            @*<th>是否备齐证照</th>*@
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if (Model != null)
-                    {
-                        foreach (var off_item in Model)
                         {
-                            if (off_item.workStatus == 200)
+                            foreach (var item in Model)
                             {
+                                if (item.workStatus == 200)
+                                {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => off_item.nr)
+                                            @Html.DisplayFor(modelItem => item.nr)
                                         </td>
-                                        <td>
-                                            <span style="display:inline;">
-                                                @Html.DisplayFor(modelItem => off_item.id)
-                                            </span>
+                                        @*<td>
+                                                    <span style="display:inline;">
+                                                        @Html.DisplayFor(modelItem => item.id)
+                                                    </span>
 
-                                            @if (off_item.isIdChecked)
-                                        {
-                                                <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
-                                                    已验证
-                                                </span>
-                                        }
-                                        else
-                                        {
-                                                <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
-                                                    未验证
-                                                </span>
-                                        }
+                                                    @if (item.isIdChecked)
+                                            {
+                                                        <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                            已验证
+                                                        </span>
+                                            }
+                                            else
+                                            {
+                                                        <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                            未验证
+                                                        </span>
+                                            }
+                                                </td>*@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => off_item.name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => off_item.sexDisplay)
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => off_item.Company.name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => off_item.departmentFullName)
+                                            @Html.DisplayFor(modelItem => item.sexDisplay)
                                         </td>
 
+                                        @*<td>
+                                                @Html.DisplayFor(modelItem => item.Company.name)
+                                            </td>*@
                                         <td>
-                                            @Html.DisplayFor(modelItem => off_item.JobTitle.name)
+                                            @Html.DisplayFor(modelItem => item.departmentFullName)
                                         </td>
 
                                         <td>
-                                            @if (off_item.IsHasAllCertificate)
-                                        {
-                                                <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
-                                        }
-                                        else
-                                        {
-                                                <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
-                                        }
+                                            @Html.DisplayFor(modelItem => item.JobTitle.name)
                                         </td>
+
+                                        @*<td>
+                                                @if (item.IsHasAllCertificate)
+                                                {
+                                                    <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                                }
+                                            </td>*@
 
                                         <td>
                                             @if (canDelete)
                                             {
-                                                <a href="/Staff/Delete/@off_item.nr" class="option-icon-primary" title="详情">
+                                                <a href="/Staff/Delete/@item.nr" target="window_name" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                             }
                                             @if (canEdit)
                                             {
-                                            <a href="/Staff/Edit/@off_item.nr" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
+                                                <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
                                             }
-
-                                            
+                                            @if (canIndex)
+                                            {
+                                                <a href="/Certificate?nr=@item.nr" title="证照管理" class="option-icon-success">
+                                                    <i class="fa fa-newspaper-o"></i>
+                                                </a>
+                                            }
                                         </td>
                                     </tr>
+                                }
                             }
                         }
-                    }
                     </tbody>
                 </table>
             </div>
@@ -366,43 +365,42 @@
                     <thead>
                         <tr>
                             <th>工号</th>
-                            <th>身份证</th>
+                            @*<th>身份证</th>*@
                             <th>姓名</th>
                             <th>性别</th>
-                            <th>公司</th>
-                            <th>部门</th>
+                            <th>学院</th>
                             <th>职位</th>
-                            <th>是否备齐证照</th>
+                            @*<th>是否备齐证照</th>*@
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if (Model != null)
-                    {
-                        foreach (var item in Model)
                         {
+                            foreach (var item in Model)
+                            {
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.nr)
                                     </td>
-                                    <td>
-                                        <span style="display:inline;">
-                                            @Html.DisplayFor(modelItem => item.id)
-                                        </span>
+                                    @*<td>
+                                                <span style="display:inline;">
+                                                    @Html.DisplayFor(modelItem => item.id)
+                                                </span>
 
-                                        @if (item.isIdChecked)
+                                                @if (item.isIdChecked)
                                         {
-                                            <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
-                                                已验证
-                                            </span>
+                                                    <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                        已验证
+                                                    </span>
                                         }
                                         else
                                         {
-                                            <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
-                                                未验证
-                                            </span>
+                                                    <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                        未验证
+                                                    </span>
                                         }
-                                    </td>
+                                            </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.name)
                                     </td>
@@ -410,9 +408,9 @@
                                         @Html.DisplayFor(modelItem => item.sexDisplay)
                                     </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Company.name)
-                                    </td>
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.departmentFullName)
                                     </td>
@@ -421,21 +419,21 @@
                                         @Html.DisplayFor(modelItem => item.JobTitle.name)
                                     </td>
 
-                                    <td>
-                                        @if (item.IsHasAllCertificate)
-                                        {
-                                            <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
-                                        }
-                                    </td>
+                                    @*<td>
+                                            @if (item.IsHasAllCertificate)
+                                            {
+                                                <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                            }
+                                        </td>*@
 
                                     <td>
                                         @if (canDelete)
                                         {
-                                            <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
+                                            <a href="/Staff/Delete/@item.nr" target="window_name" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         }
@@ -453,12 +451,12 @@
                                         }
                                     </td>
                                 </tr>
+                            }
                         }
-                    }
                     </tbody>
                 </table>
             </div>
-             <div role="tabpanel" class="tab-pane" id="employ_staff">
+            @*<div role="tabpanel" class="tab-pane" id="employ_staff">
                 <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="employ_staff_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
@@ -548,7 +546,7 @@
                     }
                     </tbody>
                 </table>
-            </div>
+            </div>*@
 
         </div>
     </div>
