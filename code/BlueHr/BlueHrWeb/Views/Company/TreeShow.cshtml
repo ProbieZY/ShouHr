@@ -1,12 +1,12 @@
 ﻿@{
-    ViewBag.Title = "公司组织架构视图";
+    ViewBag.Title = "组织架构视图";
 }
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>组织架构</li>
     <li>
-        <strong>公司组织架构视图</strong>
+        <strong>组织架构视图</strong>
     </li>
 </ol>
 
@@ -19,7 +19,7 @@
     </div>
     <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
         <div class="marco-igroup-primary" style="width: 200px;">
-            <span>公司</span>
+            <span>校区</span>
             @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
         </div>
     </div>
@@ -37,7 +37,7 @@
 
     LoadOrganization();
     
-    Layout.popMsg("popMsg-success", "双击可以跳转到员工详情界面");
+    Layout.popMsg("popMsg-success", "双击可以跳转到职工详情界面");
 
     $("#companyId").change(function(){
         LoadOrganization();
@@ -65,7 +65,7 @@
         $("#myOverviewDiv").remove();
         $("#myDiagramDiv").remove();
 
-        var Html = "<span style='font-size: 14px; font-family: 黑体; position:absolute; top: 120px; right: 40px; color: #3498db;'>Tips: 双击部门， 可以跳转到对应的员工界面</span>" +
+        var Html = "<span style='font-size: 14px; font-family: 黑体; position:absolute; top: 120px; right: 40px; color: #3498db;'>Tips: 双击学院， 可以跳转到对应的职工信息界面</span>" +
         "<div id='myOverviewDiv' style='font-size: 20px; height: 100px;'></div>"+
         "<div id='myDiagramDiv' style='background-color: white; border-radius: 10px; width: 100%;'></div>"; 
         $(Html).appendTo($(".OrganizationShow"));

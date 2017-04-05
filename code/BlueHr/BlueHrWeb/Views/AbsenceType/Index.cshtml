@@ -112,10 +112,9 @@
 <script type="text/javascript">
     Layout.init();
 
-    var TableWidth = $(window).width() - 290;
-
-    if($.cookie('left_sidebar')=="true"){
-        TableWidth  = $(window).width() - 105;
+    var TableWidth = $(window).width() - 300;
+    if ($.cookie('left_sidebar') == 'true') {
+        TableWidth = $(window).width() - 110;
     }
 
     //resize()：调整浏览器窗口大小的方法

@@ -150,9 +150,9 @@
         }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#on_staff" role="tab" data-toggle="tab">在职人员</a></li>
-            <li role="presentation"><a href="#off_staff" role="tab" data-toggle="tab">离职人员</a></li>
-            <li role="presentation"><a href="#all_staff" role="tab" data-toggle="tab">全部人员</a></li>
+            <li role="presentation" class="active"><a href="#on_staff" role="tab" data-toggle="tab">在职职工</a></li>
+            <li role="presentation"><a href="#off_staff" role="tab" data-toggle="tab">离职职工</a></li>
+            <li role="presentation"><a href="#all_staff" role="tab" data-toggle="tab">全部职工</a></li>
         </ul>
 
         <div class="tab-content">
@@ -484,9 +484,9 @@
     }
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "on_staff", "在职职工列表", "20", "on_staff_grid_table");
-        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "off_staff", "离职职工列表", "20", "off_staff_grid_table");
-        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_staff", "全部职工列表", "20", "all_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "on_staff", "在职职工列表", "20", "on_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "off_staff", "离职职工列表", "20", "off_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_staff", "全部职工列表", "20", "all_staff_grid_table");
     })
 
     Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "on_staff", "在职职工列表", "20", "on_staff_grid_table");
