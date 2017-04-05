@@ -24,28 +24,28 @@ Layout.init = function () {
     switch (pathname[1]) {
         case "Home":
             $('.nav-myHome').addClass('active');
-            if(pathname[2] == "NoAuthPage"){
-                $(".main-header").remove();
-                $(".main-sidebar").remove();
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-                $(window).resize(function(){
-                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-                })
-            }       
+            // if(pathname[2] == "NoAuthPage"){
+            //     $(".main-header").remove();
+            //     $(".main-sidebar").remove();
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            //     $(window).resize(function(){
+            //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            //     })
+            // }       
             break;
         case "SysRole":
             // 跳转界面
             $('.nav-userAuthorization').addClass('active');
             $('.nav-sysRole').addClass('active');
             // 删除页面头部和侧边栏
-            if(pathname[2]=="AssignAuth"||pathname[2]=="TableShow"){
-                $(".main-header").remove();
-                $(".main-sidebar").remove();
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-                $(window).resize(function(){
-                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-                })
-            }
+            // if(pathname[2]=="AssignAuth"||pathname[2]=="TableShow"){
+            //     $(".main-header").remove();
+            //     $(".main-sidebar").remove();
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            //     $(window).resize(function(){
+            //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            //     })
+            // }
             
             PageAction('#sysrole', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
             break;  
@@ -53,21 +53,21 @@ Layout.init = function () {
             $('.nav-organization').addClass('active');
             if(pathname[2]=="Index"){
                 $('.nav-company-list').addClass('active');
-                PageAction('#company', '新建公司', '公司编辑', '公司详情', '创建', '更新', '删除');
+                PageAction('#company', '新建校区', '校区编辑', '校区详情', '创建', '更新', '删除');
             } 
             if(pathname[2]=="TreeShow"){
                 $('.nav-organizationTreeShow').addClass('active');
             }
-            PageAction('#company', '新建公司', '公司编辑', '公司详情', '创建', '更新', '删除');
+            PageAction('#company', '新建校区', '校区编辑', '校区详情', '创建', '更新', '删除');
             break;
         case "Department":
             $('.nav-organization').addClass('active');
             $('.nav-department-list').addClass('active');
-            PageAction('#department', '新建部门', '编辑部门', '部门详情', '创建', '更新', '删除');
+            PageAction('#department', '新建学院', '编辑学院', '学院详情', '创建', '更新', '删除');
             break;	
         case "Period":
             $('.nav-person').addClass('active');
-            PageAction('#period', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+            PageAction('#period', '新建职工', '编辑职工', '职工详情', '创建', '更新', '删除');
             break;
         case "AttendanceRecordDetail":
             $('.nav-attendance').addClass('active');
@@ -145,23 +145,23 @@ Layout.init = function () {
             $('.nav-certificate').addClass('active');
             PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
 
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            // $(".main-header").remove();
+            // $(".main-sidebar").remove();
+            // $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
+            // $(window).resize(function(){
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            // })
             break;
         case "MessageRecord":
-            if(pathname[2] == "Index"){
-                $(".main-header").remove();
-                $(".main-sidebar").remove();
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-                $(window).resize(function(){
-                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-                })
-            }
+            // if(pathname[2] == "Index"){
+            //     $(".main-header").remove();
+            //     $(".main-sidebar").remove();
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            //     $(window).resize(function(){
+            //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            //     })
+            // }
             break;
         case "AbsenceRecrod":
             $('.nav-absencerecrod').addClass('active');
@@ -200,7 +200,7 @@ Layout.init = function () {
                 $('.nav-staff').addClass('active');
             }
 
-            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+            PageAction('#staff', '新建职工', '编辑职工', '职工详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkType":
             $('.nav-basic-info').addClass('active');
@@ -298,7 +298,7 @@ Layout.init = function () {
         case "PartTimeJob":
             $('.nav-parttimejob').addClass('active');
             $('.nav-manage').addClass('active');
-            PageAction('#parttimejob', '新建员工兼职', '编辑员工兼职', '员工兼职详情', '创建', '更新', '删除');
+            PageAction('#parttimejob', '新建职工兼职', '编辑职工兼职', '职工兼职详情', '创建', '更新', '删除');
             break;
         default:
             break;
@@ -313,93 +313,90 @@ Layout.init = function () {
             }
         });
         if (pathname[2] == "Edit") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            })
-
+            // $(".main-header").remove();
+            // $(".main-sidebar").remove();
+            // $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            // $(window).resize(function(){
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            // })
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
         } else if (pathname[2] == "Delete") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            })
+            // $(".main-header").remove();
+            // $(".main-sidebar").remove();
+            // $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            // $(window).resize(function(){
+            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            // })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
-        } else if(pathname[2] == "Create"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+        } 
+        // else if(pathname[2] == "Create"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+    //         })
+    //     }else if(pathname[2] == "changepwd"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            })
-        }else if(pathname[2] == "changepwd"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            })
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         })
             
-        }else if(pathname[2] == "UserMsg"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //     }else if(pathname[2] == "UserMsg"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }else if(pathname[2] == "Log"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         })
+    //     }else if(pathname[2] == "Log"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            })
-        }else if(pathname[2] == "TableShow"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         })
+    //     }else if(pathname[2] == "TableShow"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            })
-        }else if(pathname[1] == "SysRole"&&pathname[2] == "Search"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+    //         })
+    //     }else if(pathname[1] == "SysRole"&&pathname[2] == "Search"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }else if(pathname[1] == "JobTitle"&&pathname[2] == "Search"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         })
+    //     }else if(pathname[1] == "JobTitle"&&pathname[2] == "Search"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }
-        // else if(pathname[1] == "Certificate"){
-        //     $(".main-header").remove();
-        //     $(".main-sidebar").remove();
-        //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         })
+    //     }
+    //     else if(pathname[1] == "Certificate"){
+    //         $(".main-header").remove();
+    //         $(".main-sidebar").remove();
+    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-        //     $(window).resize(function(){
-        //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-        //     })
+    //         $(window).resize(function(){
+    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    //         })
+    // }
     }
 }
 
@@ -414,7 +411,7 @@ Layout.CompanyAndDepartment = function (companyId, departmentId) {
             Department = data;
         },
         error: function () {
-            console.log("获取公司和部门信息出错");
+            console.log("获取校区和学院信息出错");
         }
     });
 
@@ -583,7 +580,7 @@ Layout.openNewWindow = function(pageURL, height, width, top, left, toolbar, menu
     NewWindow.focus();
 }
 
-// 详情界面员工号下拉框
+// 详情界面职工号下拉框
 Layout.SetTypeStaffNr = function (type, selectId, staffNr, allowBlank){
     $.ajax({
         url:'/Staff/GetTypeStaff',

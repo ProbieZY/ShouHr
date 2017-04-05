@@ -1122,7 +1122,7 @@ namespace BlueHrWeb.Controllers
             ViewData["isPayCPFList"] = select;
         }
 
-        private void SetWorkStatusList(int? type, bool allowBlank = false)
+        private void SetWorkStatusList(int? type, bool allowBlank = true)
         {
             List<EnumItem> item = EnumHelper.GetList(typeof(WorkStatus));
 

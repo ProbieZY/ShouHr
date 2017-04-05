@@ -12,7 +12,7 @@
     <meta name="renderer" content="ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 
-    <title>@ViewBag.Title - 德晋HR系统</title>
+    <title>@ViewBag.Title - ShouHR系统</title>
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/layout")
@@ -82,7 +82,7 @@
                 <!-- Logo 头部显示内容-->
                 <a href="/" class="logo">
                     <span class="logo-mini"><b>HR</b></span>
-                    <span class="logo-lg">德晋<b>HR</b>系统</span>
+                    <span class="logo-lg">Shou<b>HR</b>系统</span>
                 </a>
                 @*右上角导航*@
                 <nav class="navbar navbar-static-top">
@@ -91,16 +91,6 @@
                     </a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            <li>
-                                @if (canMessageRecord)
-                                {
-                                    <a href="/MessageRecord/Index" title="消息" id="messagerecord">
-                                        <i class="fa fa-bell-o"></i>
-                                        <span class="label label-primary" id="unread-count"></span>
-                                    </a>
-                                }
-                            </li>
-                            @*显示用户名*@
                             @Html.Partial("_LoginPartial")
                         </ul>
                   </div>
@@ -308,7 +298,7 @@
                     <li class="nav-organization">
                         <a href="#">
                             <i class="fa fa-cubes"></i>
-                            <span>组织架构</span>
+                            <span>组织架构管理</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -320,7 +310,7 @@
                                 <li class="nav-company-list">
                                     <a href="/Company/Index">
                                         <i class="fa fa-list-ol"></i>
-                                        公司架构列表
+                                        组织架构列表
                                     </a>
                                 </li>
                             }
@@ -329,7 +319,7 @@
                                 <li class="nav-organizationTreeShow">
                                     <a href="/Company/TreeShow">
                                         <i class="fa fa-sitemap"></i>
-                                        公司架构视图
+                                        组织架构视图
                                     </a>
                                 </li>
                             }
@@ -339,7 +329,7 @@
                                 <li class="nav-department-list">
                                     <a href="/Department/Index">
                                         <i class="fa fa-users"></i>
-                                        部门架构列表
+                                        学院架构列表
                                     </a>
                                 </li>
                             }
@@ -380,7 +370,7 @@
                                 <li class="nav-transfer">
                                     <a href="/ShiftJobRecord/Index">
                                         <i class="fa fa-retweet"></i>
-                                        员工调岗
+                                        职工调岗
                                     </a>
                                 </li>
                             }
@@ -390,7 +380,7 @@
                                 <li class="nav-resignation">
                                     <a href="/ResignRecord/Index">
                                         <i class="fa fa-user-times"></i>
-                                        员工离职
+                                        职工离职
                                     </a>
                                 </li>
                             }
@@ -410,7 +400,7 @@
                                 <li class="nav-regular">
                                     <a href="/FullMemberRecord/Index">
                                         <i class="fa fa-sign-in"></i>
-                                        员工转正
+                                        职工转正
                                     </a>
                                 </li>
                             }
@@ -425,7 +415,7 @@
                             @*<li class="nav-retired">
                             <a href="#">
                                 <i class="fa fa-anchor"></i>
-                                员工退休
+                                职工退休
                             </a>
                         </li>*@
                         </ul>
@@ -572,7 +562,7 @@
                                 <li class="nav-staff">
                                     <a href="/Staff/Index">
                                         <i class="fa fa-user"></i>
-                                        员工管理
+                                        职工管理
                                     </a>
                                 </li>
                             }
@@ -712,28 +702,28 @@
     })
 
     //添加pq-grid类名弹出新窗口
-    $('.pq-grid').on('click', 'a', function () {
-        //1920* 1200  1068 * 677 刚刚好
-        //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
-        if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href") == "#" || $(this).attr("href").split("/") == "undefined") {
+    //$('.pq-grid').on('click', 'a', function () {
+    //    //1920* 1200  1068 * 677 刚刚好
+    //    //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
+    //    if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href") == "#" || $(this).attr("href").split("/") == "undefined") {
 
-        }else if($(this).attr("id")=="noopennew"||$(this).attr("id") == "todepartment"){
-            window.location.href($(this).attr("href"));
-        }else{
-            Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-        }
+    //    }else if($(this).attr("id")=="noopennew"||$(this).attr("id") == "todepartment"){
+    //        window.location.href($(this).attr("href"));
+    //    }else{
+    //        Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+    //    }
 
-        return false;
-    });
+    //    return false;
+    //});
 
-    $('a>button.marco-btn-primary').click(function () {
-        Layout.openNewWindow($(this).parent().attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-        return false;
-    });
-    $('#messagerecord').click(function () {
-        Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-        return false;
-    });
+    //$('a>button.marco-btn-primary').click(function () {
+    //    Layout.openNewWindow($(this).parent().attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+    //    return false;
+    //});
+    //$('#messagerecord').click(function () {
+    //    Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+    //    return false;
+    //});
 
     //回调函数
     function Success(data) {
@@ -742,10 +732,10 @@
             return false;
         }
         else {
-            Layout.popMsg('popMsg-success', data.Content);
-            setTimeout(function(){
-                window.close();
-            }, 2000);
+           Layout.popMsg('popMsg-success', data.Content);
+           setTimeout(function(){
+               window.history.back()
+           }, 1500);
         }
     }
 </script>
