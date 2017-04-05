@@ -7,7 +7,7 @@
 <div id="company" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>@Html.ActionLink("公司管理", "Index")</li>
+        <li>@Html.ActionLink("校区信息", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -39,38 +39,38 @@
 
             <div class="marco-nbody">
                 <div class="marco-igroup-primary">
-                    <label for="name">公司名称</label>
+                    <label for="name">名称</label>
                     @if (Model != null)
                     {
                         @Html.EditorFor(model => model.name)
                     }
                     else
                     {
-                        <input type="text" name="name" placeholder="公司名称" />
+                        <input type="text" name="name" placeholder="名称" />
                     }
                 </div>
 
                 <div class="marco-textarea">
-                    <label for="address" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">公司地址</label>
+                    <label for="address" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">校区地址</label>
                     @if (Model != null)
                 {
                         @Html.TextAreaFor(model => model.address)
                     }
                     else
                     {
-                        <textarea name="address" placeholder="公司地址"></textarea>
+                        <textarea name="address" placeholder="校区地址"></textarea>
                     }
                 </div>
 
                 <div class="marco-textarea">
-                    <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">公司备注</label>
+                    <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">备注</label>
                     @if (Model != null)
                 {
                         @Html.TextAreaFor(model => model.remark)
                     }
                     else
                     {
-                        <textarea name="remark" placeholder="公司备注"></textarea>
+                        <textarea name="remark" placeholder="备注"></textarea>
                     }
                 </div>
             </div>

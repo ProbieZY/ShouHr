@@ -91,16 +91,6 @@
                     </a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            <li>
-                                @if (canMessageRecord)
-                                {
-                                    <a href="/MessageRecord/Index" title="消息" id="messagerecord">
-                                        <i class="fa fa-bell-o"></i>
-                                        <span class="label label-primary" id="unread-count"></span>
-                                    </a>
-                                }
-                            </li>
-                            @*显示用户名*@
                             @Html.Partial("_LoginPartial")
                         </ul>
                   </div>
@@ -308,7 +298,7 @@
                     <li class="nav-organization">
                         <a href="#">
                             <i class="fa fa-cubes"></i>
-                            <span>组织架构</span>
+                            <span>组织架构管理</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -320,7 +310,7 @@
                                 <li class="nav-company-list">
                                     <a href="/Company/Index">
                                         <i class="fa fa-list-ol"></i>
-                                        公司架构列表
+                                        组织架构列表
                                     </a>
                                 </li>
                             }
@@ -329,7 +319,7 @@
                                 <li class="nav-organizationTreeShow">
                                     <a href="/Company/TreeShow">
                                         <i class="fa fa-sitemap"></i>
-                                        公司架构视图
+                                        组织架构视图
                                     </a>
                                 </li>
                             }
@@ -339,7 +329,7 @@
                                 <li class="nav-department-list">
                                     <a href="/Department/Index">
                                         <i class="fa fa-users"></i>
-                                        部门架构列表
+                                        学院架构列表
                                     </a>
                                 </li>
                             }
@@ -380,7 +370,7 @@
                                 <li class="nav-transfer">
                                     <a href="/ShiftJobRecord/Index">
                                         <i class="fa fa-retweet"></i>
-                                        员工调岗
+                                        职工调岗
                                     </a>
                                 </li>
                             }
@@ -390,7 +380,7 @@
                                 <li class="nav-resignation">
                                     <a href="/ResignRecord/Index">
                                         <i class="fa fa-user-times"></i>
-                                        员工离职
+                                        职工离职
                                     </a>
                                 </li>
                             }
@@ -410,7 +400,7 @@
                                 <li class="nav-regular">
                                     <a href="/FullMemberRecord/Index">
                                         <i class="fa fa-sign-in"></i>
-                                        员工转正
+                                        职工转正
                                     </a>
                                 </li>
                             }
@@ -425,7 +415,7 @@
                             @*<li class="nav-retired">
                             <a href="#">
                                 <i class="fa fa-anchor"></i>
-                                员工退休
+                                职工退休
                             </a>
                         </li>*@
                         </ul>
@@ -572,7 +562,7 @@
                                 <li class="nav-staff">
                                     <a href="/Staff/Index">
                                         <i class="fa fa-user"></i>
-                                        员工管理
+                                        职工管理
                                     </a>
                                 </li>
                             }

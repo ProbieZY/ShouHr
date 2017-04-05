@@ -287,7 +287,6 @@ body {
   display: table;
   margin: 5px 0;
   height: 40px;
-  line-height: 30px;
   background: #fff; }
   .marco-igroup span, .marco-igroup label {
     width: 1%;
@@ -327,7 +326,6 @@ body {
   display: table;
   margin: 5px 0;
   height: 40px;
-  line-height: 30px;
   background: #fff; }
   .marco-igroup-normal span, .marco-igroup-normal label {
     width: 1%;
@@ -367,7 +365,6 @@ body {
   display: table;
   margin: 5px 0;
   height: 40px;
-  line-height: 30px;
   background: #fff; }
   .marco-igroup-default span, .marco-igroup-default label {
     width: 1%;
@@ -407,7 +404,6 @@ body {
   display: table;
   margin: 5px 0;
   height: 40px;
-  line-height: 30px;
   background: #fff; }
   .marco-igroup-primary span, .marco-igroup-primary label {
     width: 1%;
@@ -447,7 +443,6 @@ body {
   display: table;
   margin: 5px 0;
   height: 40px;
-  line-height: 30px;
   background: #fff; }
   .marco-igroup-success span, .marco-igroup-success label {
     width: 1%;
@@ -487,7 +482,6 @@ body {
   display: table;
   margin: 5px 0;
   height: 40px;
-  line-height: 30px;
   background: #fff; }
   .marco-igroup-warning span, .marco-igroup-warning label {
     width: 1%;
@@ -527,7 +521,6 @@ body {
   display: table;
   margin: 5px 0;
   height: 40px;
-  line-height: 30px;
   background: #fff; }
   .marco-igroup-danger span, .marco-igroup-danger label {
     width: 1%;

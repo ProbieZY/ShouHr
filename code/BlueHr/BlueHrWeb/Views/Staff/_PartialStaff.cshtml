@@ -15,7 +15,7 @@
 <div id="staff">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>@Html.ActionLink("员工管理", "Index")</li>
+        <li>@Html.ActionLink("职工管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -32,16 +32,16 @@
                     <li role="presentation" class="active"><a href="#basic" role="tab" data-toggle="tab">基本信息</a></li>
                     <li role="presentation"><a href="#additional" role="tab" data-toggle="tab">附加信息</a></li>
                     <li role="presentation"><a href="#position" role="tab" data-toggle="tab">职位信息</a></li>
-                    
-                    <li role="presentation"><a href="#experience" role="tab" data-toggle="tab">工作经历</a></li>
-                    <li role="presentation"><a href="#contract" role="tab" data-toggle="tab">合同信息</a></li>
+                    @if (Model != null)
+                    {
+                    <li role="presentation"><a href="#certificatecard" role="tab" data-toggle="tab">证书信息</a></li>
+                    }
+                    <li role="presentation"><a href="#experience" role="tab" data-toggle="tab">入职信息</a></li>
                     <li role="presentation"><a href="#bankcard" role="tab" data-toggle="tab">银行卡信息</a></li>
                     <li role="presentation"><a href="#children" role="tab" data-toggle="tab">子女信息</a></li>
                     @if (Model != null)
                     {
                         <li role="presentation"><a href="#change" role="tab" data-toggle="tab">调动记录</a></li>
-                        <li role="presentation"><a href="#part" role="tab" data-toggle="tab">兼职信息</a></li>
-                        <li role="presentation"><a href="#certificatecard" role="tab" data-toggle="tab">证照信息</a></li>
                         <li role="presentation"><a href="#reword" role="tab" data-toggle="tab">奖惩记录</a></li>
                     }
                     
@@ -71,8 +71,8 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>&nbsp;&nbsp;&nbsp;性&nbsp;別&nbsp;&nbsp;&nbsp;</span>
+                                        <div class="marco-igroup-danger">
+                                            <span>&nbsp;&nbsp;&nbsp;性&nbsp;別 *&nbsp;&nbsp;&nbsp;</span>
                                             @Html.DropDownList("sex", ViewData["sexList"] as IEnumerable<SelectListItem>)
                                         </div>
                                     </div>
@@ -86,10 +86,9 @@
 
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-danger">
-                                            <span>身份证号</span>
+                                            <span>身份证号*</span>
                                             @Html.EditorFor(model => model.id)
-
-                                            @if (Model != null)
+                                            @*@if (Model != null)
                                             {
                                                 if (Model.isIdChecked)
                                                 {
@@ -99,7 +98,7 @@
                                                 {
                                                     <span class="marco-label-danger" title="请通过客户端进行身份证验证" style="cursor:help;">未验证</span>
                                                 }
-                                            }
+                                            }*@
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -119,8 +118,8 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>联系电话</span>
+                                        <div class="marco-igroup-danger">
+                                            <span>联系电话*</span>
                                             @Html.EditorFor(model => model.phone)
                                         </div>
                                     </div>
@@ -139,37 +138,39 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>&nbsp;&nbsp;&nbsp;户&nbsp;籍&nbsp;&nbsp;&nbsp;</span>
-                                            @Html.EditorFor(model => model.domicile)
-                                        </div>
-                                    </div>
+                                    
 
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    @*<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-primary">
                                             <span>户口性质</span>
                                             @Html.DropDownList("residenceType", ViewData["residenceTypeList"] as IEnumerable<SelectListItem>)
                                         </div>
-                                    </div>
+                                    </div>*@
 
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    @*<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-primary">
                                             <span>人员类别</span>
                                             @Html.DropDownList("StaffTypeId", ViewData["staffTypeList"] as IEnumerable<SelectListItem>)
                                         </div>
-                                    </div>
+                                    </div>*@
 
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>最高学历</span>
+                                        <div class="marco-igroup-danger">
+                                            <span>最高学历*</span>
                                             @Html.DropDownList("DegreeTypeId", ViewData["degreeTypeList"] as IEnumerable<SelectListItem>)
                                         </div>
                                     </div>
 
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>所学专业</span>
+                                        <div class="marco-igroup-danger">
+                                            <span>毕业院校*</span>
+                                            @Html.EditorFor(model => model.domicile)
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-danger">
+                                            <span>所学专业*</span>
                                             @Html.EditorFor(model => model.speciality)
                                         </div>
                                     </div>
@@ -259,7 +260,7 @@
                                 <div class="marco-nbody row">
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-danger">
-                                            <span>状态 *</span>
+                                            <span>职位状态*</span>
                                             @Html.DropDownList("workStatus", ViewData["workStatusList"] as IEnumerable<SelectListItem>)
                                         </div>
                                     </div>
@@ -267,7 +268,7 @@
                                     @*@Html.Partial("Search/_CompanyAndDepartmentBar")*@
                                     <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-danger">
-                                            <span>公司</span>
+                                            <span>校区 *</span>
 
                                             @if (Model != null && Model.companyId != null)
                                             {
@@ -280,7 +281,7 @@
                                                 <input type="hidden" name="companyId" id="companyId" />
                                             }
 
-                                            <span>部门</span>
+                                            <span>学院 *</span>
 
                                             @if (Model != null && Model.departmentId != null)
                                             {
@@ -295,7 +296,7 @@
 
                                             <span>
                                                 <button type="button" id="hidden" onclick="asignCmpDepConfirm(-1)" class="marco-btn-primary" style="margin: 0; background:transparent; border-color:transparent;">
-                                                    选择公司和部门
+                                                    点击选择校区和学院
                                                 </button>
                                             </span>
                                             @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
@@ -303,8 +304,8 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>职位</span>
+                                        <div class="marco-igroup-danger">
+                                            <span>职位 *</span>
                                             @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
                                         </div>
                                     </div>
@@ -314,16 +315,45 @@
                         </div>                                     
                     </div>
 
+                    @if (Model != null)
+                    {
+                        <div role="tabpanel" class="tab-pane" id="certificatecard">
+                            <div class="marco-npanel-normal">
+                                <div class="marco-nheading">
+                                    <span>证书信息</span>
+                                </div>
+
+                                <div class="marco-nbody">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>证书类别</th>
+                                                <th>证书级别</th>
+                                                <th>有效期起</th>
+                                                <th>有效期止</th>
+                                                <th>发证单位</th>
+                                                <th>备注</th>
+                                                <!--<th>附件</th>-->
+                                                <!--<th>操作</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody-certificates"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                     <div role="tabpanel" class="tab-pane" id="experience">
                         <div class="marco-npanel-normal">
                             <div class="marco-nheading">
-                                <span>工作经历</span>
+                                <span>入职信息</span>
                             </div>
 
                             <div class="marco-nbody row">
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                    <div class="marco-igroup-primary">
-                                        <span>最初进厂日期</span>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>合同生效日期*</span>
                                         @if (Model != null && Model.firstCompanyEmployAt.HasValue)
                                         {
                                             <input id="firstCompanyEmployAt" name="firstCompanyEmployAt" value="@Model.firstCompanyEmployAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
@@ -336,15 +366,64 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                    <div class="marco-igroup-primary">
-                                        <span>进厂总工龄</span>
-                                        @Html.EditorFor(model => model.firstCompanyEmployAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
-                                        @*<span class="marco-label-default">年</span>*@
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>&nbsp;&nbsp;是否试用期*&nbsp;&nbsp;</span>
+                                        @Html.DropDownList("isOnTrial", ViewData["isOnTrialList"] as IEnumerable<SelectListItem>)
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>试用到期日期</span>
+                                        @if (Model != null)
+                                        {
+                                            <input type="text" value="@Model.trialOverAt" class="date-picker">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="date-picker">
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>&nbsp;&nbsp;&nbsp;保险种类*&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        @Html.DropDownList("insureTypeId", ViewData["inSureTypeList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>是否交纳公积金*</span>
+                                        @Html.DropDownList("isPayCPF", ViewData["isPayCPFList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>合同到期日期</span>
+                                        @if (Model != null)
+                                        {
+                                            <input type="text" value="@Model.trialOverAt" class="date-picker">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="date-picker">
+                                        }
+                                    </div>
+                                </div>
+
+                                @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>进厂总工龄</span>
+                                        @Html.EditorFor(model => model.firstCompanyEmployAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
+                                        <span class="marco-label-default">年</span>
+                                    </div>
+                                </div>*@
+
+                                @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>进厂日期</span>
                                         @if (Model != null && Model.companyEmployAt.HasValue)
@@ -355,19 +434,19 @@
                                         {
                                             <input id="companyEmployAt" name="companyEmployAt" value="" class="date-picker" />
                                         }
-                                        <!--@Html.EditorFor(model => model.companyEmployAt)-->
+                                        @Html.EditorFor(model => model.companyEmployAt)
                                     </div>
-                                </div>
+                                </div>*@
 
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>工龄</span>
                                         @Html.EditorFor(model => model.companyEmployAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
-                                        @*<span class="marco-label-default">年</span>*@
+                                        <span class="marco-label-default">年</span>
                                     </div>
-                                </div>
+                                </div>*@
 
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>参加工作年限</span>
                                         @if (Model != null && Model.workingYearsAt.HasValue)
@@ -378,81 +457,26 @@
                                         {
                                             <input id="workingYearsAt" name="workingYearsAt" value="" class="date-picker" />
                                         }
-                                        <!--@Html.EditorFor(model => model.workingYearsAt)-->
+                                        @Html.EditorFor(model => model.workingYearsAt)
                                     </div>
-                                </div>
+                                </div>*@
 
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>累计工龄</span>
                                         @Html.EditorFor(model => model.workingYearsAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
-                                        @*<span class="marco-label-default">年</span>*@
+                                        <span class="marco-label-default">年</span>
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
-                    </div>
-
-                    <div role="tabpanel" class="tab-pane" id="contract">
-                        <div class="marco-npanel-normal">
-                                <div class="marco-nheading">
-                                    <span>合同信息</span>
-                                </div>
-
-                                <div class="marco-nbody row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-danger">
-                                            <span>&nbsp;&nbsp;是否在试用&nbsp;&nbsp;</span>
-                                            @Html.DropDownList("isOnTrial", ViewData["isOnTrialList"] as IEnumerable<SelectListItem>)
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>试用到期日期</span>
-                                            @if(Model !=null){
-                                                <input type="text" value="@Model.trialOverAt" class="date-picker"> 
-                                            }else{
-                                                <input type="text" class="date-picker">
-                                            }
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>&nbsp;&nbsp;&nbsp;保险种类&nbsp;&nbsp;&nbsp;&nbsp;</span>
-
-                                            @Html.DropDownList("insureTypeId", ViewData["inSureTypeList"] as IEnumerable<SelectListItem>)
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-danger">
-                                            <span>是否交公积金</span>
-
-                                            @Html.DropDownList("isPayCPF", ViewData["isPayCPFList"] as IEnumerable<SelectListItem>)
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>合同到期</span>
-                                            @Html.EditorFor(model => model.contractExpireStr)
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>合同签订次数</span>
-                                            @Html.EditorFor(model => model.contractCount)
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="bankcard">
                         <div class="marco-npanel-normal">
                             <div class="marco-nheading">
-                                <span>银行卡信息</span>
-                                <span style="font-size:.9em;color:#2980b9;"> （<code>银行</code>和<code>卡号</code>必填） </span>
+                                <span>工资卡信息</span>
+                                <span style="font-size:.9em;color:#2980b9;"> （<code>卡号信息</code>请仔细核对） </span>
                             </div>
 
                             <div class="marco-nbody">
@@ -588,31 +612,6 @@
                         </div>
                     </div>
 
-                     <div role="tabpanel" class="tab-pane" id="part">
-                        <div class="marco-npanel-normal">
-                            <div class="marco-nheading">
-                                <span>兼职记录</span>
-                            </div>
-
-                            <div class="marco-nbody">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>                                     
-                                            <th>兼职公司</th>
-                                            <th>兼职工作</th>
-                                            <th>兼职部门</th>
-                                            <th>开始时间</th>
-                                            <th>结束时间</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="partTime">
-                                       
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
                     <div role="tabpanel" class="tab-pane" id="change">
                         <div class="marco-npanel-normal">
                             <div class="marco-nheading">
@@ -635,36 +634,7 @@
                         </div>
                     </div>
 
-                    @* 证照类型？ *@
-                    @if (Model != null) { 
-                        <div role="tabpanel" class="tab-pane" id="certificatecard">
-                            <div class="marco-npanel-normal">
-                                <div class="marco-nheading">
-                                    <span>证照信息</span>
-                                </div>
-
-                                <div class="marco-nbody">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>证照类别</th>
-                                                <th>证照级别</th>
-                                                <th>有效期从</th>
-                                                <th>有效期到</th>
-                                                <th>发证单位</th>
-                                                <th>备注</th>
-                                                <!--<th>附件</th>-->
-                                                <!--<th>操作</th>-->
-                                            </tr>
-                                        </thead>
-                                        <tbody class="tbody-certificates">
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    }
+                    
 
                     <div role="tabpanel" class="tab-pane" id="reword">
                         <div class="marco-npanel-normal">
@@ -705,7 +675,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <p class="modal-title">选择员工公司和部门（*公司和部门只能选择一个，必须取消已选中的才能选其他的*）</p>
+                    <p class="modal-title">选择职工校区和学院（*校区和学院只能选择一个，必须取消已选中的才能选其他的*）</p>
                     <button id="btnEdit3" class="btn btn-primary" style="border-radius:3px;">确认</button>
                 </div>
                 <div class="modal-body">
@@ -786,6 +756,30 @@
             return false;
         }
 
+        if (Layout.IsStringNull($('#sex').val())) {
+            Layout.popMsg('popMsg-danger', "性别不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#phone').val())) {
+            Layout.popMsg('popMsg-danger', "联系电话不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#DegreeTypeId').val())) {
+            Layout.popMsg('popMsg-danger', "学历不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#domicile').val())) {
+            Layout.popMsg('popMsg-danger', "毕业院校不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#speciality').val())) {
+            Layout.popMsg('popMsg-danger', "所学专业不能为空");
+            return false;
+        }
         //身份证验证
         if (!Staff.CheckIdValid($('#id').val())) {
             return false;
@@ -805,12 +799,22 @@
         }
 
         if (Layout.IsStringNull($('#companyName').val())) {
-            Layout.popMsg('popMsg-danger', "请选择公司");
+            Layout.popMsg('popMsg-danger', "请选择校区");
             return false;
         }
 
         if (Layout.IsStringNull($('#departmentName').val())) {
-            Layout.popMsg('popMsg-danger', "请选择部门");
+            Layout.popMsg('popMsg-danger', "请选择学院");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#jobTitleId').val())) {
+            Layout.popMsg('popMsg-danger', "职位不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#firstCompanyEmployAt').val())) {
+            Layout.popMsg('popMsg-danger', "合同生效日期不能为空");
             return false;
         }
 
@@ -819,13 +823,13 @@
             return false;
         }
 
-        if (Layout.IsStringNull($('#isPayCPF').val())) {
-            Layout.popMsg('popMsg-danger', "公积金不能为空");
+        if (Layout.IsStringNull($('#insureTypeId').val())) {
+            Layout.popMsg('popMsg-danger', "保险种类不能为空");
             return false;
         }
 
-        if ($('#contractCount').val() < 0) {
-            Layout.popMsg('popMsg-danger', "签订合同次数不能为负");
+        if (Layout.IsStringNull($('#isPayCPF').val())) {
+            Layout.popMsg('popMsg-danger', "公积金交纳不能为空");
             return false;
         }
     });
