@@ -37,41 +37,48 @@
                 </div>
             </div>
 
-            <div class="marco-nbody">
-                <div class="marco-igroup-primary">
-                    <label for="name">名称</label>
-                    @if (Model != null)
-                    {
-                        @Html.EditorFor(model => model.name)
-                    }
-                    else
-                    {
-                        <input type="text" name="name" placeholder="名称" />
-                    }
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>名称</span>
+                        @if (Model != null)
+                        {
+                            @Html.EditorFor(model => model.name)
+                        }
+                        else
+                        {
+                            <input type="text" name="name" placeholder="名称" />
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="marco-nbody row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="marco-textarea">
+                        <label for="address" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">校区地址</label>
+                        @if (Model != null)
+                        {
+                            @Html.TextAreaFor(model => model.address)
+                        }
+                        else
+                        {
+                            <textarea name="address" placeholder="校区地址"></textarea>
+                        }
+                    </div>
                 </div>
 
-                <div class="marco-textarea">
-                    <label for="address" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">校区地址</label>
-                    @if (Model != null)
-                {
-                        @Html.TextAreaFor(model => model.address)
-                    }
-                    else
-                    {
-                        <textarea name="address" placeholder="校区地址"></textarea>
-                    }
-                </div>
-
-                <div class="marco-textarea">
-                    <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">备注</label>
-                    @if (Model != null)
-                {
-                        @Html.TextAreaFor(model => model.remark)
-                    }
-                    else
-                    {
-                        <textarea name="remark" placeholder="备注"></textarea>
-                    }
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="marco-textarea">
+                        <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">备注</label>
+                        @if (Model != null)
+                        {
+                            @Html.TextAreaFor(model => model.remark)
+                        }
+                        else
+                        {
+                            <textarea name="remark" placeholder="备注"></textarea>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
