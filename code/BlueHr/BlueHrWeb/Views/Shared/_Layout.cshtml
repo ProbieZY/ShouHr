@@ -212,12 +212,23 @@
                         </a>
 
                         <ul class="treeview-menu">
-                                @if(canStaffType)
+
+                                @if (canStaffType)
                                 {
                                     <li class="nav-staffType">
                                         <a href="/StaffType/Index">
                                             <i class="fa fa-user"></i>
                                             人员类型
+                                        </a>
+                                    </li>
+                                }
+
+                                @if (canJobTitle)
+                                {
+                                    <li class="nav-jobtitle">
+                                        <a href="/JobTitle/Index">
+                                            <i class="fa fa-briefcase"></i>
+                                            职称类型
                                         </a>
                                     </li>
                                 }
@@ -252,15 +263,7 @@
                                     </li>
                                 }
 
-                                @if(canJobTitle)
-                                {
-                                    <li class="nav-jobtitle">
-                                        <a href="/JobTitle/Index">
-                                            <i class="fa fa-briefcase"></i>
-                                            职位管理
-                                        </a>
-                                    </li>
-                                }
+                                
                                 
                                 @if(canAbsenceType)
                                 {

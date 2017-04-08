@@ -35,7 +35,7 @@
             </div>
             <div class="marco-nbody row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
+                    <div class="marco-igroup-danger">
                         <span>姓名 *</span>
                         @if (Model != null)
                         {
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
+                    <div class="marco-igroup-danger">
                         <span>邮箱 *</span>
                         @if (Model != null)
                         {
@@ -63,17 +63,17 @@
                 @if (Model == null)
                 {
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" id="password">
-                        <div class="marco-igroup-primary">
+                        <div class="marco-igroup-danger">
                             <span>密码 *</span>
                             <input type="text" name="pwd" placeholder="密码" />
                         </div>
                     </div>
                 }
-                
+
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                            <div class="marco-igroup-primary">
+                            <div class="marco-igroup-danger">
                                 <span>角色*</span>
                                 @if (Model != null && !string.IsNullOrEmpty(Model.roleStr))
                                 {
@@ -104,10 +104,9 @@
                     </div>
                 </div>
 
-                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
                         <span>校区 *</span>
-
                         @if (Model != null && !string.IsNullOrEmpty(Model.AuthCompany))
                         {
                             <input type="text" name="authCompany" id="authCompany" placeholder="" value="@Model.AuthCompany" readonly="readonly" />
@@ -116,9 +115,12 @@
                         {
                             <input type="text" name="authCompany" id="authCompany" placeholder="" readonly="readonly" />
                         }
+                    </div>
+                </div>
 
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
                         <span>学院 *</span>
-
                         @if (Model != null && !string.IsNullOrEmpty(Model.AuthDepartment))
                         {
                             <input type="text" name="authDep" id="authDep" placeholder="" value="@Model.AuthDepartment" readonly="readonly" />
@@ -127,23 +129,25 @@
                         {
                             <input type="text" name="authDep" id="authDep" placeholder="" readonly="readonly" />
                         }
+                    </div>
+                </div>
 
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
                         <span>
                             @if (Model != null)
                             {
-                                <button class="marco-btn-primary" style="margin:0;" title="确定" type="button" id="asignCmpDep" onclick="asignCmpDepConfirm(@Model.id)">
-                                    校区和学院
+                                <button class="marco-btn-primary" style="margin: 0; background:transparent; border-color:transparent;" title="确定" type="button" id="asignCmpDep" onclick="asignCmpDepConfirm(@Model.id)">
+                                    点击选择校区和学院
                                 </button>
                             }
                             else
                             {
-                                <button class="marco-btn-primary" style="margin:0;" title="确定" type="button" id="asignCmpDep" onclick="asignCmpDepConfirm(-1)">
-                                    校区和学院
+                                <button class="marco-btn-primary" style="margin: 0; background:transparent; border-color:transparent;" title="确定" type="button" id="asignCmpDep" onclick="asignCmpDepConfirm(-1)">
+                                    点击选择校区和学院
                                 </button>
                             }
                         </span>
-
-                        @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
                     </div>
                 </div>
             </div>

@@ -124,7 +124,7 @@ Staff.createBankCard = function (cls, bank, bankCard, bankAddress, bankRemark) {
             bankCard: arr
         },
         success: function (data) {
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             if (data.Success) {
                 Staff.add_bankCard(cls, bank, bankCard, bankAddress, bankRemark, data.Content);
                 Layout.popMsg('popMsg-success', '新建成功');
@@ -153,11 +153,11 @@ Staff.add_bankCard = function (cls, bank, bankCard, bankAddress, bankRemark, ban
     if (Layout.IsStringNull(bankCardVal)) {
         Layout.popMsg('popMsg-warning', '银行卡号不能为空');
         return false;
-    } else {
-        if (!Staff.CheckBankCardValid(bankCardVal)) {
-            return false;
-        }
     }
+
+    // if (!Staff.CheckBankCardValid(bankCardVal)) {
+    //         return false;
+    // }
 
     var Html = "<div class='col-lg-3 col-md-3 col-sm-6 col-xs-12 " + cls + "'><div class='card-box'>" +
         "<div class='card-heading'><span>" + bankVal + "</span><input type='hidden' name='bank' value='"+bankVal+"' />" +
@@ -172,7 +172,6 @@ Staff.add_bankCard = function (cls, bank, bankCard, bankAddress, bankRemark, ban
     $(bankCard).val('');
     $(bankAddress).val('');
     $(bankRemark).val('');
-
     Staff.remove_bankCard_ById();
 };
 
@@ -280,9 +279,9 @@ Staff.add_family = function (familyName, familyType, familyBirthday, familyId) {
         return false;
     }
 
-    var Html = "<tr><td><input type='text' class='marco-input-primary' name='familyName' value='" + familyNameVal + "' /></td> " +
-        "<td><input type='text' class='marco-input-primary' name='familyType' value='" + familyTypeVal + "' /></td>" +
-        "<td><input type='text' class='marco-input-primary date-picker' name='familyBirthday' value='" + familyBirthdayVal + "' /></td>" +
+    var Html = "<tr><td>"+ familyNameVal + "</td> " +
+        "<td>"+ familyTypeVal + "</td>" +
+        "<td>" + familyBirthdayVal + "</td>" +
         "<td class='option-icon-danger'><i class='fa fa-close remove-family' id='" + familyId + "' style='margin-top:3px;'></i></td></tr>";
 
     $(Html).prependTo('.tbody-family');

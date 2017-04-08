@@ -2,7 +2,7 @@
 @model IPagedList<BlueHrLib.Data.JobTitle>
 @using BlueHrWeb.Helpers.View
 @{
-    ViewBag.Title = "职位管理";
+    ViewBag.Title = "职工类型";
 }
 
 @{
@@ -16,28 +16,27 @@
 <input type="hidden" id="canDelete" value="@canDelete.ToString()">
 <input type="hidden" id="canSet" value="@canSet.ToString()">
 <style type="text/css">
-    #current_jobTitleContent > ul , #history_jobTitleContent > ul, #all_jobTitleContent > ul{
+    #jobTitleContent > ul {
         list-style: none;
     }
 
-    #current_jobTitleContent > ul li , #history_jobTitleContent > ul li, #all_jobTitleContent > ul li {
+    #jobTitleContent > ul li {
         float: left;
-        width: 90px;
+        width: 120px;
         text-align: center;
         cursor: pointer;
-        overflow: hidden;
-        margin-bottom: 25px;
+        margin-bottom: 40px;
     }
 
-    #current_jobTitleContent > ul li > div,  #history_jobTitleContent > ul li > div, #all_jobTitleContent > ul li > div {
-        /*width: 96px;*/
+    #jobTitleContent > ul li > div {
+        width: 96px;
         height: 72px;
-        background-image: url('/Images/person1.png');
+        background-image: url('/Images/UserSysRole.png');
         background-repeat: no-repeat;
-        margin-left: 12px;
+        margin-left: 24px;
     }
 
-    #current_jobTitleContent > ul li i, #history_jobTitleContent > ul li i, #all_jobTitleContent > ul li i {
+    #jobTitleContent > ul li i {
         display: none;
         color: #3498db;
         width: 24px;
@@ -50,14 +49,9 @@
         position: absolute;
     }
 
-    #current_jobTitleContent > ul li i:hover, #history_jobTitleContent > ul li i:hover, #all_jobTitleContent > ul li i:hover {
+    #jobTitleContent > ul li i:hover {
         background: #3498db !important;
         color: white !important;
-    }
-
-    .marco-tabs-default .tab-content ul li{
-        border: none;
-        height: auto !important;
     }
 </style>
 
@@ -65,54 +59,22 @@
     您的位置：
     <li>基础数据管理</li>
     <li>
-        <strong>职位管理</strong>
+        <strong>职工类型</strong>
     </li>
 </ol>
 
 <hr class="hr-grey" />
-
-<div class="row" style="margin:0 10px 0 0;">
-    <div class="pull-right">
-        @if(canCreate)
-        {    
-            <button class="marco-btn-success create-jobTitle">新建职位</button>
-        }
-        @if(canTableShow)
-        {
-            <a href="/JobTitle/TableShow">
-                <button class="marco-btn-primary">职位列表展示</button>
-            </a>
-        }
-    </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    
+        <button class="marco-btn-success create-sysRole">列表展示</button>
+    @if (canCreate)
+    {
+        <button class="marco-btn-primary create-jobTitle">新建类型</button>
+    }
 </div>
-
-<div class="row" style="margin: -30px 10px;">
-    <div class="marco-tabs-default">
-        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#current_jobTitle" role="tab" data-toggle="tab">当前职位</a></li>
-            <li role="presentation"><a href="#history_jobTitle" role="tab" data-toggle="tab">历史职位</a></li>
-            <li role="presentation"><a href="#all_jobTitle" role="tab" data-toggle="tab">全部职位</a></li>
-        </ul>
-
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="current_jobTitle">
-                <div id="current_jobTitleContent">
-                    <ul></ul>
-                </div>
-            </div>
-
-             <div role="tabpanel" class="tab-pane" id="history_jobTitle">
-                <div id="history_jobTitleContent">
-                    <ul></ul>
-                </div>
-            </div>
-
-             <div role="tabpanel" class="tab-pane" id="all_jobTitle">
-                <div id="all_jobTitleContent">
-                    <ul></ul>
-                </div>
-            </div>
-        </div>
+<div class="row" style="border-top: 1px solid #3498db; margin:-6px 15px 0 18px;">
+    <div id="jobTitleContent">
+        <ul></ul>
     </div>
 </div>
 
@@ -173,7 +135,6 @@
             </div>
     </div>
 </div>
-<div class=""></div>
 
 <script type="text/javascript">
     Layout.init();
@@ -184,56 +145,30 @@
         type: 'get',
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
-                if(data[i].IsRevoked == "False"){
+                
                     var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
-                    "<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>" +
-                    "<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>" +
-                    "<i class='fa fa-share-square-o setHistoryJobTitle' title='设置为历史职位' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +
+                    "<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -30px;'></i>" +
+                    "<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: 10px;'></i>" +
                     "</li>";
-
-                    $(Html).appendTo($("#current_jobTitleContent>ul"));
-                    $(Html).appendTo($("#all_jobTitleContent>ul"));
-                }else{
-                    var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
-                    "<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>" +
-                    "<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>" +
-                    "<i class='fa fa-share-square-o reSetHistoryJobTitle' title='重新启用' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +
-                    "</li>";
-
-                    $(Html).appendTo($("#history_jobTitleContent>ul"));
-                    $(Html).appendTo($("#all_jobTitleContent>ul"));
-                }
+                    $(Html).appendTo($("#jobTitleContent>ul"));
             }
 
-            $('.option-icon-primary').click(function(){
-                //1920* 1200  1068 * 677 刚刚好
-                //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
-                Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-                return false;
-            });
 
 
-            $("#current_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
-                $("#current_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
+            $("#jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
+                $("#jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
                 $(this).find('i').fadeIn(0);
             })
 
-            $("#history_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
-                $("#history_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
-                $(this).find('i').fadeIn(0);
-            })
-
-            $("#all_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
-                $("#all_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
-                $(this).find('i').fadeIn(0);
+            $("#jobTitleContent>ul").unbind('mouseout').on('mouseout', 'li', function () {
+                $("#jobTitleContent>ul li").find('i').css("display", "none");
             })
 
             $("body").bind("click", function (evt) {
-                if ($(evt.target).parents(".tab-pane li").length == 0) {
-                    $(".tab-pane li").find('i').css("display", "none");
+                if ($(evt.target).parents("#jobTitleContent > ul li").length == 0) {
+                    $("#jobTitleContent>ul li").find('i').css("display", "none");
                 }
             });
-
             //编辑角色
             $('.editJobTitle').click(function () {
                 var ID = $(this).parent().attr("id");

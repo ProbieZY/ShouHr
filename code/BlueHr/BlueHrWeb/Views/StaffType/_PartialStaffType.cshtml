@@ -3,7 +3,7 @@
 <div id="stafftype" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>@Html.ActionLink("人员类型管理", "Index")</li>
+        <li>@Html.ActionLink("人员类型", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -23,36 +23,41 @@
             <div class="marco-nheading">
                 {{action}}
                 <div class="pull-right">
-                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
+                    <button type="submit" class="marco-btn-danger" style="margin-top:-10px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>
                         <span>{{actionBtn}}</span>
                     </button>
                 </div>
             </div>
 
-            <div class="marco-nbody">
-                <div class="marco-igroup-primary">
-                    <label for="name">人员类型名称*</label>
-                    @if (Model != null)
-                    {
-                        @Html.EditorFor(model => model.name)
-                    }
-                    else
-                    {
-                        <input type="text" name="name" placeholder="人员类型名称" />
-                    }
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>人员类型名称*</span>
+                        @if (Model != null)
+                        {
+                            @Html.EditorFor(model => model.name)
+                        }
+                        else
+                        {
+                            <input type="text" name="name" placeholder="人员类型名称" />
+                        }
+                    </div>
                 </div>
-
-                <div class="marco-textarea">
-                    <label for="remark">备注</label>
-                    @if (Model != null)
-                {
-                        @Html.TextAreaFor(model => model.remark)
-                    }
-                    else
-                    {
-                        <textarea name="remark" placeholder="备注"></textarea>
-                    }
+            </div>
+            <div class="marco-nbody row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="marco-textarea">
+                        <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">备注</label>
+                        @if (Model != null)
+                        {
+                            @Html.TextAreaFor(model => model.remark)
+                        }
+                        else
+                        {
+                            <textarea name="remark" placeholder="备注"></textarea>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

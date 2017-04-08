@@ -152,17 +152,14 @@
                 $(Html).appendTo($("#sysRoleContent>ul"));
             }
 
-            $('.option-icon-primary').click(function(){
-                //1920* 1200  1068 * 677 刚刚好
-                //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
-                Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-
-                return false;
-            });
 
             $("#sysRoleContent>ul").unbind('mouseover').on('mouseover', 'li', function () {
                 $("#sysRoleContent>ul li").not($(this)).find('i').css("display", "none");
                 $(this).find('i').fadeIn(0);
+            })
+
+            $("#sysRoleContent>ul").unbind('mouseout').on('mouseout', 'li', function () {
+                $("#sysRoleContent>ul li").find('i').css("display", "none");
             })
 
             $("#sysRoleContent>ul").unbind('click').on('click', 'li', function () {

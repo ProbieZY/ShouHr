@@ -47,7 +47,7 @@
             <a href="/StaffType/Create" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
-                    <span>创建</span>
+                    <span>新建</span>
                 </button>
             </a>
         }
@@ -62,7 +62,6 @@
                     <thead>
                         <tr>
                             <th>人员类型名称</th>
-                            <th>备注</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -74,9 +73,6 @@
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
                                         @if(canDelete)
