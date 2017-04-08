@@ -732,16 +732,14 @@ body {
 .marco-textarea {
   margin-top: 10px; }
   .marco-textarea label, .marco-textarea span {
-    height: 35px;
-    line-height: 20px;
     border: 1px solid #2980b9;
-    padding: 10px;
+    padding: 6px;
     border-bottom-color: #2980b9;
     background: #3498db;
     color: #ecf0f1;
     margin-bottom: -3px; }
   .marco-textarea textarea {
-    margin-top: -1px;
+    margin-top: 4px;
     padding: 10px;
     resize: none;
     width: 100%;
@@ -753,12 +751,13 @@ body {
 .current-position {
   margin-bottom: -10px;
   color: #7f8c8d;
-  font-size: .9em;
+  font-size: 1em;
   background: transparent; }
 
 .hr-grey {
   border-style: dashed;
-  border-color: #999; }
+  border-color: #999;
+  margin-left: 10px; }
 
 .hr-default {
   border-style: dashed;
@@ -766,7 +765,8 @@ body {
 
 .hr-primary {
   border-style: dashed;
-  border-color: #2980b9; }
+  border-color: #2980b9;
+  margin-left: 10px; }
 
 .hr-success {
   border-style: dashed;

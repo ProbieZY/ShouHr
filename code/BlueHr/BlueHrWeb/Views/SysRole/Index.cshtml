@@ -65,16 +65,13 @@
 <hr class="hr-grey" />
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <button class="marco-btn-primary" style="cursor: default;">角色展示</button>
+
     @if(canCreate)
     {
         <button class="marco-btn-success create-sysRole">新建角色</button>
     }
-    @if(canTableShow)
-    {
-        <a href="/SysRole/TableShow">
-            <button class="marco-btn-primary">角色列表展示</button>
-        </a>
-    }
+    
     @if(canAssignAuth)
     {
         <a href="/SysRole/AssignAuth">
@@ -100,19 +97,11 @@
     <div class="dialogModal_content">
         <div class="marco-nbody row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>名称</span>
-                    <input type="text" class="roleName" name="roleName" autofocus>
+                <div class="marco-igroup-danger">
+                    <span>名称 *</span>
+                    <input type="text" class="roleName" name="roleName">
                 </div>
             </div>
-            <br />
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="marco-textarea">
-                    <span>备注</span>
-                    <textarea name="remarks" class="remarks"></textarea>
-                </div>
-            </div>
-            <br />
         </div>
     </div>
 

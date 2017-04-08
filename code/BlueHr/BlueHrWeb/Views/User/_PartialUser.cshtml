@@ -8,7 +8,7 @@
 
 <div id="user" style="margin:20px;">
     <ol class="breadcrumb current-position">
-        您的位置：
+        当前所在：
         <li>@Html.ActionLink("用户管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
@@ -37,27 +37,13 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
                         <span>姓名 *</span>
-                        @if (Model != null)
-                        {
-                            @Html.EditorFor(model => model.name)
-                        }
-                        else
-                        {
-                            <input type="text" name="name" placeholder="姓名" />
-                        }
+                        @Html.EditorFor(model => model.name)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
                         <span>邮箱 *</span>
-                        @if (Model != null)
-                        {
-                            @Html.EditorFor(model => model.email)
-                        }
-                        else
-                        {
-                            <input type="text" name="email" placeholder="邮箱地址" />
-                        }
+                        @Html.EditorFor(model => model.email)
                     </div>
                 </div>
                 @if (Model == null)
@@ -105,8 +91,8 @@
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>校区 *</span>
+                    <div class="marco-igroup-primary">
+                        <span>校区 </span>
                         @if (Model != null && !string.IsNullOrEmpty(Model.AuthCompany))
                         {
                             <input type="text" name="authCompany" id="authCompany" placeholder="" value="@Model.AuthCompany" readonly="readonly" />
@@ -119,8 +105,8 @@
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>学院 *</span>
+                    <div class="marco-igroup-primary">
+                        <span>学院 </span>
                         @if (Model != null && !string.IsNullOrEmpty(Model.AuthDepartment))
                         {
                             <input type="text" name="authDep" id="authDep" placeholder="" value="@Model.AuthDepartment" readonly="readonly" />
@@ -219,6 +205,29 @@
 <script type="text/javascript">
     Layout.init();
     var cmpList = [];
+
+    //验证是否为空
+    $('.submit-btn').click(function () {
+        if (Layout.IsStringNull($('#name').val())) {
+            Layout.popMsg('popMsg-danger', "姓名不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#email').val())) {
+            Layout.popMsg('popMsg-danger', "邮箱不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#roleStr').val())) {
+            Layout.popMsg('popMsg-danger', "角色不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#authCompany').val())||Layout.IsStringNull($('#authDep').val())) {
+            Layout.popMsg('popMsg-danger', "权限校区和学院不能为空");
+            return false;
+        }
+    });
 
     //控制textarea高度
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });

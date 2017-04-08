@@ -203,14 +203,6 @@ namespace BlueHrWeb.Controllers
         {
             ResultMessage msg = new ResultMessage();
 
-            if (string.IsNullOrEmpty(model.code))
-            {
-                msg.Success = false;
-                msg.Content = "编码不能为空";
-
-                return msg;
-            }
-
             if (string.IsNullOrEmpty(model.name))
             {
                 msg.Success = false;

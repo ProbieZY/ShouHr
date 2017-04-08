@@ -13,7 +13,7 @@
 }
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
-    您的位置：
+    当前所在：
     <li>基础信息管理</li>
     <li>
         <strong>离职类型</strong>
@@ -36,7 +36,7 @@
         </div>
     </form>
 </div>
-
+<hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
         @if(canCreate)
@@ -60,8 +60,6 @@
                             <thead>
                                 <tr>
                                     <th>离职类型名称</th>
-                                    <th>编码</th>
-                                    <th>备注</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -73,12 +71,6 @@
                                         <tr>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.name)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.code)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.remark)
                                             </td>
                                             <td>
                                                 @if (canDelete)
@@ -118,9 +110,9 @@
 
     //resize()：调整浏览器窗口大小的方法
     $(window).resize(function () {
-        Layout.TransferTableToGrid(TableWidth, $(window).height() - 230, false, "all_inter_type", "离职类型", "20", "all_inter_type_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_inter_type", "离职类型", "20", "all_inter_type_grid_table");
     })
 
-    Layout.TransferTableToGrid(TableWidth, $(window).height() - 230, false, "all_inter_type", "离职类型", "20", "all_inter_type_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_inter_type", "离职类型", "20", "all_inter_type_grid_table");
  
 </script>

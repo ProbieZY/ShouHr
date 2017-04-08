@@ -12,9 +12,9 @@
     
     }
 </style>
-<div id="staff">
+<div id="staff" style="margin:20px;">
     <ol class="breadcrumb current-position">
-        您的位置：
+        当前所在：
         <li>@Html.ActionLink("职工管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
@@ -52,11 +52,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-danger">
                                             <span id="staffnr">&nbsp;&nbsp;&nbsp;工&nbsp;号 *&nbsp;&nbsp;</span>
-                                            @if(Model!=null){
-                                                @Html.EditorFor(model => model.nr, new { htmlAttributes = new { @disabled = "disabled" }})
-                                            }else{
-                                                @Html.EditorFor(model => model.nr)
-                                            }
+                                            @Html.EditorFor(model => model.nr)
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -112,21 +108,8 @@
                                         <div class="marco-igroup-danger">
                                             <span>身份证号*</span>
                                             @Html.EditorFor(model => model.id)
-                                            @*@if (Model != null)
-                                            {
-                                                if (Model.isIdChecked)
-                                                {
-                                                    <span class="marco-label-success">已验证</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="marco-label-danger" title="请通过客户端进行身份证验证" style="cursor:help;">未验证</span>
-                                                }
-                                            }*@
                                         </div>
                                     </div>
-
-                                    
 
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-primary">
@@ -275,7 +258,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                @*<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-danger">
                                         <span>&nbsp;&nbsp;&nbsp;保险种类*&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         @Html.DropDownList("insureTypeId", ViewData["inSureTypeList"] as IEnumerable<SelectListItem>)
@@ -287,7 +270,7 @@
                                         <span>交纳公积金*</span>
                                         @Html.DropDownList("isPayCPF", ViewData["isPayCPFList"] as IEnumerable<SelectListItem>)
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                             <div class="marco-npanel-normal">
@@ -707,7 +690,7 @@
 
     $('.submit-btn').click(function () {
         if (Layout.IsStringNull($('#nr').val())) {
-            Layout.popMsg('popMsg-danger', "员工号不能为空");
+            Layout.popMsg('popMsg-danger', "工号不能为空");
             return false;
         }
 
