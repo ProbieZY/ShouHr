@@ -605,13 +605,13 @@ namespace BlueHrWeb.Controllers
             string authCompany = HttpContext.Request.Form["authCompany"];
             string authDep = HttpContext.Request.Form["authDep"];
 
-            //if (!model.role.HasValue)
-            //{
-            //    msg.Success = false;
-            //    msg.Content = "角色不能为空";
+            if (!model.role.HasValue)
+            {
+                msg.Success = false;
+                msg.Content = "角色不能为空";
 
-            //    return msg;
-            //}
+                return msg;
+            }
 
             //if (string.IsNullOrEmpty(authCompany))
             //{

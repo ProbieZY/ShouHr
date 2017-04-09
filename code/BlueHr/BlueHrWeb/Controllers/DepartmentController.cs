@@ -23,7 +23,6 @@ namespace BlueHrWeb.Controllers
 
         IDepartmentService departmentService = new DepartmentService(Settings.Default.db);
 
-        #region 部门列表
 
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
@@ -45,9 +44,7 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
-        #endregion
 
-        #region 创建部门
 
 
         [RoleAndDataAuthorizationAttribute]
@@ -67,37 +64,45 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                var companyId = collection["CompanyId"];
-                var departmentName = collection["name"];
-                var departmentRemark = collection["remark"];
+                msg = DoValidation(collection);
 
-                var department = new Department()
+                if (!msg.Success)
                 {
-                    name = departmentName,
-                    remark = departmentRemark,
-                    companyId = int.Parse(companyId)
-                    
-                };
-               if(!string.IsNullOrEmpty(collection["parentId"])  ){
-                    department.parentId = int.Parse(collection["parentId"]);
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
-                bool isSucceed = this.departmentService.Create(department);
+                else
+                {
+                    var companyId = collection["CompanyId"];
+                    var departmentName = collection["name"];
+                    var departmentRemark = collection["remark"];
 
-                SetCompanyList(null, false);
-                msg.Success = isSucceed;
-                msg.Content = isSucceed ? "添加成功" : "添加失败";
-                return Json(msg, JsonRequestBehavior.AllowGet);
+                    var department = new Department()
+                    {
+                        name = departmentName,
+                        remark = departmentRemark,
+                        companyId = int.Parse(companyId)
+
+                    };
+                    if (!string.IsNullOrEmpty(collection["parentId"]))
+                    {
+                        department.parentId = int.Parse(collection["parentId"]);
+                    }
+                    bool isSucceed = this.departmentService.Create(department);
+
+                    SetCompanyList(null, false);
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
-                SetCompanyList(null,false);
+                SetCompanyList(null, false);
                 return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
-        #endregion
 
-        #region 编辑部门
 
         // GET: Department/Edit/5
         [RoleAndDataAuthorizationAttribute]
@@ -119,22 +124,32 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                var department = this.departmentService.FindById(id);
-                if (department != null)
-                {
-                    department.name = collection["name"];
-                    department.remark = collection["remark"];
+                msg = DoValidation(collection);
 
-                    if (!string.IsNullOrEmpty(collection["parentId"]) ) {
-                        department.parentId = int.Parse(collection["parentId"]);
-                    }
-                    bool isSucceed = this.departmentService.Update(department);
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "更新成功" : "更新失败";
+                if (!msg.Success)
+                {
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new ResultMessage() { Success = false, Content = "编辑失败" }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    var department = this.departmentService.FindById(id);
+                    if (department != null)
+                    {
+                        department.name = collection["name"];
+                        department.remark = collection["remark"];
 
+                        if (!string.IsNullOrEmpty(collection["parentId"]))
+                        {
+                            department.parentId = int.Parse(collection["parentId"]);
+                        }
+                        bool isSucceed = this.departmentService.Update(department);
+                        msg.Success = isSucceed;
+                        msg.Content = isSucceed ? "更新成功" : "更新失败";
+                        return Json(msg, JsonRequestBehavior.AllowGet);
+                    }
+                    return Json(new ResultMessage() { Success = false, Content = "编辑失败" }, JsonRequestBehavior.AllowGet);
+
+                }
             }
             catch (Exception ex)
             {
@@ -143,9 +158,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        #endregion
 
-        #region 删除部门
 
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
@@ -187,7 +200,6 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        #endregion
 
         public ActionResult Search([Bind(Include = "Name, CompanyId")] DepartmentSearchModel q)
         {
@@ -360,6 +372,19 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["searchConditionsList"] = select;
+        }
+        public ResultMessage DoValidation(FormCollection collection)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(collection["name"]))
+            {
+                msg.Success = false;
+                msg.Content = "名称不能为空";
+
+                return msg;
+            }
+            return new ResultMessage() { Success = true, Content = "" };
         }
     }
 }

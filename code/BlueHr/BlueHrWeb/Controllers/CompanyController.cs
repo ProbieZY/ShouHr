@@ -86,13 +86,21 @@ namespace BlueHrWeb.Controllers
             try
             {
                 // TODO: Add insert logic here
+                if (company.name == "")
+                {
+                    msg.Success = false;
+                    msg.Content = "名称不可为空。";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    ICompanyService cs = new CompanyService(Settings.Default.db);
 
-                ICompanyService cs = new CompanyService(Settings.Default.db);
-
-                bool isSucceed = cs.Create(company);
-                msg.Success = isSucceed;
-                msg.Content = isSucceed ? "添加成功" : "添加失败";
-                return Json(msg, JsonRequestBehavior.AllowGet);
+                    bool isSucceed = cs.Create(company);
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
