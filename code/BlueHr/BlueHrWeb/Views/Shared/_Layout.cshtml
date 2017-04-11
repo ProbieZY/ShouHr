@@ -115,7 +115,7 @@
                             <span>我的主页</span>
                         </a>
                     </li>
-                    @*@if(canApplication||canFinished||canApproval||canSchedule){
+                    @if(canApplication||canFinished||canApproval||canSchedule){
                     <li class="nav-myThing">
                         <a href="#">
                             <i class="fa fa-user"></i>
@@ -156,7 +156,7 @@
                                 </li>
                             }
 
-                            @if(canSchedule)
+                            @*@if(canSchedule)
                             {
                                 <li class="nav-day">
                                     <a href="/Personal/Schedule">
@@ -164,10 +164,10 @@
                                         日程安排
                                     </a>
                                 </li>
-                            }
+                            }*@
                         </ul>
                     </li>
-                    }*@
+                    }
                     @if(canUser||canSysRole){
                     <li class="nav-userAuthorization">
                         <a href="#">
@@ -336,12 +336,22 @@
                                 </li>
                             }
 
-                            @*@if(canShiftJobRecord)
+                            @if (canFullMemberRecord)
+                            {
+                                <li class="nav-regular">
+                                    <a href="/FullMemberRecord/Index">
+                                        <i class="fa fa-sign-in"></i>
+                                        转正管理
+                                    </a>
+                                </li>
+                            }
+
+                            @if(canShiftJobRecord)
                             {
                                 <li class="nav-transfer">
                                     <a href="/ShiftJobRecord/Index">
                                         <i class="fa fa-retweet"></i>
-                                        职工调岗
+                                        调岗管理
                                     </a>
                                 </li>
                             }
@@ -351,12 +361,21 @@
                                 <li class="nav-resignation">
                                     <a href="/ResignRecord/Index">
                                         <i class="fa fa-user-times"></i>
-                                        职工离职
+                                        离职管理
                                     </a>
                                 </li>
                             }
                             
-                            @if(canOntrail)
+                            @if (canLeaveRecord)
+                            {
+                                <li class="nav-leave">
+                                    <a href="/LeaveRecord/Index">
+                                        <i class="fa fa-anchor"></i>
+                                        缺勤管理
+                                    </a>
+                                </li>
+                            }
+                            @*@if(canOntrail)
                             {
                                 <li class="nav-ontrail">
                                     <a href="/Staff/Ontrail">
@@ -364,17 +383,9 @@
                                         试用期管理
                                     </a>
                                 </li>
-                            }
-                            
-                            @if(canFullMemberRecord)
-                            {
-                                <li class="nav-regular">
-                                    <a href="/FullMemberRecord/Index">
-                                        <i class="fa fa-sign-in"></i>
-                                        职工转正
-                                    </a>
-                                </li>
                             }*@
+                            
+                            
 
                             @*<li class="nav-rehire">
                             <a href="#">
@@ -431,15 +442,7 @@
                                 </li>
                             }
                             
-                            @if(canLeaveRecord)
-                            {
-                                <li class="nav-leave">
-                                    <a href="/LeaveRecord/Index">
-                                        <i class="fa fa-anchor"></i>
-                                        请假管理
-                                    </a>
-                                </li>
-                            }
+                            
                             @if(canExtraWorkRecord)
                             {
                                 <li class="nav-extraWorkRecord">
@@ -500,7 +503,8 @@
                                 </li>
                             }
 
-                            <li class="nav-business">
+                            
+                    <li class="nav-business">
                             <a href="#">
                                 <i class="fa fa-anchor"></i>
                                 出差管理
@@ -664,7 +668,6 @@
     $(window).load(function(){
         if($.cookie('left_sidebar')=="true"){
             $('body').addClass("sidebar-collapse");
-
             $('.content-wrapper').width($(window).width() - 55 +'px');
         }else{
             $('body').removeClass("sidebar-collapse");
@@ -673,24 +676,24 @@
     })
 
     //添加pq-grid类名弹出新窗口
-    //$('.pq-grid').on('click', 'a', function () {
-    //    //1920* 1200  1068 * 677 刚刚好
-    //    //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
-    //    if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href") == "#" || $(this).attr("href").split("/") == "undefined") {
+    $('.pq-grid').on('click', 'a', function () {
+       //1920* 1200  1068 * 677 刚刚好
+       //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
+       if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href") == "#" || $(this).attr("href").split("/") == "undefined") {
 
-    //    }else if($(this).attr("id")=="noopennew"||$(this).attr("id") == "todepartment"){
-    //        window.location.href($(this).attr("href"));
-    //    }else{
-    //        Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-    //    }
+       }else if($(this).attr("id")=="noopennew"||$(this).attr("id") == "todepartment"){
+           window.location.href($(this).attr("href"));
+       }else{
+           Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+       }
 
-    //    return false;
-    //});
+       return false;
+    });
 
-    //$('a>button.marco-btn-primary').click(function () {
-    //    Layout.openNewWindow($(this).parent().attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-    //    return false;
-    //});
+    $('a>button.marco-btn-primary').click(function () {
+       Layout.openNewWindow($(this).parent().attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+       return false;
+    });
     //$('#messagerecord').click(function () {
     //    Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
     //    return false;
@@ -705,7 +708,8 @@
         else {
            Layout.popMsg('popMsg-success', data.Content);
            setTimeout(function(){
-                window.location.reload();
+                window.opener.location.href = window.opener.location.href;
+                window.close();
            }, 1500);
         }
     }

@@ -278,7 +278,7 @@ Layout.init = function () {
             break;
         case "LeaveRecord":
             $('.nav-leave').addClass('active');
-            $('.nav-attendance').addClass('active');
+            $('.nav-laborrelations').addClass('active');
             PageAction('#leaverecord', '新建请假申请', '编辑请假申请', '请假申请详情', '创建', '更新', '删除');
             break;
         case "ShiftSchedule":
@@ -313,32 +313,35 @@ Layout.init = function () {
             }
         });
         if (pathname[2] == "Edit") {
-            // $(".main-header").remove();
-            // $(".main-sidebar").remove();
-            // $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            // $(window).resize(function(){
-            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            // })
+            $(".main-header").remove();
+            $(".main-sidebar").remove();
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            $(window).resize(function(){
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            })
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
         } else if (pathname[2] == "Delete") {
-            // $(".main-header").remove();
-            // $(".main-sidebar").remove();
-            // $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            // $(window).resize(function(){
-            //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-            // })
+            $(".main-header").remove();
+            $(".main-sidebar").remove();
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            $(window).resize(function(){
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
         } 
-        // else if(pathname[2] == "Create"){
-    //         $(".main-header").remove();
-    //         $(".main-sidebar").remove();
-    //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-    //         $(window).resize(function(){
-    //             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
-    //         })
-    //     }else if(pathname[2] == "changepwd"){
+        else if(pathname[2] == "Create"){
+            $(".main-header").remove();
+            $(".main-sidebar").remove();
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+            $(window).resize(function(){
+                $(".content-wrapper").css({width: $(window).width()-80, height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+            })
+            vueName.action = newAction;
+            vueName.actionBtn = newBtn;
+        }
+    //     else if(pathname[2] == "changepwd"){
     //         $(".main-header").remove();
     //         $(".main-sidebar").remove();
     //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});

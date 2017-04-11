@@ -14,7 +14,7 @@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     当前所在：
     <li>劳动关系管理</li>
-    <li>员工转正</li>
+    <li>转正管理</li>
 </ol>
 
 <hr class="hr-grey" />
@@ -47,7 +47,7 @@
             <a href="/FullMemberRecord/Create" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
-                    <span>创建</span>
+                    <span>新建</span>
                 </button>
             </a>
         }
@@ -55,7 +55,7 @@
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#Not_Approve" role="tab" data-toggle="tab">未审批</a></li>
             <li role="presentation"><a href="#Already_Approve" role="tab" data-toggle="tab">已审批</a></li>
-            <li role="presentation"><a href="#all_FullMemberRecord" role="tab" data-toggle="tab">转正记录</a></li>
+            <li role="presentation"><a href="#all_FullMemberRecord" role="tab" data-toggle="tab">全部</a></li>
             
         </ul>
         <div class="tab-content">
@@ -66,7 +66,6 @@
                     <thead>
                         <tr>
                             <th>工号</th>
-                            <th>是否通过考核</th>
                             <th>考核分数</th>
                             <th>转正时间</th>
                             <th>转正备注</th>
@@ -91,11 +90,8 @@
                                             @Html.DisplayFor(modelItem => item.staffNr)
                                         </td>
                                         <td>
-                                            <!--@Html.DisplayFor(modelItem => item.isPassCheck)-->
-                                            <span> @(item.isPassCheck ? "通过" : "未通过") </span>
-                                        </td>
-                                        <td>
                                             @Html.DisplayFor(modelItem => item.checkScore)
+                                            <span style="color:#3c8dbc;"> (@(item.isPassCheck ? "通过" : "未通过")) </span>
                                         </td>
                                         <td>
                                             <!--转正时间-->
@@ -164,7 +160,6 @@
                     <thead>
                         <tr>
                             <th>工号</th>
-                            <th>是否通过考核</th>
                             <th>考核分数</th>
                             <th>转正时间</th>
                             <th>转正备注</th>
@@ -189,11 +184,8 @@
                                         @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        <!--@Html.DisplayFor(modelItem => item.isPassCheck)-->
-                                        <span> @(item.isPassCheck ? "通过" : "未通过") </span>
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.checkScore)
+                                        <span style="color:#3c8dbc;"> (@(item.isPassCheck ? "通过" : "未通过")) </span>
                                     </td>
                                     <td>
                                         <!--转正时间-->
@@ -252,7 +244,6 @@
                     <thead>
                         <tr>
                             <th>工号</th>
-                            <th>是否通过考核</th>
                             <th>考核分数</th>
                             <th>转正时间</th>
                             <th>转正备注</th>
@@ -275,11 +266,8 @@
                                         @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        <!--@Html.DisplayFor(modelItem => item.isPassCheck)-->
-                                        <span> @(item.isPassCheck ? "通过" : "未通过") </span>
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.checkScore)
+                                        <span style="color:#3c8dbc;"> (@(item.isPassCheck ? "通过" : "未通过")) </span>
                                     </td>
                                     <td>
                                         <!--转正时间-->
