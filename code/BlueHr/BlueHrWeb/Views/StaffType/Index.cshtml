@@ -3,6 +3,10 @@
 @model IPagedList<BlueHrLib.Data.StaffType>
 @using BlueHrWeb.Helpers.View
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
     ViewBag.Title = "人员类型";
 }
 @{
@@ -77,13 +81,13 @@
                                     <td>
                                         @if(canDelete)
                                         {
-                                            <a href="/StaffType/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <a href="/StaffType/Delete/@item.id" target="window_name" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         }
                                         @if(canEdit)
                                         {
-                                            <a href="/StaffType/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                            <a href="/StaffType/Edit/@item.id" target="window_name" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         }

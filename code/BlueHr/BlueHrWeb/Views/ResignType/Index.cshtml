@@ -41,7 +41,7 @@
     <div class="minitor-show marco-tabs-default">
         @if(canCreate)
         {
-            <a href="/ResignType/Create" class="pull-right" style="margin-top: -10px;">
+            <a href="/ResignType/Create" target="window_name" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>创建</span>
@@ -75,13 +75,13 @@
                                             <td>
                                                 @if (canDelete)
                                                 {
-                                                    <a href="/ResignType/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <a href="/ResignType/Delete/@item.id" target="window_name" class="option-icon-primary" title="详情">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
                                                 }
                                                 @if (canEdit)
                                                 {
-                                                    <a href="/ResignType/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <a href="/ResignType/Edit/@item.id" target="window_name" class="option-icon-warning" title="编辑">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 }
