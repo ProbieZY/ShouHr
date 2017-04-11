@@ -375,6 +375,16 @@
 
 <script type="text/javascript">
     Layout.init();
+    //刷新页面
+    $(window).load(function(){
+        if($.cookie('left_sidebar')=="true"){
+            $('body').addClass("sidebar-collapse");
+            $('.content-wrapper').width($(window).width() - 55 +'px');
+        }else{
+            $('body').removeClass("sidebar-collapse");
+            $('.content-wrapper').width($(window).width() - 235 +'px');
+        }
+    })
 
     $(window).resize(function () {
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_user", "所有用户列表", "20", "all_user_grid_table");

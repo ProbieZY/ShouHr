@@ -315,18 +315,18 @@ Layout.init = function () {
         if (pathname[2] == "Edit") {
             $(".main-header").remove();
             $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
             $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+                $(".content-wrapper").css({width: $(window).width()-80, height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
             })
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
         } else if (pathname[2] == "Delete") {
             $(".main-header").remove();
             $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
             $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+                $(".content-wrapper").css({width: $(window).width()-80, height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
             })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
