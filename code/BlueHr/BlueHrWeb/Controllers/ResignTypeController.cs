@@ -216,7 +216,7 @@ namespace BlueHrWeb.Controllers
 
             if (model.id <= 0)
             {
-                bool isRecordExists = shift.Where(p => p.name == model.name || p.code == model.code).ToList().Count() > 0;
+                bool isRecordExists = shift.Where(p => p.name == model.name ).ToList().Count() > 0;
 
                 if (isRecordExists)
                 {
@@ -228,7 +228,7 @@ namespace BlueHrWeb.Controllers
             }
             else
             {
-                bool isRecordExists = shift.Where(p => (p.name == model.name || p.code == model.code) && p.id != model.id).ToList().Count() > 0;
+                bool isRecordExists = shift.Where(p => (p.name == model.name ) && p.id != model.id).ToList().Count() > 0;
 
                 if (isRecordExists)
                 {

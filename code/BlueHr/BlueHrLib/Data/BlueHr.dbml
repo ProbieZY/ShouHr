@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DerjinHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=S2\SQLSERVER2008R2;Initial Catalog=DerjinHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="DerjinHrConnectionString1" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ShouHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-2HNNSCH;Initial Catalog=ShouHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="ShouHrConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.WorkAndRest" Member="WorkAndRest">
     <Type Name="WorkAndRest">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -158,15 +158,6 @@
       <Column Name="cronSchedule" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="params" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="jobType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ResignType" Member="ResignType">
-    <Type Name="ResignType">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Association Name="ResignType_ResignRecord" Member="ResignRecord" ThisKey="id" OtherKey="resignTypeId" Type="ResignRecord" />
     </Type>
   </Table>
   <Table Name="dbo.Shift" Member="Shift">
@@ -701,9 +692,9 @@
       <Column Name="IsRevoked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="JobTitle_JobCertificate" Member="JobCertificate" ThisKey="id" OtherKey="jobTitleId" Type="JobCertificate" />
       <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
-      <Association Name="JobTitle_PartTimeJob" Member="PartTimeJob" ThisKey="id" OtherKey="jobTitleId" Type="PartTimeJob" />
       <Association Name="JobTitle_ShiftJobRecord" Member="ShiftJobRecord" ThisKey="id" OtherKey="beforeJobId" Type="ShiftJobRecord" />
       <Association Name="JobTitle_ShiftJobRecord1" Member="ShiftJobRecord1" ThisKey="id" OtherKey="afterJobId" Type="ShiftJobRecord" />
+      <Association Name="JobTitle_PartTimeJob" Member="PartTimeJob" ThisKey="id" OtherKey="jobTitleId" Type="PartTimeJob" />
     </Type>
   </Table>
   <Table Name="dbo.ExtraWorkRecord" Member="ExtraWorkRecord">
@@ -844,8 +835,8 @@
       <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="ResignType_ResignRecord" Member="ResignType" ThisKey="resignTypeId" OtherKey="id" Type="ResignType" IsForeignKey="true" />
       <Association Name="User_ResignRecord" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="ResignType_ResignRecord" Member="ResignType" ThisKey="resignTypeId" OtherKey="id" Type="ResignType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.FullMemberRecord" Member="FullMemberRecord">
@@ -925,6 +916,15 @@
       <Association Name="Company_PartTimeJob" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
       <Association Name="Department_PartTimeJob" Member="Department" ThisKey="departmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
       <Association Name="JobTitle_PartTimeJob" Member="JobTitle" ThisKey="jobTitleId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ResignType" Member="ResignType">
+    <Type Name="ResignType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="ResignType_ResignRecord" Member="ResignRecord" ThisKey="id" OtherKey="resignTypeId" Type="ResignRecord" />
     </Type>
   </Table>
 </Database>
