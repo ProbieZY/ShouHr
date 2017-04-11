@@ -22,7 +22,7 @@ namespace BlueHrLib.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="DerjinHr")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="ShouHr")]
 	public partial class BlueHrDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -72,9 +72,6 @@ namespace BlueHrLib.Data
     partial void InsertQuartzJob(QuartzJob instance);
     partial void UpdateQuartzJob(QuartzJob instance);
     partial void DeleteQuartzJob(QuartzJob instance);
-    partial void InsertResignType(ResignType instance);
-    partial void UpdateResignType(ResignType instance);
-    partial void DeleteResignType(ResignType instance);
     partial void InsertShift(Shift instance);
     partial void UpdateShift(Shift instance);
     partial void DeleteShift(Shift instance);
@@ -156,10 +153,13 @@ namespace BlueHrLib.Data
     partial void InsertPartTimeJob(PartTimeJob instance);
     partial void UpdatePartTimeJob(PartTimeJob instance);
     partial void DeletePartTimeJob(PartTimeJob instance);
+    partial void InsertResignType(ResignType instance);
+    partial void UpdateResignType(ResignType instance);
+    partial void DeleteResignType(ResignType instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.DerjinHrConnectionString1, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.ShouHrConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -297,14 +297,6 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<QuartzJob>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ResignType> ResignType
-		{
-			get
-			{
-				return this.GetTable<ResignType>();
 			}
 		}
 		
@@ -593,6 +585,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<PartTimeJob>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ResignType> ResignType
+		{
+			get
+			{
+				return this.GetTable<ResignType>();
 			}
 		}
 	}
@@ -3835,168 +3835,6 @@ namespace BlueHrLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResignType")]
-	public partial class ResignType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _code;
-		
-		private string _name;
-		
-		private string _remark;
-		
-		private EntitySet<ResignRecord> _ResignRecord;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OncodeChanging(string value);
-    partial void OncodeChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnremarkChanging(string value);
-    partial void OnremarkChanged();
-    #endregion
-		
-		public ResignType()
-		{
-			this._ResignRecord = new EntitySet<ResignRecord>(new Action<ResignRecord>(this.attach_ResignRecord), new Action<ResignRecord>(this.detach_ResignRecord));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_code", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string code
-		{
-			get
-			{
-				return this._code;
-			}
-			set
-			{
-				if ((this._code != value))
-				{
-					this.OncodeChanging(value);
-					this.SendPropertyChanging();
-					this._code = value;
-					this.SendPropertyChanged("code");
-					this.OncodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
-		public string remark
-		{
-			get
-			{
-				return this._remark;
-			}
-			set
-			{
-				if ((this._remark != value))
-				{
-					this.OnremarkChanging(value);
-					this.SendPropertyChanging();
-					this._remark = value;
-					this.SendPropertyChanged("remark");
-					this.OnremarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ResignType_ResignRecord", Storage="_ResignRecord", ThisKey="id", OtherKey="resignTypeId")]
-		public EntitySet<ResignRecord> ResignRecord
-		{
-			get
-			{
-				return this._ResignRecord;
-			}
-			set
-			{
-				this._ResignRecord.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ResignRecord(ResignRecord entity)
-		{
-			this.SendPropertyChanging();
-			entity.ResignType = this;
-		}
-		
-		private void detach_ResignRecord(ResignRecord entity)
-		{
-			this.SendPropertyChanging();
-			entity.ResignType = null;
 		}
 	}
 	
@@ -13994,11 +13832,11 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<Staff> _Staff;
 		
-		private EntitySet<PartTimeJob> _PartTimeJob;
-		
 		private EntitySet<ShiftJobRecord> _ShiftJobRecord;
 		
 		private EntitySet<ShiftJobRecord> _ShiftJobRecord1;
+		
+		private EntitySet<PartTimeJob> _PartTimeJob;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -14018,9 +13856,9 @@ namespace BlueHrLib.Data
 		{
 			this._JobCertificate = new EntitySet<JobCertificate>(new Action<JobCertificate>(this.attach_JobCertificate), new Action<JobCertificate>(this.detach_JobCertificate));
 			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
-			this._PartTimeJob = new EntitySet<PartTimeJob>(new Action<PartTimeJob>(this.attach_PartTimeJob), new Action<PartTimeJob>(this.detach_PartTimeJob));
 			this._ShiftJobRecord = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord));
 			this._ShiftJobRecord1 = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord1), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord1));
+			this._PartTimeJob = new EntitySet<PartTimeJob>(new Action<PartTimeJob>(this.attach_PartTimeJob), new Action<PartTimeJob>(this.detach_PartTimeJob));
 			OnCreated();
 		}
 		
@@ -14130,19 +13968,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_PartTimeJob", Storage="_PartTimeJob", ThisKey="id", OtherKey="jobTitleId")]
-		public EntitySet<PartTimeJob> PartTimeJob
-		{
-			get
-			{
-				return this._PartTimeJob;
-			}
-			set
-			{
-				this._PartTimeJob.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_ShiftJobRecord", Storage="_ShiftJobRecord", ThisKey="id", OtherKey="beforeJobId")]
 		public EntitySet<ShiftJobRecord> ShiftJobRecord
 		{
@@ -14166,6 +13991,19 @@ namespace BlueHrLib.Data
 			set
 			{
 				this._ShiftJobRecord1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_PartTimeJob", Storage="_PartTimeJob", ThisKey="id", OtherKey="jobTitleId")]
+		public EntitySet<PartTimeJob> PartTimeJob
+		{
+			get
+			{
+				return this._PartTimeJob;
+			}
+			set
+			{
+				this._PartTimeJob.Assign(value);
 			}
 		}
 		
@@ -14213,18 +14051,6 @@ namespace BlueHrLib.Data
 			entity.JobTitle = null;
 		}
 		
-		private void attach_PartTimeJob(PartTimeJob entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = this;
-		}
-		
-		private void detach_PartTimeJob(PartTimeJob entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = null;
-		}
-		
 		private void attach_ShiftJobRecord(ShiftJobRecord entity)
 		{
 			this.SendPropertyChanging();
@@ -14247,6 +14073,18 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.JobTitle1 = null;
+		}
+		
+		private void attach_PartTimeJob(PartTimeJob entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = this;
+		}
+		
+		private void detach_PartTimeJob(PartTimeJob entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = null;
 		}
 	}
 	
@@ -16675,9 +16513,9 @@ namespace BlueHrLib.Data
 		
 		private System.Nullable<int> _userId;
 		
-		private EntityRef<ResignType> _ResignType;
-		
 		private EntityRef<User> _User;
+		
+		private EntityRef<ResignType> _ResignType;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -16715,8 +16553,8 @@ namespace BlueHrLib.Data
 		
 		public ResignRecord()
 		{
-			this._ResignType = default(EntityRef<ResignType>);
 			this._User = default(EntityRef<User>);
+			this._ResignType = default(EntityRef<ResignType>);
 			OnCreated();
 		}
 		
@@ -17008,40 +16846,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ResignType_ResignRecord", Storage="_ResignType", ThisKey="resignTypeId", OtherKey="id", IsForeignKey=true)]
-		public ResignType ResignType
-		{
-			get
-			{
-				return this._ResignType.Entity;
-			}
-			set
-			{
-				ResignType previousValue = this._ResignType.Entity;
-				if (((previousValue != value) 
-							|| (this._ResignType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ResignType.Entity = null;
-						previousValue.ResignRecord.Remove(this);
-					}
-					this._ResignType.Entity = value;
-					if ((value != null))
-					{
-						value.ResignRecord.Add(this);
-						this._resignTypeId = value.id;
-					}
-					else
-					{
-						this._resignTypeId = default(int);
-					}
-					this.SendPropertyChanged("ResignType");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ResignRecord", Storage="_User", ThisKey="userId", OtherKey="id", IsForeignKey=true)]
 		public User User
 		{
@@ -17072,6 +16876,40 @@ namespace BlueHrLib.Data
 						this._userId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ResignType_ResignRecord", Storage="_ResignType", ThisKey="resignTypeId", OtherKey="id", IsForeignKey=true)]
+		public ResignType ResignType
+		{
+			get
+			{
+				return this._ResignType.Entity;
+			}
+			set
+			{
+				ResignType previousValue = this._ResignType.Entity;
+				if (((previousValue != value) 
+							|| (this._ResignType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ResignType.Entity = null;
+						previousValue.ResignRecord.Remove(this);
+					}
+					this._ResignType.Entity = value;
+					if ((value != null))
+					{
+						value.ResignRecord.Add(this);
+						this._resignTypeId = value.id;
+					}
+					else
+					{
+						this._resignTypeId = default(int);
+					}
+					this.SendPropertyChanged("ResignType");
 				}
 			}
 		}
@@ -19030,6 +18868,168 @@ namespace BlueHrLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResignType")]
+	public partial class ResignType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _code;
+		
+		private string _remark;
+		
+		private EntitySet<ResignRecord> _ResignRecord;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OncodeChanging(string value);
+    partial void OncodeChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    #endregion
+		
+		public ResignType()
+		{
+			this._ResignRecord = new EntitySet<ResignRecord>(new Action<ResignRecord>(this.attach_ResignRecord), new Action<ResignRecord>(this.detach_ResignRecord));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_code", DbType="VarChar(200)")]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this.OncodeChanging(value);
+					this.SendPropertyChanging();
+					this._code = value;
+					this.SendPropertyChanged("code");
+					this.OncodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ResignType_ResignRecord", Storage="_ResignRecord", ThisKey="id", OtherKey="resignTypeId")]
+		public EntitySet<ResignRecord> ResignRecord
+		{
+			get
+			{
+				return this._ResignRecord;
+			}
+			set
+			{
+				this._ResignRecord.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ResignRecord(ResignRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.ResignType = this;
+		}
+		
+		private void detach_ResignRecord(ResignRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.ResignType = null;
 		}
 	}
 }
