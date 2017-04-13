@@ -87,8 +87,8 @@
 
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-primary">
-                                            <span>通讯地址&nbsp;</span>
-                                            @Html.EditorFor(model => model.residenceAddress)
+                                            <span>婚姻状况&nbsp;</span>
+                                            @Html.DropDownList("isIdChecked", ViewData["SetMarriageList"] as IEnumerable<SelectListItem>)
                                         </div>
                                     </div>
 
