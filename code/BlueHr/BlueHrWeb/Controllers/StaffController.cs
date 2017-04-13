@@ -920,6 +920,7 @@ namespace BlueHrWeb.Controllers
                 SetIsPayCPFList(staff.isPayCPF);
                 SetResidenceTypeList(staff.residenceType);
                 SetWorkStatusList(staff.workStatus);
+                SetMarriageList(staff.isIdChecked);
                 SetAllTableName(null);
                 SetSearchConditions(null);
             }
@@ -936,6 +937,7 @@ namespace BlueHrWeb.Controllers
                 SetIsPayCPFList(false);
                 SetResidenceTypeList(0);
                 SetWorkStatusList(100);
+                SetMarriageList(null);
                 SetAllTableName(null);
                 SetSearchConditions(null);
             }
@@ -1097,6 +1099,30 @@ namespace BlueHrWeb.Controllers
             ViewData["sexList"] = select;
         }
 
+        private void SetMarriageList(bool? type, bool allowBlank = true)
+        {
+            List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["SetMarriageList"] = select;
+        }
         private void SetIsPayCPFList(bool? type, bool allowBlank = true)
         {
             List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
