@@ -862,6 +862,8 @@ namespace BlueHrWeb.Controllers
                 //如果有值， 就说明是只获取某一类型的员工
                 if (!type.HasValue)
                 {
+                    q.WorkStatus = 100;
+                    q.IsOnTrial = true;
                     staffs = ss.Search(q).ToList();
                 }
                 else
@@ -870,7 +872,6 @@ namespace BlueHrWeb.Controllers
                     if(type.Value == 100)
                     {
                         q.WorkStatus = 100;
-                        q.IsOnTrial = false;
                         staffs = ss.Search(q).ToList();
                     //200 离职
                     }else if(type.Value == 200)

@@ -2,6 +2,21 @@
 body {
   font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", Heiti, "黑体", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", sans-serif !important; }
 
+.show-group {
+  height: 40px;
+  line-height: 40px;
+  margin: 5px 0;
+  background-color: #ecf0f1;
+  border: 1px solid #7f8c8d;
+  box-shadow: 2px 2px 1px #888888;
+  color: black; }
+  .show-group span {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    font-weight: bolder;
+    color: #3498db; }
+
 .login {
   margin-top: 60px;
   text-align: center;
@@ -732,14 +747,16 @@ body {
 .marco-textarea {
   margin-top: 10px; }
   .marco-textarea label, .marco-textarea span {
+    height: 30px;
+    line-height: 30px;
     border: 1px solid #2980b9;
-    padding: 6px;
+    padding: 10px;
     border-bottom-color: #2980b9;
     background: #3498db;
     color: #ecf0f1;
     margin-bottom: -3px; }
   .marco-textarea textarea {
-    margin-top: 4px;
+    margin-top: -1px;
     padding: 10px;
     resize: none;
     width: 100%;
@@ -751,13 +768,12 @@ body {
 .current-position {
   margin-bottom: -10px;
   color: #7f8c8d;
-  font-size: 1em;
+  font-size: .9em;
   background: transparent; }
 
 .hr-grey {
   border-style: dashed;
-  border-color: #999;
-  margin-left: 10px; }
+  border-color: #999; }
 
 .hr-default {
   border-style: dashed;
@@ -765,8 +781,7 @@ body {
 
 .hr-primary {
   border-style: dashed;
-  border-color: #2980b9;
-  margin-left: 10px; }
+  border-color: #2980b9; }
 
 .hr-success {
   border-style: dashed;

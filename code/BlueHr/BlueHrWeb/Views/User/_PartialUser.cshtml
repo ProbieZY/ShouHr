@@ -3,7 +3,16 @@
 @{
     bool canDeleted = MenuAuthHelper.CanShow("User", "Deleted");
 }
-
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/layout")
+@Styles.Render("~/Content/bootstrap-treeview")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jquery-plug-in")
+@Scripts.Render("~/bundles/layout")
+@Scripts.Render("~/bundles/vue")
+@Scripts.Render("~/bundles/bootstrap-treeview")
 <input type="hidden" id="can" value="@canDeleted.ToString()">
 
 <div id="user" style="margin:20px;">
@@ -28,7 +37,7 @@
             <div class="marco-nheading">
                 {{action}}  <!--编辑用户-->
                 <div class="pull-right">
-                    <button type="submit" class="marco-btn-danger" style="margin-top:-10px; padding: 0 10px;">
+                    <button type="submit" class="marco-btn-danger" style="margin-top:-2px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>
                         <span>{{actionBtn}}</span> <!--更新-->
                     </button>
@@ -47,15 +56,12 @@
                         @Html.EditorFor(model => model.email)
                     </div>
                 </div>
-                @if (Model == null)
-                {
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" id="password">
-                        <div class="marco-igroup-danger">
-                            <span>密码 *</span>
-                            <input type="text" name="pwd" placeholder="密码" />
-                        </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" id="password">
+                    <div class="marco-igroup-danger">
+                        <span>密码 *</span>
+                        @Html.EditorFor(model => model.pwd)
                     </div>
-                }
+                </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="row">
@@ -665,6 +671,21 @@
 
                 unchecknode(cmpId, nodes[xxxk].nodes);
             }
+        }
+    }
+
+    //回调函数
+    function Success(data) {
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+            Layout.popMsg('popMsg-success', data.Content);
+            setTimeout(function () {
+                window.opener.location.href = window.opener.location.href;
+                window.close();
+            }, 1500);
         }
     }
 </script>

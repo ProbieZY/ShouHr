@@ -1,21 +1,105 @@
-﻿
+﻿@model BlueHrLib.Data.User
+@using BlueHrWeb.Helpers.View
 @{
-    ViewBag.Title = "Delete";
+    bool canDeleted = MenuAuthHelper.CanShow("User", "Deleted");
 }
+@{
+    ViewBag.Title = "用户详情";
+}
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/layout")
+@Styles.Render("~/Content/bootstrap-treeview")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jquery-plug-in")
+@Scripts.Render("~/bundles/layout")
+@Scripts.Render("~/bundles/vue")
+@Scripts.Render("~/bundles/bootstrap-treeview")
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 
-@Html.Partial("_PartialUser")
+<div id="user" style="margin:20px;">
+    <ol class="breadcrumb current-position">
+        当前所在：
+        <li>用户管理</li>
+        @*<li>@Html.ActionLink("用户管理", "Index")</li>*@
+        <li>{{action}}</li>
+    </ol>
+    <hr class="hr-grey" />
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        if (Model != null)
+        {
+            @Html.HiddenFor(model => model.id)
+        }
+
+        <div class="marco-npanel-primary">
+            <div class="marco-nheading">
+                {{action}}  <!--编辑用户-->
+                <div class="pull-right">
+                    <button type="submit" class="marco-btn-danger" style="margin-top:-2px; padding: 0 10px;">
+                        <i class="fa fa-check-circle-o"></i>
+                        <span>{{actionBtn}}</span> <!--更新-->
+                    </button>
+                </div>
+            </div>
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span>姓名:</span>
+                        @Html.DisplayFor(model => model.name)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span>邮箱:</span>
+                        @Html.DisplayFor(model => model.email)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span>角色:</span>
+                        @Html.DisplayFor(model => model.roleStr)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span>校区:</span>
+                        @Html.DisplayFor(model => model.AuthCompany)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span>学院:</span>
+                        @Html.DisplayFor(model => model.AuthDepartment)
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
 <script type="text/javascript">
-    //使之不可编辑 
-    $('input').attr('disabled', 'disabled');
-    $('select').attr('disabled', 'disabled');
-    $('textarea').attr('disabled', 'disabled');
-    $('button[type="submit"]').removeClass('marco-btn-primary');
-    $('button[type="submit"]').addClass('marco-btn-danger');
-    $('.remove-card').attr('disabled', 'disabled');
-    $('.remove-family').attr('disabled', 'disabled');
+    Layout.init();
+    //回调函数
+    function Success(data) {
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+            Layout.popMsg('popMsg-success', data.Content);
+            setTimeout(function () {
+                window.opener.location.href = window.opener.location.href;
+                window.close();
+            }, 1500);
+        }
+    }
+    
     if ($('#can').val() != "True") {
         $('.pull-right').remove();
     }
 </script>
-

@@ -1,7 +1,9 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
 @model IPagedList<BlueHrLib.Data.Company>
-
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @{
     ViewBag.Title = "校区信息";
 }
@@ -28,7 +30,7 @@
     <div class="minitor-show marco-tabs-default">
         @if (canCreate)
         {
-            <a href="/Company/Create" target="window_name" class="pull-right" style="margin-top: -10px;margin-right: 5px;">
+            <a href="/Company/Create" target="window_name" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>新建</span>

@@ -43,6 +43,24 @@ body{
     font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", Heiti, "黑体", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", sans-serif !important;
 }
 
+ .show-group{
+        height:40px;
+        line-height:40px;
+        margin:5px 0;
+        background-color:#ecf0f1;
+        border: 1px solid #7f8c8d;
+        box-shadow: 2px 2px 1px #888888;
+        color:black;
+        span{
+        display:inline-block;
+        width:80px;
+        text-align:center;
+        font-weight:bolder;
+        color:#3498db;
+    }
+}
+
+
 .login{
     margin-top: 60px;
     text-align:center;   
@@ -425,8 +443,8 @@ body{
 .marco-textarea{
     margin-top:10px;
     label, span{
-        height:35px;
-        line-height:20px;
+        height:30px;
+        line-height:30px;
         border: 1px solid $brlize-hole;
         padding: 10px;
         border-bottom-color: $brlize-hole;

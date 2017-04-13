@@ -1,7 +1,9 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
 @model IPagedList<BlueHrLib.Data.FullMemberRecord>
-
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @{
     ViewBag.Title = "转正管理";
 }
@@ -68,13 +70,10 @@
                             <th>工号</th>
                             <th>考核分数</th>
                             <th>转正时间</th>
-                            <th>转正备注</th>
+                            @*<th>转正备注</th>*@
                             <th>申请人</th>
                             <th>申请时间</th>
-                            <th>审批人</th>
-                            <th>审批时间</th>
                             <th>审核状态</th>
-                            <th>审核备注</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -101,9 +100,6 @@
                                             <!--@Html.DisplayFor(modelItem => item.beFullAt)-->
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.remark)
-                                        </td>
-                                        <td>
                                             @Html.DisplayFor(modelItem => item.userName)
                                         </td>
                                         <td>
@@ -112,22 +108,15 @@
                                             </span>
                                             <!--@Html.DisplayFor(modelItem => item.createdAt)-->
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalUserName)
-                                        </td>
-                                        <td>
+                                        @*<td>
                                             <span>
                                                 @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "" )
                                             </span>
-                                            <!--@Html.DisplayFor(modelItem => item.approvalAt)-->
-                                        </td>
+                                        </td>*@
                                         
                                          <td>未审批</td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
-                                        <td>
+                                         <td>
                                             @if (canDelete)
                                             {
                                                 <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
@@ -162,14 +151,10 @@
                             <th>工号</th>
                             <th>考核分数</th>
                             <th>转正时间</th>
-                            <th>转正备注</th>
                             <th>申请人</th>
                             <th>申请时间</th>
-                            <th>审批人</th>
-                            <th>审批时间</th>
                             <th>审核状态</th>
-                            <th>审核备注</th>
-                            @*<th>操作</th>*@
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -188,14 +173,9 @@
                                         <span style="color:#3c8dbc;"> (@(item.isPassCheck ? "通过" : "未通过")) </span>
                                     </td>
                                     <td>
-                                        <!--转正时间-->
                                         <span>
                                              @(@item.beFullAt.HasValue ? @item.beFullAt.Value.ToString("yyyy-MM-dd") : "" )
                                         </span>
-                                        <!--@Html.DisplayFor(modelItem => item.beFullAt)-->
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.userName)
@@ -206,31 +186,23 @@
                                         </span>
                                         <!--@Html.DisplayFor(modelItem => item.createdAt)-->
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalUserName)
-                                    </td>
-                                    <td>
+                                    @*<td>
                                         <span>
                                              @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "" )
                                         </span>
-                                        <!--@Html.DisplayFor(modelItem => item.approvalAt)-->
-                                    </td>
-                                    
+                                    </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalStatus)
                                     </td>
-
+                                   
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approvalRemark)
-                                    </td>
-                                    @*<td>
                                         @if (canDelete)
                                         {
                                             <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         }
-                                    </td>*@
+                                    </td>
                                 </tr>
                                 }
                             }
@@ -246,13 +218,9 @@
                             <th>工号</th>
                             <th>考核分数</th>
                             <th>转正时间</th>
-                            <th>转正备注</th>
                             <th>申请人</th>
                             <th>申请时间</th>
-                            <th>审批人</th>
-                            <th>审批时间</th>
                             <th>审核状态</th>
-                            <th>审核备注</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -277,9 +245,6 @@
                                         <!--@Html.DisplayFor(modelItem => item.beFullAt)-->
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.userName)
                                     </td>
                                     <td>
@@ -287,15 +252,6 @@
                                              @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "" )
                                         </span>
                                         <!--@Html.DisplayFor(modelItem => item.createdAt)-->
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalUserName)
-                                    </td>
-                                    <td>
-                                        <span>
-                                             @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "" )
-                                        </span>
-                                        <!--@Html.DisplayFor(modelItem => item.approvalAt)-->
                                     </td>
                                     @if (item.approvalStatus == null)
                                     {
@@ -308,18 +264,16 @@
                                         </td>
                                     }
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approvalRemark)
-                                    </td>
-                                    <td>
+                                        if (canDelete)
+                                        {
+                                        <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        }
                                        
                                         @if (item.approvalStatus == null)
                                         {
-                                            if (canDelete)
-                                            {
-                                                <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            }
+                                            
                                             if (canEdit)
                                             {
                                                 <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">

@@ -7,8 +7,7 @@
 <div id="fullMemberRecord" style="margin:20px;">
     <ol class="breadcrumb current-position">
         当前所在：
-        <li>个人事项</li>
-        <li>我的申请</li>
+        <li>转正管理</li>
         <li>{{action}}</li>
     </ol>
 
@@ -31,7 +30,7 @@
                 {{action}}
 
                 <div class="pull-right">
-                    <button type="submit" class="marco-btn-primary submit-btn" style="margin-top:-10px; padding: 0 10px;">
+                    <button type="submit" class="marco-btn-danger" style="margin-top:-10px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>
                         <span>{{actionBtn}}</span>
                     </button>
@@ -41,8 +40,8 @@
             <div class="marco-nbody">
                 <div class="row" style="margin:0;">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <label for="name">员工号 *</label>
+                        <div class="marco-igroup-danger">
+                            <span>工号 *</span>
                              @if(Model != null)
                              {
                                 <select name="staffNrSelect" id="staffNrSelect"></select>
@@ -57,22 +56,22 @@
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <label for="name">是否通过转正</label>
+                        <div class="marco-igroup-danger">
+                            <span>通过与否*</span>
                             @Html.EditorFor(model => model.isPassCheck, new { htmlAttributes =  new {@style="width: 24px; margin-left: 20px;"} })
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <label for="name">转正分数</label>
+                        <div class="marco-igroup-danger">
+                            <span>考核分数*</span>
                             @Html.EditorFor(model => model.checkScore)
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <label for="name">转正日期</label>
+                        <div class="marco-igroup-danger">
+                            <span>转正日期*</span>
                             @if (Model != null)
                             {
                                 <input id="beFullAt" name="beFullAt" value="@Model.beFullAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
@@ -135,9 +134,9 @@
                     }
                 </div>
                 <div class="row" style="margin:0;">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="marco-textarea">
-                            <span style="padding:3px 10px; height: 35px; margin-bottom: -2px;">转正备注</span>
+                            <span>转正备注</span>
                             @Html.TextAreaFor(model => model.remark)
                         </div>
                     </div>
@@ -160,18 +159,7 @@
     Layout.init();
 
     Layout.datepicker(".date-picker"); 
-    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr', true);
-
-    $(".submit-btn").click(function(){
-        $("#resignTypeName").val($(".combo-input").val());
-        // $("#staffNr").val($("#onTrialStaff").val());
-
-        console.log($("#staffNr").val());
-        if($("#staffNr").val()==""){
-            Layout.popMsg("popMsg-danger", "员工号不能为空");
-            return false;
-        }
-    })
+    Layout.SetTypeStaffNr(null, 'staffNrSelect', 'staffNr', true);
 
     //控制textarea高度
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });

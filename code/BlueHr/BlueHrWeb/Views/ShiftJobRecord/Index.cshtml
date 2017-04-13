@@ -6,6 +6,10 @@
     ViewBag.Title = "员工调岗";
 }
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
     bool canCreate = MenuAuthHelper.CanShow("ShiftJobRecord", "Create");
     bool canEdit = MenuAuthHelper.CanShow("ShiftJobRecord", "Edit");
     bool canDelete = MenuAuthHelper.CanShow("ShiftJobRecord", "Delete");

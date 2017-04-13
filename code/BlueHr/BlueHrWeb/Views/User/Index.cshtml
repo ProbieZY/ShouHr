@@ -5,6 +5,9 @@
     ViewBag.Title = "用户管理";
 }
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
     bool canCreate = MenuAuthHelper.CanShow("User", "Create");
     bool canEdit = MenuAuthHelper.CanShow("User", "Edit");
     bool canChangepwd = MenuAuthHelper.CanShow("User", "Changepwd");
@@ -411,14 +414,14 @@
         TableWidth  = $(window).width() - 110;
     }
 
-    Layout.TransferTableToGrid(TableWidth, $(window).height() - 300,  false, "unlocked_user", "未锁定用户列表", "20", "unlocked_user_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260,  false, "unlocked_user", "未锁定用户列表", "20", "unlocked_user_grid_table");
 
     $('#locked_user').addClass("active");
-    Layout.TransferTableToGrid(TableWidth, $(window).height() - 300, false, "locked_user", "已锁定用户列表", "20", "locked_user_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "locked_user", "已锁定用户列表", "20", "locked_user_grid_table");
     $('#locked_user').removeClass("active");
 
     $('#all_user').addClass("active");
-    Layout.TransferTableToGrid(TableWidth,  $(window).height() - 300, false, "all_user", "所有用户列表", "20", "all_user_grid_table");
+    Layout.TransferTableToGrid(TableWidth,  $(window).height() - 260, false, "all_user", "所有用户列表", "20", "all_user_grid_table");
     $('#all_user').removeClass("active");
 
     function lock(id){

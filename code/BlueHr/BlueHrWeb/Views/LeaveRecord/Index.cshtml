@@ -5,7 +5,9 @@
 @{
     ViewBag.Title = "请假管理";
 }
-
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @{
     bool canCreate = MenuAuthHelper.CanShow("LeaveRecord", "Create");
     bool canEdit = MenuAuthHelper.CanShow("LeaveRecord", "Edit");

@@ -6,6 +6,9 @@
     ViewBag.Title = "学历管理";
 }
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
     bool canCreate = MenuAuthHelper.CanShow("DegreeType", "Create");
     bool canEdit = MenuAuthHelper.CanShow("DegreeType", "Edit");
     bool canDelete = MenuAuthHelper.CanShow("DegreeType", "Delete");

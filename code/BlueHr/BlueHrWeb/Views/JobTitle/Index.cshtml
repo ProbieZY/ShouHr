@@ -2,9 +2,11 @@
 @model IPagedList<BlueHrLib.Data.JobTitle>
 @using BlueHrWeb.Helpers.View
 @{
-    ViewBag.Title = "职工类型";
+    ViewBag.Title = "职位类型";
 }
-
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @{
     bool canCreate = MenuAuthHelper.CanShow("JobTitle", "Create");
     bool canEdit = MenuAuthHelper.CanShow("JobTitle", "Edit");
@@ -59,7 +61,7 @@
     当前所在：
     <li>基础数据管理</li>
     <li>
-        <strong>职工类型</strong>
+        <strong>职位类型</strong>
     </li>
 </ol>
 
@@ -81,7 +83,7 @@
 @*弹出框*@
 <div id="JobTitlePopModal" class="approval_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
-        <span>职位管理</span>
+        <span>新建类型</span>
     </div>
 
     <div class="dialogModal_content">

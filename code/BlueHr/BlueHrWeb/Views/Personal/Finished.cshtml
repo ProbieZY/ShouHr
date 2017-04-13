@@ -3,6 +3,9 @@
     ViewBag.Title = "我的已办";
 }
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
     bool canExtraWorkRecord = MenuAuthHelper.CanShow("ExtraWorkRecord", "Index");
     bool canResignRecord = MenuAuthHelper.CanShow("ResignRecord", "Index");
     bool canFullMemberRecord = MenuAuthHelper.CanShow("FullMemberRecord", "Index");

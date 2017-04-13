@@ -1,9 +1,11 @@
 ﻿@using MvcPaging
-
 @model IPagedList<BlueHrLib.Data.SysRole>
 @using BlueHrWeb.Helpers.View
 @{
     ViewBag.Title = "角色管理";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
     bool canCreate = MenuAuthHelper.CanShow("SysRole", "Create");
@@ -91,7 +93,7 @@
 @*弹出框*@
 <div id="RolePopModal" class="approval_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
-        <span>角色管理</span>
+        <span>新建角色</span>
     </div>
 
     <div class="dialogModal_content">

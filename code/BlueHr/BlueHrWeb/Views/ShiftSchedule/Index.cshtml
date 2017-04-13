@@ -1,9 +1,13 @@
-﻿@using MvcPaging
+﻿
+@using MvcPaging
 @using BlueHrWeb.Helpers.View
 
 @model IPagedList<BlueHrLib.Data.ShiftSchedule>
 @{
     ViewBag.Title = "排班查询";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style type="text/css">

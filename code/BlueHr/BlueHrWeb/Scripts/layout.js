@@ -7,8 +7,6 @@ function hide_handle_dialog() {
     document.getElementById('handle-dialog-modal').style.display = 'none';
     document.getElementById('dialog-overlay').style.display = 'none';
 }
-
-
 var Layout = {};
 Layout.init = function () {
     //IE 提示console找不到 解决办法
@@ -86,10 +84,8 @@ Layout.init = function () {
             PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');          
             break;
         case "User":
-            if(pathname[2]=="Index"){
-                $('.nav-user').addClass('active');
-                $('.nav-userAuthorization').addClass('active');
-            }
+            $('.nav-user').addClass('active');
+            $('.nav-userAuthorization').addClass('active');
             PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
             break;
         case "AbsenceRecrod":
@@ -313,31 +309,19 @@ Layout.init = function () {
             }
         });
         if (pathname[2] == "Edit") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width()-80, height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            })
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
         } else if (pathname[2] == "Delete") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width()-80, height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
         } 
         else if(pathname[2] == "Create"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width()-80, height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
-            })
+            // $(".main-header").remove();
+            // $(".main-sidebar").remove();
+            // $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+            // $(window).resize(function(){
+            //     $(".content-wrapper").css({width: $(window).width()-80, height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
+            // })
             vueName.action = newAction;
             vueName.actionBtn = newBtn;
         }
@@ -619,6 +603,8 @@ Layout.SetTypeStaffNr = function (type, selectId, staffNr, allowBlank){
     })
 }
 
+
+    
 //点击删除搜索条件
 // Layout.deleteCondition=function(){
 //     $('#delete').click(function(){

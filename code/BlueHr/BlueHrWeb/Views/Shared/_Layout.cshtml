@@ -218,7 +218,7 @@
                                     <li class="nav-staffType">
                                         <a href="/StaffType/Index">
                                             <i class="fa fa-user"></i>
-                                            人员类型
+                                            职位类型
                                         </a>
                                     </li>
                                 }
@@ -666,7 +666,6 @@
 
     //刷新页面
     $(window).load(function(){
-        if($('header').hasClass('main-header')){
             if($.cookie('left_sidebar')=="true"){
                 $('body').addClass("sidebar-collapse");
                 $('.content-wrapper').width($(window).width() - 55 +'px');
@@ -674,10 +673,6 @@
                 $('body').removeClass("sidebar-collapse");
                 $('.content-wrapper').width($(window).width() - 235 +'px');
             }
-        }else{
-            $('.content-wrapper').width($(window).width() - 80 +'px');
-        }
-        
     })
 
     //添加pq-grid类名弹出新窗口
@@ -704,19 +699,6 @@
     //    return false;
     //});
 
-    //回调函数
-    function Success(data) {
-        if (!data.Success) {
-            Layout.popMsg('popMsg-danger', data.Content);
-            return false;
-        }
-        else {
-           Layout.popMsg('popMsg-success', data.Content);
-           setTimeout(function(){
-                window.opener.location.href = window.opener.location.href;
-                window.close();
-           }, 1500);
-        }
-    }
+
 </script>
 
