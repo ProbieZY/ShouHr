@@ -240,7 +240,7 @@ namespace BlueHrWeb.Controllers
         // POST: User/Edit/5
         [HttpPost]
         //[RoleAndDataAuthorizationAttribute]
-        public ActionResult Edit([Bind(Include = "id,name,email,role")] User user)
+        public ActionResult Edit([Bind(Include = "id,name,email,pwd,role")] User user)
         {
             ResultMessage msg = new ResultMessage();
 

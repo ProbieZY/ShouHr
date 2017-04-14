@@ -513,7 +513,7 @@ namespace BlueHrWeb.Controllers
         public JsonResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
             "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
-            "ResidenceType, inSureTypeId, IsPayCPF, contractExpireStr, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
+            "ResidenceType, inSureTypeId, IsPayCPF, contractExpireStr, ContractCount,totalSeniority, Ethnic, Remark, workingYears,isIdChecked")] Staff staff)
         {
             ResultMessage msg = new ResultMessage();
             msg.Success = false;

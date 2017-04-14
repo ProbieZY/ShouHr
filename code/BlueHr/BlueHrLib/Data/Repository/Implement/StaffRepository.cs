@@ -270,6 +270,7 @@ namespace BlueHrLib.Data.Repository.Implement
                     sf.jobTitleId = staff.jobTitleId;
                     sf.companyId = staff.companyId;
                     sf.departmentId = staff.departmentId;
+                    sf.isIdChecked = staff.isIdChecked;
 
                     this.context.SubmitChanges();
                     return true;
