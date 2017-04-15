@@ -62,7 +62,7 @@
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#Not_Approve" role="tab" data-toggle="tab">未审批</a></li>
             <li role="presentation"><a href="#Already_Approve" role="tab" data-toggle="tab">已审批</a></li>
-            <li role="presentation"><a href="#all_ResignRecord" role="tab" data-toggle="tab">全部离职申请</a></li>
+            <li role="presentation"><a href="#all_ResignRecord" role="tab" data-toggle="tab">全部</a></li>
             
         </ul>
 
@@ -72,17 +72,12 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            @*<th></th>*@
                             <th>工号</th>
-                            <th>离职类型</th>
-                            <th>申请时间</th>
+                            <th>离职原因</th>
+                            <th>离职时间</th>
                             <th>申请人</th>
-                            <th>生效时间</th>
-                            <th>离职理由</th>
-                            <th>审批人</th>
-                            <th>审批时间</th>
+                            <th>申请时间</th>
                             <th>审批状态</th>
-                            <th>审批备注</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -111,26 +106,9 @@
                                             @Html.DisplayFor(modelItem =>item.userName)
                                         </td>
                                         <td>
-                                            <!--值可为空-->
-                                            @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignReason)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignChecker)
-                                        </td>
-                                        <td>
-                                            <!--审批时间-->
-                                            <span>
-                                                @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
-                                            </span>
+                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>未审批</td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
 
                                         <td>
                                             @if (canDelete)
@@ -164,18 +142,13 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            @*<th></th>*@
                             <th>工号</th>
-                            <th>离职类型</th>
-                            <th>申请时间</th>
+                            <th>离职原因</th>
+                            <th>离职时间</th>
                             <th>申请人</th>
-                            <th>生效时间</th>
-                            <th>离职理由</th>
-                            <th>审批人</th>
-                            <th>审批时间</th>
+                            <th>申请时间</th>
                             <th>审批状态</th>
-                            <th>审批备注</th>
-                            @*<th>操作</th>*@
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -203,36 +176,19 @@
                                             @Html.DisplayFor(modelItem =>item.userName)
                                         </td>
                                         <td>
-                                            <!--值可为空-->
-                                            @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignReason)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignChecker)
-                                        </td>
-                                        <td>
-                                            <!--审批时间-->
-                                            <span>
-                                                @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
-                                            </span>
+                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalStatus)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
-                                        @*<td>
                                             @if (canDelete)
                                             {
                                                 <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                             }
-                                        </td>*@
+                                        </td>
                                     </tr>
                                 }
                             }
@@ -245,17 +201,12 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            @*<th></th>*@
                             <th>工号</th>
-                            <th>离职类型</th>
-                            <th>申请时间</th>
+                            <th>离职原因</th>
+                            <th>离职时间</th>
                             <th>申请人</th>
-                            <th>生效时间</th>
-                            <th>离职理由</th>
-                            <th>审批人</th>
-                            <th>审批时间</th>
+                            <th>申请时间</th>
                             <th>审批状态</th>
-                            <th>审批备注</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -283,22 +234,9 @@
                                         @Html.DisplayFor(modelItem =>item.userName)
                                     </td>
                                     <td>
-                                        <!--值可为空-->
-                                        @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
+                                        @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
                                     </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.resignReason)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.resignChecker)
-                                    </td>
-                                    <td>
-                                        <!--审批时间-->
-                                        <span>
-                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
-                                        </span>
-                                    </td>
+                                    
                                         @if (item.approvalStatus == null)
                                         {
                                             <td>未审批</td>
@@ -309,10 +247,6 @@
                                                 @Html.DisplayFor(modelItem => item.approvalStatus)
                                             </td>
                                         }
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalRemark)
-                                    </td>
 
                                     <td>
                                         
@@ -425,7 +359,7 @@
                         }
                         else {
                             $('#approval_content').dialogModal("hide");
-                            Layout.popMsg('popMsg-danger', data.Content);
+                            Layout.popMsg('popMsg-success', data.Content);
                             window.location.reload();
                         }
                     });

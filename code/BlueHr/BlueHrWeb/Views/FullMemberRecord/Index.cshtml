@@ -264,7 +264,7 @@
                                         </td>
                                     }
                                     <td>
-                                        if (canDelete)
+                                        @if (canDelete)
                                         {
                                         <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
@@ -375,7 +375,7 @@
                     }
                     else {
                         $('#approval_content').dialogModal("hide");
-                        Layout.popMsg('popMsg-danger', data.Content);
+                        Layout.popMsg('popMsg-success', data.Content);
                         window.location.reload();
                     }
                 });

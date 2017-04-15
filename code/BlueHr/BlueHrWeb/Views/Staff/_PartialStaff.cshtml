@@ -43,7 +43,10 @@
                     <li role="presentation"><a href="#additional" role="tab" data-toggle="tab">附加信息</a></li>
                     <li role="presentation"><a href="#position" role="tab" data-toggle="tab">入职信息</a></li>
                     <li role="presentation"><a href="#bankcard" role="tab" data-toggle="tab">银行卡信息</a></li>
+                    @if (Model==null||Model.isIdChecked)
+                    {
                     <li role="presentation"><a href="#children" role="tab" data-toggle="tab">子女信息</a></li>
+                    }
                     @if (Model != null)
                     {
                         <li role="presentation"><a href="#change" role="tab" data-toggle="tab">调动记录</a></li>
@@ -359,35 +362,6 @@
                         </div>                                     
                     </div>
 
-                    @if (Model != null)
-                    {
-                        <div role="tabpanel" class="tab-pane" id="certificatecard">
-                            <div class="marco-npanel-normal">
-                                <div class="marco-nheading">
-                                    <span>证书信息</span>
-                                </div>
-
-                                <div class="marco-nbody">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>证书类别</th>
-                                                <th>证书级别</th>
-                                                <th>有效期起</th>
-                                                <th>有效期止</th>
-                                                <th>发证单位</th>
-                                                <th>备注</th>
-                                                <!--<th>附件</th>-->
-                                                <!--<th>操作</th>-->
-                                            </tr>
-                                        </thead>
-                                        <tbody class="tbody-certificates"></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    }
-
                     <div role="tabpanel" class="tab-pane" id="experience">
                         <div class="marco-npanel-normal">
                             <div class="marco-nheading">
@@ -521,7 +495,7 @@
                             </div>
                         </div>
                     </div>
-
+                    @if (Model == null || Model.isIdChecked) {
                     <div role="tabpanel" class="tab-pane" id="children">
                         <div class="marco-npanel-normal">
                             <div class="marco-nheading">
@@ -585,7 +559,7 @@
                             </div>
                         </div>
                     </div>
-
+                    }
                     <div role="tabpanel" class="tab-pane" id="change">
                         <div class="marco-npanel-normal">
                             <div class="marco-nheading">
@@ -697,9 +671,7 @@
             format: 'Y-m-d',
             id: datepicks[i],
             onChangeDateTime: function (dt) {
-                console.log(dt);
                 var did = $(this).attr("id") + "CalDisplay";
-                console.log($(this).attr("id")); console.log(did);
                 var year = (new Date()).getFullYear() - dt.getFullYear();
                 var month = (new Date()).getMonth() - dt.getMonth();
                 $("#" + did).val(year + "年" + month + "月");
@@ -1068,7 +1040,6 @@
                                 //  $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
                             }
                         });
-                        console.log(data);
 
                         var isSel = ifDepSelected(cmpId, data.id);
 
@@ -1154,7 +1125,6 @@
         type: 'get',
         data:{staffNr:$('#nr').val()},
         success: function (data) {
-            console.log(data);
             $("#partTime").empty();
             if(data.length>0){
                 for(var i =0; i< data.length; i++){

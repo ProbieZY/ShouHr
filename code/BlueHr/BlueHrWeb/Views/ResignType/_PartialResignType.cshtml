@@ -1,5 +1,14 @@
 ﻿@model BlueHrLib.Data.ResignType
-
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/layout")
+@Styles.Render("~/Content/bootstrap-treeview")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jquery-plug-in")
+@Scripts.Render("~/bundles/layout")
+@Scripts.Render("~/bundles/vue")
+@Scripts.Render("~/bundles/bootstrap-treeview")
 <div id="resigntype" style="margin:20px;">
     <ol class="breadcrumb current-position">
         当前所在：
@@ -24,7 +33,7 @@
             <div class="marco-nheading">
                 {{action}}
                 <div class="pull-right">
-                    <button type="submit" class="marco-btn-danger" style="margin-top:-10px; padding: 0 10px;">
+                    <button type="submit" class="marco-btn-danger" style="margin-top:-2px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>
                         <span>{{actionBtn}}</span>
                     </button>
@@ -59,5 +68,18 @@
     $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     });
-
+    //回调函数
+    function Success(data) {
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+            Layout.popMsg('popMsg-success', data.Content);
+            setTimeout(function () {
+                window.opener.location.href = window.opener.location.href;
+                window.close();
+            }, 1500);
+        }
+    }
 </script>
