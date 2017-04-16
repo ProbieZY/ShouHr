@@ -307,7 +307,13 @@ namespace BlueHrWeb.Controllers
 
                 return msg;
             }
+            if (string.IsNullOrEmpty(resignRecord.resignAt.ToString()))
+            {
+                msg.Success = false;
+                msg.Content = "离职日期不能为空";
 
+                return msg;
+            }
             return new ResultMessage() { Success = true, Content = "" };
         }
 

@@ -265,8 +265,18 @@ namespace BlueHrWeb.Controllers
 
                 return msg;
             }
-
-            
+            if (string.IsNullOrWhiteSpace(model.checkScore.ToString()))
+            {
+                msg.Success = false;
+                msg.Content = "请填写分数";
+                return msg;
+            }
+            if (string.IsNullOrWhiteSpace(model.approvalAt.ToString()))
+            {
+                msg.Success = false;
+                msg.Content = "请填写转正日期";
+                return msg;
+            }
 
             if (string.IsNullOrWhiteSpace(model.isPassCheck.ToString()))
             {

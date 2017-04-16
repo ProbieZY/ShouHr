@@ -163,7 +163,7 @@ namespace BlueHrWeb.Controllers
         {
             IRewardsAndPenaltyService rps = new RewardsAndPenaltyService(Settings.Default.db);
             List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
-            foreach (var i in rps.FindBystaffNr(staffNr).Where(r => r.approvalStatus == "审批通过"))
+            foreach (var i in rps.FindBystaffNr(staffNr).Where(r => r.approvalStatus == "通过审批"))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("奖惩类型", i.type == 1?"奖励":"惩罚");
@@ -296,6 +296,12 @@ namespace BlueHrWeb.Controllers
             {
                 msg.Success = false;
                 msg.Content = "奖惩类别不能为空";
+                return msg;
+            }
+            if (model.project == null)
+            {
+                msg.Success = false;
+                msg.Content = "奖惩项目不能为空";
                 return msg;
             }
             return new ResultMessage() { Success = true, Content = "" };
