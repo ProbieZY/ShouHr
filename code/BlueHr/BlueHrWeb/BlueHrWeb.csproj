@@ -560,19 +560,12 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
     <Content Include="Views\Company\Create.cshtml" />
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\Company\Delete.cshtml" />
-    <Content Include="Views\AttendanceRecordDetail\Index.cshtml" />
     <Content Include="Views\Company\_PartialCompany.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
     <Content Include="Views\Staff\Create.cshtml" />
@@ -581,25 +574,16 @@
     <Content Include="Views\Shared\Search\_CompanyAndDepartmentBar.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\Staff\Edit.cshtml" />
-    <Content Include="Views\TaskRound\Index.cshtml" />
     <Content Include="Views\Department\Edit.cshtml" />
     <Content Include="Views\Department\Delete.cshtml" />
     <Content Include="Views\Department\Create.cshtml" />
     <Content Include="Views\Department\_PartialDepartment.cshtml" />
-    <Content Include="Views\AttendanceRecordCal\Index.cshtml" />
-    <Content Include="Views\AttendanceRecordCal\Edit.cshtml" />
     <Content Include="Views\Staff\Delete.cshtml" />
-    <Content Include="Views\AttendanceRecordCal\ExceptionList.cshtml" />
     <Content Include="Views\Staff\ToFullMemeber.cshtml" />
     <Content Include="Views\JobTitle\Create.cshtml" />
     <Content Include="Views\JobTitle\Edit.cshtml" />
     <Content Include="Views\JobTitle\Delete.cshtml" />
     <Content Include="Views\JobTitle\_PartialJobTitle.cshtml" />
-    <Content Include="Views\CertificateType\Index.cshtml" />
-    <Content Include="Views\CertificateType\Create.cshtml" />
-    <Content Include="Views\CertificateType\Edit.cshtml" />
-    <Content Include="Views\CertificateType\Delete.cshtml" />
-    <Content Include="Views\CertificateType\_PartialCertificateType.cshtml" />
     <Content Include="Views\DegreeType\Create.cshtml" />
     <Content Include="Views\DegreeType\Delete.cshtml" />
     <Content Include="Views\DegreeType\Edit.cshtml" />
@@ -610,102 +594,18 @@
     <Content Include="Views\StaffType\Edit.cshtml" />
     <Content Include="Views\StaffType\Delete.cshtml" />
     <Content Include="Views\StaffType\_PartialStaffType.cshtml" />
-    <Content Include="Views\InSureType\Index.cshtml" />
-    <Content Include="Views\InSureType\Create.cshtml" />
-    <Content Include="Views\InSureType\Edit.cshtml" />
-    <Content Include="Views\InSureType\Delete.cshtml" />
-    <Content Include="Views\InSureType\_PartialInSureType.cshtml" />
     <Content Include="Views\ResignType\Index.cshtml" />
     <Content Include="Views\ResignType\Create.cshtml" />
     <Content Include="Views\ResignType\Edit.cshtml" />
     <Content Include="Views\ResignType\Delete.cshtml" />
     <Content Include="Views\ResignType\_PartialResignType.cshtml" />
-    <Content Include="Views\AbsenceType\Index.cshtml" />
-    <Content Include="Views\AbsenceType\Create.cshtml" />
-    <Content Include="Views\AbsenceType\Edit.cshtml" />
-    <Content Include="Views\AbsenceType\Delete.cshtml" />
-    <Content Include="Views\AbsenceType\_PartialAbsenceType.cshtml" />
     <Content Include="Views\Staff\Resign.cshtml" />
-    <Content Include="Views\ExtraWorkType\Index.cshtml" />
-    <Content Include="Views\MessageRecord\Index.cshtml" />
-    <Content Include="Views\Certificate\Index.cshtml" />
-    <Content Include="Views\Certificate\Create.cshtml" />
-    <Content Include="Views\Certificate\Edit.cshtml" />
-    <Content Include="Views\Certificate\Delete.cshtml" />
-    <Content Include="Views\Certificate\_PartialCertificate.cshtml" />
-    <Content Include="Views\AbsenceRecrod\Index.cshtml" />
-    <Content Include="Views\AbsenceRecrod\Create.cshtml" />
-    <Content Include="Views\AbsenceRecrod\Edit.cshtml" />
-    <Content Include="Views\AbsenceRecrod\Delete.cshtml" />
-    <Content Include="Views\AbsenceRecrod\_PartialAbsenceRecrod.cshtml" />
-    <Content Include="Views\ExtraWorkRecord\Index.cshtml" />
-    <Content Include="Views\ExtraWorkRecord\Create.cshtml" />
-    <Content Include="Views\ExtraWorkRecord\Edit.cshtml" />
-    <Content Include="Views\ExtraWorkRecord\Delete.cshtml" />
-    <Content Include="Views\ExtraWorkRecord\_PartialExtraWorkRecord.cshtml" />
-    <Content Include="Views\Shift\Index.cshtml" />
-    <Content Include="Views\Shift\Create.cshtml" />
-    <Content Include="Views\Shift\_PartialShift.cshtml" />
-    <Content Include="Views\Shift\Edit.cshtml" />
-    <Content Include="Views\Shift\Delete.cshtml" />
-    <Content Include="Views\ShiftSchedule\Index.cshtml" />
-    <Content Include="Views\ShiftSchedule\Create.cshtml" />
-    <Content Include="Views\ShiftSchedule\Edit.cshtml" />
-    <Content Include="Views\ShiftSchedule\Delete.cshtml" />
-    <Content Include="Views\ShiftSchedule\_PartialShiftSchedule.cshtml" />
-    <Content Include="Views\SystemSetting\Index.cshtml" />
-    <Content Include="Views\QuartzJob\Index.cshtml" />
-    <Content Include="Views\QuartzJob\Create.cshtml" />
-    <Content Include="Template\作息表模板.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Template\加班记录导入文件模板.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Template\员工信息导入文件模板.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Template\排班导入文件模板.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Template\缺勤记录导入文件模板.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Template\考勤记录导入文件模板.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Template\部门导文件模板.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\WorkAndRests\Index.cshtml" />
-    <Content Include="Views\WorkAndRests\Create.cshtml" />
-    <Content Include="Views\WorkAndRests\_PartialWorkAndRest.cshtml" />
-    <Content Include="Views\WorkAndRests\Edit.cshtml" />
-    <Content Include="Views\WorkAndRests\Delete.cshtml" />
-    <Content Include="Views\AttendanceRecordDetail\_PartialAttendanceRecordDetail.cshtml" />
-    <Content Include="Views\AttendanceRecordDetail\Create.cshtml" />
-    <Content Include="Views\AttendanceRecordDetail\Delete.cshtml" />
-    <Content Include="Views\AttendanceRecordDetail\Edit.cshtml" />
-    <Content Include="Views\AttendanceRecordCal\_PartialAttendanceRecordCal.cshtml" />
-    <Content Include="Views\AttendanceRecordCal\Create.cshtml" />
-    <Content Include="Views\AttendanceRecordCal\Delete.cshtml" />
-    <Content Include="Views\AttendanceRecordCal\_PartialDetail.cshtml" />
     <Content Include="Views\SysRole\Index.cshtml" />
     <Content Include="Views\SysRole\_PartialSysRole.cshtml" />
     <Content Include="Views\SysRole\Create.cshtml" />
     <Content Include="Views\SysRole\Delete.cshtml" />
-    <Content Include="Views\SysAuthorization\Index.cshtml" />
-    <Content Include="Views\SysAuthorization\_PartialSysAuthorization.cshtml" />
-    <Content Include="Views\SysAuthorization\Create.cshtml" />
-    <Content Include="Views\SysAuthorization\Delete.cshtml" />
     <Content Include="Views\SysRole\Edit.cshtml" />
-    <Content Include="Views\SysRoleAuthorization\Index.cshtml" />
-    <Content Include="Views\SysRoleAuthorization\Create.cshtml" />
-    <Content Include="Views\SysRoleAuthorization\Edit.cshtml" />
-    <Content Include="Views\SysRoleAuthorization\Delete.cshtml" />
-    <Content Include="Views\SysRoleAuthorization\_PartialSysRoleAuthorization.cshtml" />
     <Content Include="Views\Home\NoAuthPage.cshtml" />
-    <Content Include="Views\SysAuthorization\Edit.cshtml" />
     <Content Include="Views\User\ChangePwd.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
@@ -715,31 +615,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\SysRole\TableShow.cshtml" />
     <Content Include="Views\Staff\Ontrail.cshtml" />
-    <Content Include="Views\InterSettle\Create.cshtml" />
-    <Content Include="Views\InterSettle\Delete.cshtml" />
-    <Content Include="Views\InterSettle\Edit.cshtml" />
-    <Content Include="Views\InterSettle\Index.cshtml" />
-    <Content Include="Views\InterSettle\_PartialCertificate.cshtml" />
-    <Content Include="Views\Rehire\Create.cshtml" />
-    <Content Include="Views\Rehire\Delete.cshtml" />
-    <Content Include="Views\Rehire\Edit.cshtml" />
-    <Content Include="Views\Rehire\Index.cshtml" />
-    <Content Include="Views\Rehire\IndexReview.cshtml" />
-    <Content Include="Views\Rehire\_PartialCompany.cshtml" />
-    <Content Include="Views\SysOpera\Create.cshtml" />
-    <Content Include="Views\SysOpera\DailyRecord.cshtml" />
-    <Content Include="Views\SysOpera\Delete.cshtml" />
-    <Content Include="Views\SysOpera\Edit.cshtml" />
-    <Content Include="Views\SysOpera\Index.cshtml" />
-    <Content Include="Views\SysOpera\_PartialSysRole.cshtml" />
     <Content Include="Views\Company\TreeShow.cshtml" />
-    <Content Include="Views\MessageRecord\ToEmployees.cshtml" />
     <Content Include="Views\RewardsAndPenalty\Index.cshtml" />
     <Content Include="Views\RewardsAndPenalty\Edit.cshtml" />
     <Content Include="Views\RewardsAndPenalty\Delete.cshtml" />
     <Content Include="Views\RewardsAndPenalty\Create.cshtml" />
     <Content Include="Views\RewardsAndPenalty\_PartialRewardsAndPenalty.cshtml" />
-    <Content Include="Views\Personal\Schedule.cshtml" />
     <Content Include="Views\Personal\Approval.cshtml" />
     <Content Include="Views\Personal\Application.cshtml" />
     <Content Include="Views\User\Log.cshtml" />
@@ -752,11 +633,6 @@
     <Content Include="Views\FullMemberRecord\Index.cshtml" />
     <Content Include="Views\FullMemberRecord\_PartialFullMemberRecord.cshtml" />
     <Content Include="Views\Personal\Finished.cshtml" />
-    <Content Include="Views\LeaveRecord\_PartialLeaveRecord.cshtml" />
-    <Content Include="Views\LeaveRecord\Create.cshtml" />
-    <Content Include="Views\LeaveRecord\Delete.cshtml" />
-    <Content Include="Views\LeaveRecord\Edit.cshtml" />
-    <Content Include="Views\LeaveRecord\Index.cshtml" />
     <Content Include="Views\ResignRecord\Index.cshtml" />
     <Content Include="Views\ResignRecord\Create.cshtml" />
     <Content Include="Views\ResignRecord\Edit.cshtml" />
@@ -766,23 +642,13 @@
     <Content Include="Views\ShiftJobRecord\Delete.cshtml" />
     <Content Include="Views\ShiftJobRecord\Edit.cshtml" />
     <Content Include="Views\ShiftJobRecord\Index.cshtml" />
-    <Content Include="Views\ShiftSchedule\Search.cshtml" />
     <Content Include="Views\JobTitle\TableShow.cshtml" />
     <Content Include="Views\JobTitle\Index.cshtml" />
     <Content Include="Views\Department\TreeShow.cshtml" />
-    <Content Include="Views\WorkAndRests\TableShow.cshtml" />
-    <Content Include="Views\Recruit\Create.cshtml" />
-    <Content Include="Views\Recruit\Delete.cshtml" />
-    <Content Include="Views\Recruit\Edit.cshtml" />
-    <Content Include="Views\Recruit\Index.cshtml" />
-    <Content Include="Views\Recruit\_PartialRecruit.cshtml" />
-    <Content Include="Views\PartTimeJob\_PartialPartTimeJob.cshtml" />
-    <Content Include="Views\PartTimeJob\Create.cshtml" />
-    <Content Include="Views\PartTimeJob\Delete.cshtml" />
-    <Content Include="Views\PartTimeJob\Edit.cshtml" />
-    <Content Include="Views\PartTimeJob\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\ShiftJobRecord\_PartialShiftJobRecord.cshtml" />
+    <Content Include="Template\学院导入文件模板.xlsx" />
+    <Content Include="Template\职工信息导入文件模板.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

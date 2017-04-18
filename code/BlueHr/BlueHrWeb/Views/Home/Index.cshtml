@@ -107,84 +107,6 @@
 
     @* 合同到期和员工转正 *@
     <div class="row">
-        <!--员工合同到期提醒-->
-        @if (canExpired)
-        {
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="marco-npanel-primary">
-
-                    <div class="marco-nheading">
-                        <i class="fa fa-newspaper-o"></i>
-                        <span>员工合同到期提醒</span>
-                    </div>
-                
-                    <div class="marco-nbody">
-                        @* 进行tab显示员工合同到期提醒 *@
-                        <div class="marco-tabs-normal">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#contractThisMonth" role="tab" data-toggle="tab">本月</a></li>
-                                <li role="presentation"><a href="#contractNextMonth" role="tab" data-toggle="tab">下月</a></li>
-                                <li role="presentation"><a href="#contractExpire" role="tab" data-toggle="tab">过期</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <!--本月合同到期员工-->
-                                <div role="tabpanel" class="tab-pane active" id="contractThisMonth">
-                                    <span>本月合同到期员工</span>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                           	    <td>姓名</td>
-                                                <td>员工号</td>
-                                                <td>合同签订次数</td>
-                                                <td>合同到期时间</td>
-                                            </tr>
-                                        </thead>
-                                       @* 通过ajax异步请求获取表格内容*@
-                                        <tbody id="ExpiredCurrentMonth">
-                                       
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!--下月合同到期员工-->
-                                <div role="tabpanel" class="tab-pane" id="contractNextMonth">
-                                    <span>下月合同到期员工</span>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <td>姓名</td>
-                                                <td>员工号</td>
-                                                <td>合同签订次数</td>
-                                                <td>合同到期时间</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ExpiredNextMonth">
-                                        
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!--合同已经过期员工-->
-                                <div role="tabpanel" class="tab-pane" id="contractExpire">
-                                    <span>合同已经过期员工</span>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <td>姓名</td>
-                                                <td>员工号</td>
-                                                <td>合同签订次数</td>
-                                                <td>合同到期时间</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="AlreadyExpired">
-                                        
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
         <!--员工转正提醒-->
         @if (canHomeOntrail)
         {
@@ -263,105 +185,7 @@
             </div>
         </div>
         }
-    </div>
 
-    @* 快速入口和员工生日 *@
-    <div class="row" id="birthday">
-        <!--员工生日-->
-        @if (canBirthday)
-        {
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" >
-                <div class="marco-npanel-success">
-                    <div class="marco-nheading">
-                        <i class="fa fa-birthday-cake"></i>
-                        员工生日提醒
-                    </div>
-                    <div class="marco-nbody">
-                        @*<span style="font-family:黑体; font-size:14px; color:lightseagreen;">员工转正提醒</span>*@
-                        <div class="marco-tabs-success">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#staffBirthdayToday" role="tab" data-toggle="tab">今日</a></li>
-                                <li role="presentation"><a href="#staffBirthdayThisWeekend" role="tab" data-toggle="tab">未来一周</a></li>
-                                <li role="presentation"><a href="#staffBirthdayThisMonth" role="tab" data-toggle="tab">本月</a></li>
-                                <li role="presentation"><a href="#staffBirthdayNextMonth" role="tab" data-toggle="tab">下月</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="staffBirthdayToday">
-                                    <span>未来一周生日员工</span>
-
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <td>姓名</td>
-                                                <td>性别</td>
-                                                <td>出生日期</td>
-                                                <td>年龄</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="birthtoday">
-                                        
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="staffBirthdayThisWeekend">
-                                    <span>未来一周生日员工</span>
-
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <td>姓名</td>
-                                                <td>性别</td>
-                                                <td>出生日期</td>
-                                                <td>年龄</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="birthweek">
-                                        
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div role="tabpanel" class="tab-pane" id="staffBirthdayThisMonth">
-                                    <span>本月过生日员工</span>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <td>姓名</td>
-                                                <td>性别</td>
-                                                <td>出生日期</td>
-                                                <td>年龄</td>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody id="birthmonth">
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div role="tabpanel" class="tab-pane" id="staffBirthdayNextMonth">
-                                    <span>下月过生日员工</span>
-
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <td>姓名</td>
-                                                <td>性别</td>
-                                                <td>出生日期</td>
-                                                <td>年龄</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="birthnextmonth">
-                                        
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        <!--快速入口-->
         @if(canStaff||canCreate||canAttendanceRecordDetail||canCompany)
         {
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -378,14 +202,14 @@
                                 <div class="marco-circle-btn">
                                     <i class="fa fa-user"></i>
                                     <br />
-                                    <span>员工信息</span>
+                                    <span>职工管理</span>
                                 </div>
                             </a>
                         </div>
                     }
                     @if (canCreate)
                     {
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 pq-grid">
                             <a href="/Staff/Create">
                                 <div class="marco-circle-btn-success">
                                     <i class="fa fa-user-plus"></i>
@@ -395,18 +219,7 @@
                             </a>
                         </div>
                     }
-                    @if (canAttendanceRecordDetail)
-                    {
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                            <a href="/AttendanceRecordDetail/Index">
-                                <div class="marco-circle-btn-warning">
-                                    <i class="fa fa-calendar-check-o"></i>
-                                    <br />
-                                    <span>考勤记录</span>
-                                </div>
-                            </a>
-                        </div>
-                    }
+                    
                     @if (canCompany)
                     {
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
@@ -415,6 +228,18 @@
                                     <i class="fa fa-sitemap"></i>
                                     <br />
                                     <span>组织架构</span>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                    @if (canAttendanceRecordDetail)
+                    {
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 pq-grid">
+                            <a href="/SysRole/AssignAuth">
+                                <div class="marco-circle-btn-warning">
+                                    <i class="fa fa-calendar-check-o"></i>
+                                    <br />
+                                    <span>权限分配</span>
                                 </div>
                             </a>
                         </div>
@@ -433,7 +258,7 @@
                 <div class="marco-npanel-primary">
                     <div class="marco-nheading">
                         <i class="fa fa-user"></i>
-                        <span>公司员工统计表</span>
+                        <span>职工统计表</span>
                     </div>
                     <!--显示图标内容-->
                     <div class="marco-nbody">
@@ -450,7 +275,7 @@
                 <div class="marco-npanel-success">
                     <div class="marco-nheading">
                         <i class="fa fa-bank"></i>
-                        <span>公司部门分布</span>
+                        <span>机构设置</span>
                     </div>
                     <div class="marco-nbody">
                         <div id="companyChart" style="height: 400px;"></div>
@@ -622,7 +447,7 @@
             $("#StaffNum").html(parseInt(data.正式员工) + parseInt(data.离职员工) + parseInt(data.试用期员工) + "人");
             $("#waitNum").html(data.试用期员工 + "人");
 
-            var Series = [{ name: "员工分布", data: [parseInt(data.正式员工), parseInt(data.离职员工), parseInt(data.试用期员工)] }]
+            var Series = [{ name: "职工分布", data: [parseInt(data.正式员工), parseInt(data.离职员工), parseInt(data.试用期员工)] }]
 
             $('#staffChart').highcharts({
                 chart: {
@@ -632,10 +457,10 @@
                     enabled: false
                 },
                 title: {
-                    text: '公司员工分布'
+                    text: '职工分布'
                 },
                 xAxis: {
-                    categories: ["正式员工", "离职员工", "试用期员工"]
+                    categories: ["正式职工", "离职职工", "试用期职工"]
                 },
                 yAxis: {
                     allowDecimals: false,
@@ -664,7 +489,7 @@
             var CompanyAndDepartment = data;
             if (data.length > 0) {
                 $("#companyName").html(CompanyAndDepartment[0].CompanyName);
-                $("#departmentNum").html("共" + CompanyAndDepartment[0].DepartmentCount + "个部门");
+                $("#departmentNum").html("共" + CompanyAndDepartment[0].DepartmentCount + "个学院");
 
                 var XAxis = new Array();
                 var SeriesData = new Array();
@@ -681,7 +506,7 @@
                         enabled: false
                     },
                     title: {
-                        text: '公司部门展示'
+                        text: '机构设置'
                     },
                     xAxis: {
                         categories: XAxis
@@ -694,12 +519,12 @@
                     },
                     tooltip: {
                         formatter: function () {
-                            return '<b>' + this.x + '</b><br/> 共' + this.point.y + "个部门";
+                            return '<b>' + this.x + '</b><br/> 共' + this.point.y + "个学院";
                         }
                     },
 
                     series: [{
-                        name: "公司部门分布",
+                        name: "机构设置",
                         data: SeriesData
                     }]
                 });
@@ -708,7 +533,7 @@
                 setInterval(function () {
                     if (i < CompanyAndDepartment.length) {
                         $("#companyName").html(CompanyAndDepartment[i].CompanyName);
-                        $("#departmentNum").html("共" + CompanyAndDepartment[i].DepartmentCount + "个部门");
+                        $("#departmentNum").html("共" + CompanyAndDepartment[i].DepartmentCount + "个学院");
                         i++;
                     } else {
                         i = 0;

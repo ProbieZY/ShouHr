@@ -1,85 +1,73 @@
 ﻿@{
     ViewBag.Title = "个人信息";
 }
-<style>
-    .content_box {
-        width:1260px; 
-        height:600px;
-        background:#4a9195;;
-        position:absolute;
-        top:50%;
-        left:50%;
-        margin-left:-630px;
-        margin-top:-300px;
-        border-radius:5em;
-        box-shadow:2px 2px 30px #000;
-    }
-     .content_box1 {
-        width:96%; 
-        height:570px;
-        background:#fff;
-        position:absolute;
-        left:50%;
-        top:50%;
-        margin-left:-600px;
-        margin-top:-283px;
-        box-shadow:2px 2px 30px #000;
-        border-radius:8em;
-        border:1px solid #000;
-    }
-    .user_msg span{
-        position:absolute;
-        left:42%;
-        top:5%;
-        color:#4a9195;
-        font-size:2em;
-        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        padding:0 50px 10px 50px;
-        border-bottom:5px solid #4a9195;
-        box-shadow:2px 2px 20px #808080;
-    }
-</style>
+
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/layout")
+@Styles.Render("~/Content/bootstrap-treeview")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jquery-plug-in")
+@Scripts.Render("~/bundles/layout")
+@Scripts.Render("~/bundles/vue")
+@Scripts.Render("~/bundles/bootstrap-treeview")
+
+<div style="margin:20px;">
+    <ol class="breadcrumb current-position">
+        当前所在：
+        <li>个人信息</li>
+    </ol>
+
+    <hr class="hr-grey" />
 
 
-    <div class="content_box">
-        <div class="content_box1">
-            <div class="user_msg container">
-                <span>个人信息</span>
-            </div>
-            <div style="width:30%; margin-left:1%;margin-top:5%;">
-                <img src="~/Images/user.jpg" alt="图片" />
-            </div>
-            <div style="width:60%;margin-left:20%;margin-top:-20%;margin-bottom:7%;">
-                <table width=20% class="table" style="color:#4a9195;font-size:1.2em;">
-                    <tbody id="UserMessages">
-
-                    </tbody>
-                </table>
+        <div class="marco-npanel-primary">
+            <div class="marco-nheading">个人信息
             </div>
 
-            <hr class="hr-grey" style="color:#4a9195;"/>
-            <div style="margin-left:5%; float:left; width:30%; margin-top:2%;">
-                <img src="~/Images/alarm_clock.png"/>
-            </div>
-            <div style="width:100%;font-size:1.5em; position:relative;top:2%;color:#ff0000;left:-6%;">
-                <div class="row">
-                   
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                        <span>登录时间: </span> <span id="loginTime">00:00</span>
+            <div class="marco-nbody row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span id="name">用户名:</span>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                        <span>登录时长: </span> <span id="OnlineTime">00</span> 
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span id="email">邮箱:</span>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                        <span>登录次数: </span><span id="loginCount">0</span> <span>次</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span id="islock">是否锁定:</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span id="roletype">角色类型:</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span id="loginTime">登录时间:</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span id="OnlineTime">登录时长:</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="show-group">
+                        <span id="loginCount">登陆次数:</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+</div>
 
 
-@*@Scripts.Render("~/bundles/degreetype")*@
+
 <script type="text/javascript">
     Layout.init();
     
@@ -88,12 +76,16 @@
         type: 'get',
         success: function (data) {
             console.log(data);
-            $("#UserMessages").empty();
-            var Html = "<tr><td> 用户名：</td><td> " + data.用户名 + " </td></tr><tr><td > 电子邮箱：</td><td>" + data.邮箱 + " </td></tr><tr><td > 是否锁定：</td><td>" + data.是否锁定 + " </td></tr><tr><td > 角色类型 ： </td><td>" + data.角色类型 + " </td></tr> ";
-            $(Html).appendTo($("#UserMessages"));
+            $('#name').after(data.用户名);
+            $('#email').after(data.邮箱);
+            $('#islock').after(data.是否锁定);
+            $('#roletype').after(data.角色类型);
+
+            // $("#UserMessages").empty();
+            // var Html = "<tr><td> 用户名：</td><td> " + data.用户名 + " </td></tr><tr><td > 电子邮箱：</td><td>" + data.邮箱 + " </td></tr><tr><td > 是否锁定：</td><td>" + data.是否锁定 + " </td></tr><tr><td > 角色类型 ： </td><td>" + data.角色类型 + " </td></tr> ";
+            // $(Html).appendTo($("#UserMessages"));
         },
         error: function () {
-            console.log("CCCCCCCC");
         }
     });
 
@@ -102,9 +94,8 @@
         type: 'get',
         success: function (data) {
             var thisTime = new Date().Format("yyyy-MM-dd hh:mm");
-            $("#loginTime").empty();
-            $("#loginTime").html(data);  //请求登录时间
-            $("#OnlineTime").html(DiffLong(thisTime, data));  //利用函数计算出登录时长
+            $("#loginTime").after(data);  //请求登录时间
+            $("#OnlineTime").after(DiffLong(thisTime, data));  //利用函数计算出登录时长
 
             // setInterval(function(data){
             //     var thisTime = new Date().Format("yyyy/MM/dd hh:mm");
@@ -114,7 +105,6 @@
             // },60000);
         },
         error: function () {
-            console.log("CCCCCCCC");
         }
     });
 
@@ -123,14 +113,13 @@
         url: '/MessageRecord/LoginInCount',
         type: 'get',
         success: function (data) {
-            $("#loginCount").html(data);
+            $("#loginCount").after(data);
         },
         error: function () {
-            console.log("CCCCCCCC");
         }
     });
 
-function DiffLong(datestr1, datestr2) {
+    function DiffLong(datestr1, datestr2) {
     var date1 = new Date(Date.parse(datestr1.replace(/-/g, "/")));//现在时间
     var date2 = new Date(Date.parse(datestr2.replace(/-/g, "/")));//登录时间
     var datetimeTemp;
@@ -150,13 +139,13 @@ function DiffLong(datestr1, datestr2) {
 
     var strRet = thishours + '时' + thisminutes + '分';//在线时长
     return strRet;
-}
+    }
 
-// function SetTime(time){
-//     if(time<10){
-//         return "0"+time;
-//     }else{
-//         return time;
-//     }
-// }
+    // function SetTime(time){
+    //     if(time<10){
+    //         return "0"+time;
+    //     }else{
+    //         return time;
+    //     }
+    // }
 </script>

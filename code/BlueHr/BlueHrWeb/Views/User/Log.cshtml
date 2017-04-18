@@ -3,15 +3,24 @@
 @{
     ViewBag.Title = "登陆日志";
 }
-@*@Styles.Render("~/Content/degreetype")*@
-<ol class="breadcrumb current-position" style="margin-top:10px;">
-    当前所在：
-    <li>
-        <strong>登陆日志</strong>
-    </li>
-</ol>
-<hr class="hr-grey">
-<div style="margin:10px;">
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/layout")
+@Styles.Render("~/Content/bootstrap-treeview")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jquery-plug-in")
+@Scripts.Render("~/bundles/layout")
+@Scripts.Render("~/bundles/vue")
+@Scripts.Render("~/bundles/bootstrap-treeview")
+
+<div style="margin:20px;">
+    <ol class="breadcrumb current-position">
+        当前所在：
+        <li>登录日志</li>
+    </ol>
+
+    <hr class="hr-grey" />
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="all_log">
             <div id="all_log_grid_table" style="margin:auto; margin-top:40px;"></div>
@@ -30,7 +39,6 @@
     </div>
 </div> 
 
-@*@Scripts.Render("~/bundles/degreetype")*@
 <script type="text/javascript">
     Layout.init();
 

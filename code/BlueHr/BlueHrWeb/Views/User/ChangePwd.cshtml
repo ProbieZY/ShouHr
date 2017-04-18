@@ -75,4 +75,18 @@
 </div>
 <script type="text/javascript">
     Layout.init();
+    //回调函数
+    function Success(data) {
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+            Layout.popMsg('popMsg-success', data.Content);
+            setTimeout(function () {
+                window.opener.location.href = window.opener.location.href;
+                window.close();
+            }, 1500);
+        }
+    }
 </script>
