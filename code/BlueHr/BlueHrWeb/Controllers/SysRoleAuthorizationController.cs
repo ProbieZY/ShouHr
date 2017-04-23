@@ -549,35 +549,23 @@ namespace BlueHrWeb.Controllers
                     string NameShow;
                     if (sysAuthorization.Key == "Index")
                     {
-                        NameShow = "【查】查看权限";
+                        NameShow = "【管】管理权限";
                     }
-                    else if (sysAuthorization.Key == "Create")
+                    else if (sysAuthorization.Key == "AssignAuth")
                     {
-                        NameShow = "【增】添加权限";
+                        NameShow = "【分】分配权限";
                     }
-                    else if (sysAuthorization.Key == "Edit")
+                    else if (sysAuthorization.Key == "Application")
                     {
-                        NameShow = "【改】编辑权限";
+                        NameShow = "【申】我的申请";
                     }
-                    else if (sysAuthorization.Key == "Delete")
+                    else if (sysAuthorization.Key == "Finished")
                     {
-                        NameShow = "【删】删除权限";
+                        NameShow = "【办】我的已办";
                     }
-                    else if (sysAuthorization.Key == "Import")
+                    else if (sysAuthorization.Key == "Approval")
                     {
-                        NameShow = "【导】导入权限";
-                    }
-                    else if (sysAuthorization.Key == "ExceptionList")
-                    {
-                        NameShow = "【异】异常权限";
-                    }
-                    else if (sysAuthorization.Key == "ApprovalAbsenceRecord")
-                    {
-                        NameShow = "【缺】缺勤审批权限";
-                    }
-                    else if (sysAuthorization.Key == "ApprovalExtraWorkRecord")
-                    {
-                        NameShow = "【加】加班审批权限";
+                        NameShow = "【审】审批权限";
                     }
                     else
                     {
