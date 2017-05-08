@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "校区详情";
 }
-
 @model BlueHrLib.Data.Company
 @using BlueHrWeb.Helpers.View
 @Styles.Render("~/Content/css")
@@ -14,10 +13,7 @@
 @Scripts.Render("~/bundles/layout")
 @Scripts.Render("~/bundles/vue")
 @Scripts.Render("~/bundles/bootstrap-treeview")
-@{
-    bool canDeleted = MenuAuthHelper.CanShow("Company", "Deleted");
-}
-<input type="hidden" id="can" value="@canDeleted.ToString()">
+
 <div id="company" style="margin:20px;">
     <ol class="breadcrumb current-position">
         当前所在：
@@ -51,7 +47,6 @@
                     </button>
                 </div>
             </div>
-
             <div class="marco-nbody row">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="show-group">
@@ -81,7 +76,16 @@
 
 <script type="text/javascript">
     Layout.init();
-    $('textarea').attr('disabled', 'disabled');
+
+    //控制textarea高度
+    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    $(window).resize(function () {
+        $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    });
+
+    if ($("#error_info").val() != "" && $("#error_info").val() != undefined) {
+        Layout.popMsg("popMsg-danger", $("#error_info").val());
+    }
     //回调函数
     function Success(data) {
         if (!data.Success) {
@@ -95,17 +99,5 @@
                 window.close();
             }, 1500);
         }
-    }
-    //控制textarea高度
-    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
-    $(window).resize(function () {
-        $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
-    });
-
-    if ($("#error_info").val() != "" && $("#error_info").val() != undefined) {
-        Layout.popMsg("popMsg-danger", $("#error_info").val());
-    }
-    if ($('#can').val() != "True") {
-        $('.pull-right').remove();
     }
 </script>

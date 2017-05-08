@@ -1,12 +1,9 @@
 ﻿@model BlueHrLib.Data.ShiftJobRecord
-@using BlueHrWeb.Helpers.View
 @{
     ViewBag.Title = "申请详情";
 }
 
-@{
-    bool canDeleted = MenuAuthHelper.CanShow("ShiftJobRecord", "Deleted");
-}
+
 @Styles.Render("~/Content/css")
 @Styles.Render("~/Content/layout")
 @Scripts.Render("~/bundles/modernizr")
@@ -15,7 +12,6 @@
 @Scripts.Render("~/bundles/jquery-plug-in")
 @Scripts.Render("~/bundles/layout")
 @Scripts.Render("~/bundles/vue")
-<input type="hidden" id="can" value="@canDeleted.ToString()">
 <div id="shiftjobrecord" style="margin:20px;">
     <ol class="breadcrumb current-position">
         当前所在：

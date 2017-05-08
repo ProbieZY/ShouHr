@@ -7,12 +7,6 @@
 @{
     ViewBag.Title = "校区信息";
 }
-@{
-    bool canCreate = MenuAuthHelper.CanShow("Company", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("Company", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("Company", "Delete");
-    bool canImport = MenuAuthHelper.CanShow("Company", "Import");
-}
 @Styles.Render("~/Content/company")
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -28,15 +22,13 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if (canCreate)
-        {
+       
             <a href="/Company/Create" target="window_name" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>新建</span>
                 </button>
             </a>
-        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">校区列表</a></li>
@@ -75,18 +67,12 @@
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
-                                        @if (canDelete)
-                                        {
                                             <a href="/Company/Delete/@item.id" target="window_name" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                        }
-                                        @if (canEdit)
-                                        {
                                             <a href="/Company/Edit/@item.id" target="window_name" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                        }
                                     </td>
                                 </tr>
                             }

@@ -10,10 +10,7 @@
 @Scripts.Render("~/bundles/layout")
 @Scripts.Render("~/bundles/vue")
 @Scripts.Render("~/bundles/bootstrap-treeview")
-@{ 
-    bool canDeleted = MenuAuthHelper.CanShow("Company", "Deleted");
-}
-<input type="hidden" id="can" value="@canDeleted.ToString()">
+
 <div id="company" style="margin:20px;">
     <ol class="breadcrumb current-position">
         当前所在：

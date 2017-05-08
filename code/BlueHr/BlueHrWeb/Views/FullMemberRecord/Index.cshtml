@@ -8,9 +8,6 @@
     ViewBag.Title = "转正管理";
 }
 @{
-    bool canCreate = MenuAuthHelper.CanShow("FullMemberRecord", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("FullMemberRecord", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("FullMemberRecord", "Delete");
     bool canApproval = MenuAuthHelper.CanShow("FullMemberRecord", "Approval");
 }
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -44,15 +41,12 @@
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if (canCreate)
-        {
             <a href="/FullMemberRecord/Create" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>新建</span>
                 </button>
             </a>
-        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#Not_Approve" role="tab" data-toggle="tab">未审批</a></li>
@@ -117,18 +111,12 @@
                                          <td>未审批</td>
 
                                          <td>
-                                            @if (canDelete)
-                                            {
                                                 <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                            }
-                                            @if (canEdit)
-                                            {
                                                 <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                            }
                                             @if (canApproval)
                                             {
                                                 <a title="审批" class="option-icon-danger" onclick="shFullMemberRecord(@item.id)">
@@ -196,12 +184,9 @@
                                     </td>
                                    
                                     <td>
-                                        @if (canDelete)
-                                        {
                                             <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                        }
                                     </td>
                                 </tr>
                                 }
@@ -264,22 +249,15 @@
                                         </td>
                                     }
                                     <td>
-                                        @if (canDelete)
-                                        {
                                         <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        }
-                                       
                                         @if (item.approvalStatus == null)
                                         {
                                             
-                                            if (canEdit)
-                                            {
                                                 <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                            }
                                             if (canApproval)
                                             {
                                                 <a title="审批" class="option-icon-danger" onclick="shFullMemberRecord(@item.id)">

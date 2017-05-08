@@ -6,14 +6,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    bool canExtraWorkRecord = MenuAuthHelper.CanShow("ExtraWorkRecord", "Index");
     bool canResignRecord = MenuAuthHelper.CanShow("ResignRecord", "Index");
     bool canFullMemberRecord = MenuAuthHelper.CanShow("FullMemberRecord", "Index");
     bool canShiftJobRecord = MenuAuthHelper.CanShow("ShiftJobRecord", "Index");
-    bool canExtraWorkRecordCreate = MenuAuthHelper.CanShow("ExtraWorkRecord", "Create");
-    bool canResignRecordCreate = MenuAuthHelper.CanShow("ResignRecord", "Create");
-    bool canFullMemberRecordCreate = MenuAuthHelper.CanShow("FullMemberRecord", "Create");
-    bool canShiftJobRecordCreate = MenuAuthHelper.CanShow("ShiftJobRecord", "Create");
 }
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     当前所在：
@@ -188,7 +183,7 @@
 
         <div role="tabpanel" class="tab-pane" id="new_application" style="margin-top: 20px;">
             @* 新建申请 *@
-            @if(canResignRecordCreate)
+            @if(canResignRecord)
             {
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="text-align:center;">
                     <a href="/ResignRecord/Create">
@@ -199,7 +194,7 @@
                     </a>
                 </div>
             }
-            @if(canFullMemberRecordCreate)
+            @if(canFullMemberRecord)
             {
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="text-align:center;">
                     <a href="/FullMemberRecord/Create">
@@ -210,7 +205,7 @@
                     </a>
                 </div>
             }
-            @if(canShiftJobRecordCreate)
+            @if(canShiftJobRecord)
             {
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="text-align:center;">
                     <a href="/ShiftJobRecord/Create">

@@ -8,9 +8,6 @@
     ViewBag.Title = "员工离职";
 }
 @{
-    bool canCreate = MenuAuthHelper.CanShow("ResignRecord", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("ResignRecord", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("ResignRecord", "Delete");
     bool canApproval = MenuAuthHelper.CanShow("ResignRecord", "Approval");
 }
 @Styles.Render("~/Content/company")
@@ -49,15 +46,12 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if (canCreate)
-        {
             <a href="/ResignRecord/Create" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>创建</span>
                 </button>
             </a>
-        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#Not_Approve" role="tab" data-toggle="tab">未审批</a></li>
@@ -111,18 +105,12 @@
                                         <td>未审批</td>
 
                                         <td>
-                                            @if (canDelete)
-                                            {
                                                 <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                            }
-                                            @if (canEdit)
-                                            {
                                                 <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                            }
                                             @if (canApproval)
                                             {
                                                 <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
@@ -182,12 +170,9 @@
                                             @Html.DisplayFor(modelItem => item.approvalStatus)
                                         </td>
                                         <td>
-                                            @if (canDelete)
-                                            {
                                                 <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                            }
                                         </td>
                                     </tr>
                                 }
@@ -252,18 +237,12 @@
                                         
                                         @if (item.approvalStatus == null)
                                         {
-                                            if (canDelete)
-                                            {
                                                 <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                            }
-                                            if (canEdit)
-                                            {
                                                 <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                            }
                                             if (canApproval)
                                             {
                                                 <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">

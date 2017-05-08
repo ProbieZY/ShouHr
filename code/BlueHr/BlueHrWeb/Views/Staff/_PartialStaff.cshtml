@@ -1,8 +1,5 @@
 ﻿@model BlueHrLib.Data.Staff
-@using BlueHrWeb.Helpers.View
-@{
-    bool canDeleted = MenuAuthHelper.CanShow("Staff", "Deleted");
-}
+
 @Styles.Render("~/Content/css")
 @Styles.Render("~/Content/layout")
 @Styles.Render("~/Content/bootstrap-treeview")
@@ -13,7 +10,6 @@
 @Scripts.Render("~/bundles/layout")
 @Scripts.Render("~/bundles/vue")
 @Scripts.Render("~/bundles/bootstrap-treeview")
-<input type="hidden" id="can" value="@canDeleted.ToString()">
 <style>
     .marco-npanel-normal{
         border:1px solid #7f8c8d;
@@ -642,7 +638,6 @@
     <div hidden="hidden">
         <input type="text" id="selCmpDepIds" name="selCmpDepIds" />
         <input type="text" id="selCmpDepNames" name="selCmpDepNames" />
-        <input type="hidden" id="DefaultTrailMonth" name="DefaultTrailMonth" value="@MenuAuthHelper.DefaultTrailMonth()" />
     </div>
 </div>
 

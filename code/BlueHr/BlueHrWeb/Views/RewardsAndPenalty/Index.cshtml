@@ -8,9 +8,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    bool canCreate = MenuAuthHelper.CanShow("RewardsAndPenalty", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("RewardsAndPenalty", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("RewardsAndPenalty", "Delete");
     bool canApproval = MenuAuthHelper.CanShow("RewardsAndPenalty", "Approval");
 }
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -48,15 +45,12 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if (canCreate)
-        {
         <a href="/RewardsAndPenalty/Create" class="pull-right" style="margin-top: -10px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
         </a>
-        }
         <ul class="nav nav-tabs" role="tablist" style="width: 600px;">
 
             <li role="presentation" class="active"><a href="#not_Rewards" role="tab" data-toggle="tab">未审批</a></li>
@@ -114,18 +108,12 @@
                                             </td>
                                             }
                                         <td>
-                                            @if (canDelete)
-                                            {
                                             <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            }
-                                            @if (canEdit)
-                                            {
                                             <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            }
                                             @if (canApproval)
                                             {
                                             <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
@@ -189,12 +177,9 @@
                                                 </td>
                                                 }
                                             <td>
-                                                @if (canDelete)
-                                                {
                                                     <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                }
                                                 
                                             </td>
                                         </tr>
@@ -253,18 +238,12 @@
                                     <td>
                                             @if (item.approvalStatus == null)
                                             {
-                                                if (canDelete)
-                                                {
                                                     <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                }
-                                                if (canEdit)
-                                                {
                                                     <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                }
                                                 if (canApproval)
                                                 {
                                                     <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">

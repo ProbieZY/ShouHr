@@ -4,11 +4,7 @@
 
 
 @model BlueHrLib.Data.Department
-@using BlueHrWeb.Helpers.View
-@{
-    bool canDeleted = MenuAuthHelper.CanShow("Department", "Deleted");
-}
-<input type="hidden" id="can" value="@canDeleted.ToString()">
+
 @Styles.Render("~/Content/css")
 @Styles.Render("~/Content/layout")
 @Styles.Render("~/Content/bootstrap-treeview")

@@ -7,12 +7,6 @@
 @{
     ViewBag.Title = "学院信息";
 }
-@{
-    bool canCreate = MenuAuthHelper.CanShow("Department", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("Department", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("Department", "Delete");
-    bool canImport = MenuAuthHelper.CanShow("Department", "Import");
-}
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     当前所在：
     <li>组织架构管理</li>
@@ -47,12 +41,9 @@
                     <i class="glyphicon glyphicon-search"></i>
                     搜索
                 </button>
-                @if (canImport)
-                {
-                    <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-                        导入学院
-                    </button>
-                }
+                <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
+                    导入学院
+                </button>
             </div>
         </div>
     </form>
@@ -62,15 +53,12 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if (canCreate)
-        {
             <a href="/Department/Create" target="window_name" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>新建</span>
                 </button>
             </a>
-        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#all_Department" role="tab" data-toggle="tab">所有学院</a></li>
@@ -103,18 +91,12 @@
                                             @Html.DisplayFor(modelItem => item.remark)
                                         </td>*@
                                         <td>
-                                            @if (canDelete)
-                                            {
                                                 <a href="/Department/Delete/@item.id" target="window_name" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                            }
-                                            @if (canEdit)
-                                            {
                                                 <a href="/Department/Edit/@item.id" target="window_name" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                            }
                                         </td>
                                     </tr>
                                 }

@@ -7,12 +7,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{
-    bool canCreate = MenuAuthHelper.CanShow("ResignType", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("ResignType", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("ResignType", "Delete");
-    bool canImport = MenuAuthHelper.CanShow("ResignType", "Import");
-}
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     当前所在：
@@ -41,15 +35,13 @@
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if(canCreate)
-        {
+        
             <a href="/ResignType/Create" target="window_name" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>创建</span>
                 </button>
             </a>
-        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">离职类型列表</a></li>
@@ -75,18 +67,13 @@
                                                 @Html.DisplayFor(modelItem => item.name)
                                             </td>
                                             <td>
-                                                @if (canDelete)
-                                                {
                                                     <a href="/ResignType/Delete/@item.id" target="window_name" class="option-icon-primary" title="详情">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                }
-                                                @if (canEdit)
-                                                {
+                                                
                                                     <a href="/ResignType/Edit/@item.id" target="window_name" class="option-icon-warning" title="编辑">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                }
                                             </td>
                                         </tr>
                                     }

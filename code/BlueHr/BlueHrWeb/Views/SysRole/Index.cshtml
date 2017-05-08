@@ -8,11 +8,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    bool canCreate = MenuAuthHelper.CanShow("SysRole", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("SysRole", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("SysRole", "Delete");
     bool canAssignAuth = MenuAuthHelper.CanShow("SysRole", "AssignAuth");
-    bool canTableShow = MenuAuthHelper.CanShow("SysRole", "TableShow");
 }
 @Styles.Render("~/Content/multi-select")
 
@@ -69,17 +65,15 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <button class="marco-btn-primary" style="cursor: default;">角色展示</button>
 
-    @if(canCreate)
-    {
-        <button class="marco-btn-success create-sysRole">新建角色</button>
-    }
     
-    @if(canAssignAuth)
-    {
+        <button class="marco-btn-success create-sysRole">新建角色</button>
+    
+        @if (canAssignAuth)
+        {
         <a href="/SysRole/AssignAuth">
             <button class="marco-btn-primary assign-sysRole-to-auth">给角色分配权限</button>
         </a>
-    }
+        }
 </div>
 
 <div class="row" style="border-top: 1px solid #3498db; margin:-6px 15px 0 18px;">
@@ -135,8 +129,8 @@
 
             for (var i = 0; i < data.length; i++) {
                 var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
-                "@if(canEdit){<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>}" +
-                "@if(canDelete){<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>}" +
+                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>" +
+                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>" +
                 // "<i class='fa fa-users assignUser' title='分配用户' style='color: orange; margin-left: 10px;'></i>"+
                 "</li>";
 

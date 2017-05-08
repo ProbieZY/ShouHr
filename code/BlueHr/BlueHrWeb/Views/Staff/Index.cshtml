@@ -1,6 +1,5 @@
 ﻿@using MvcPaging
 @model IPagedList<BlueHrLib.Data.Staff>
-@using BlueHrWeb.Helpers.View
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -21,14 +20,7 @@
 </ol>
 
 <hr class="hr-grey" />
-@{
-    bool canImport = MenuAuthHelper.CanShow("Staff", "Import");
-    bool canCreate = MenuAuthHelper.CanShow("Staff", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("Staff", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("Staff", "Delete");
-    bool canIndex = MenuAuthHelper.CanShow("Certificate", "Index");
 
-}
 @*Search*@
 <div class="search">
     @* 简单搜索 *@
@@ -133,23 +125,17 @@
 @* 将离职和在职的职工进行区分显示 *@
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if (canImport)
-        {
             <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px;">
                 <i class="fa fa-cloud-upload"></i>
                 <span>导入</span>
             </button>
-        }
 
-        @if (canCreate)
-        {
             <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>新建</span>
                 </button>
             </a>
-        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#on_staff" role="tab" data-toggle="tab">在职职工</a></li>
@@ -168,7 +154,7 @@
                             <th>姓名</th>
                             <th>性别</th>
                             <th>学院</th>
-                            <th>职称</th>
+                            <th>职位</th>
                             @*<th>是否备齐证照</th>*@
                             <th>操作</th>
                         </tr>
@@ -232,24 +218,12 @@
                                         </td>*@
 
                                         <td>
-                                            @if (canDelete)
-                                            {
                                                 <a href="/Staff/Delete/@item.nr" target="_blank" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                            }
-                                            @if (canEdit)
-                                            {
                                                 <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                            }
-                                            @*@if (canIndex)
-                                            {
-                                                <a href="/Certificate?nr=@item.nr" title="证照管理" class="option-icon-success">
-                                                    <i class="fa fa-newspaper-o"></i>
-                                                </a>
-                                            }*@
                                         </td>
                                     </tr>
                             }
@@ -269,7 +243,7 @@
                             <th>姓名</th>
                             <th>性别</th>
                             <th>学院</th>
-                            <th>职称</th>
+                            <th>职位</th>
                             @*<th>是否备齐证照</th>*@
                             <th>操作</th>
                         </tr>
@@ -333,18 +307,12 @@
                                             </td>*@
 
                                         <td>
-                                            @if (canDelete)
-                                            {
                                                 <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                            }
-                                            @if (canEdit)
-                                            {
                                                 <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                            }
                                             @*@if (canIndex)
                                             {
                                                 <a href="/Certificate?nr=@item.nr" title="证照管理" class="option-icon-success">
@@ -370,7 +338,7 @@
                             <th>姓名</th>
                             <th>性别</th>
                             <th>学院</th>
-                            <th>职称</th>
+                            <th>职位</th>
                             @*<th>是否备齐证照</th>*@
                             <th>操作</th>
                         </tr>
@@ -432,18 +400,12 @@
                                         </td>*@
 
                                     <td>
-                                        @if (canDelete)
-                                        {
                                             <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                        }
-                                        @if (canEdit)
-                                        {
                                             <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                        }
                                         @*@if (canIndex)
                                         {
                                             <a href="/Certificate?nr=@item.nr" title="证照管理" class="option-icon-success">

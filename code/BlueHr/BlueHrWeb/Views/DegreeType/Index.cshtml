@@ -8,11 +8,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{
-    bool canCreate = MenuAuthHelper.CanShow("DegreeType", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("DegreeType", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("DegreeType", "Delete");
-}
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     当前所在：
@@ -45,15 +40,13 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if (canCreate)
-        {
+        
             <a href="/DegreeType/Create" target="window_name" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>新建</span>
                 </button>
             </a>
-        }
         
 
             <ul class="nav nav-tabs" role="tablist">
@@ -80,19 +73,13 @@
                                             @Html.DisplayFor(modelItem => item.name)
                                         </td>
                                         <td>
-                                            @if (canDelete)
-                                            {
                                                 <a href="/DegreeType/Delete/@item.id" target="window_name" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                            }
 
-                                            @if (canEdit)
-                                            {
                                                 <a href="/DegreeType/Edit/@item.id" target="window_name" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                            }
                                         </td>
                                     </tr>
                                 }

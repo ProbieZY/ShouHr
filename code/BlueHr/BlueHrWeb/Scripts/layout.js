@@ -120,7 +120,7 @@ Layout.init = function () {
         case "StaffType":
             $('.nav-basic-info').addClass('active');
             $('.nav-staffType').addClass('active');
-            PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
+            PageAction('#stafftype', '新建职称类型', '编辑职称类型', '职称类型详情', '创建', '更新', '删除');
             break;
         case "InSureType":
             $('.nav-basic-info').addClass('active');

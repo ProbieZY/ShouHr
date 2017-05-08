@@ -7,19 +7,13 @@
 }
 
 @{
-    ViewBag.Title = "人员类型";
+    ViewBag.Title = "职称类型";
 }
-@{
-    bool canCreate = MenuAuthHelper.CanShow("StaffType", "Create");
-    bool canEdit = MenuAuthHelper.CanShow("StaffType", "Edit");
-    bool canDelete = MenuAuthHelper.CanShow("StaffType", "Delete");
-}
-
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     当前所在：
     <li>基础信息管理</li>
     <li>
-        <strong>人员类型</strong>
+        <strong>职称类型</strong>
     </li>
 </ol>
 
@@ -31,7 +25,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>类型名称</span>
-                    <input type="text" name="Name" id="Name" placeholder="人员类型名称" value="@ViewBag.Query.Name" />
+                    <input type="text" name="Name" id="Name" placeholder="职称类型名称" value="@ViewBag.Query.Name" />
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
@@ -46,18 +40,16 @@
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if(canCreate)
-        {
+        
             <a href="/StaffType/Create" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>新建</span>
                 </button>
             </a>
-        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#all_StaffType" role="tab" data-toggle="tab">所有人员类型</a></li>
+            <li role="presentation" class="active"><a href="#all_StaffType" role="tab" data-toggle="tab">所有职称类型</a></li>
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane  active" id="all_StaffType">
@@ -79,18 +71,12 @@
                                         @Html.DisplayFor(modelItem => item.name)
                                     </td>
                                     <td>
-                                        @if(canDelete)
-                                        {
                                             <a href="/StaffType/Delete/@item.id" target="window_name" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                        }
-                                        @if(canEdit)
-                                        {
                                             <a href="/StaffType/Edit/@item.id" target="window_name" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                        }
                                     </td>
                                 </tr>
                             }
@@ -114,8 +100,8 @@
     }
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_StaffType", "所有人员类型列表", "20", "all_StaffType_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_StaffType", "所有职称类型列表", "20", "all_StaffType_grid_table");
 
     })
-    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_StaffType", "所有人员类型列表", "20", "all_StaffType_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_StaffType", "所有职称类型列表", "20", "all_StaffType_grid_table");
 </script>
